@@ -3,9 +3,18 @@ using System.Collections.Generic;
 using System.Windows.Forms;
 using Gma.System.MouseKeyHook;
 using OBSWebsocketDotNet;
+using Octokit;
 
 namespace OBSKeys
 {
+    static class Constant
+    {
+        public const string appName = "OBSKeys";
+        public const string releaseTag = "v0.1";
+        public const string githubName = "Morgyn";
+        public const string githubRepo = "OBSKeys";
+    }
+
     public partial class MainForm:Form
     {
         private IKeyboardMouseEvents _events;
@@ -21,7 +30,38 @@ namespace OBSKeys
             SubscribeGlobal();         
             _obs.Connected += OnConnect;
             _obs.Disconnected += OnDisconnect;
-            Log("Started OBSKeys (Morgyn Modified)");
+            Log(String.Format("Started {0} {1}",Constant.appName,"(Modified by Morgyn)"));
+            githubReleaseCheck();
+
+        }
+
+        private async void githubReleaseCheck()
+        {
+            var github = new GitHubClient(new ProductHeaderValue(Constant.appName));
+            var releases = await github.Repository.Release.GetAll(Constant.githubName, Constant.githubRepo);
+            var latest = releases[0];
+            Log(string.Format(
+                "The latest release is tagged at {0} and is named {1}",
+                latest.TagName,
+                latest.Name));
+            var versionCheck = tagToVersion(Constant.releaseTag).CompareTo(tagToVersion(latest.TagName));
+            if (0 < versionCheck)
+            {
+                Log("Version: Update available.");
+            }
+            else if (0 == versionCheck)
+            {
+                Log("Version: Up to date");
+            }
+            else if (0 > versionCheck)
+            {
+                Log("Version: You're in the future");
+            }
+        }
+
+        private Version tagToVersion(string tag)
+        {
+            return new Version(tag.Substring(1));
         }
 
         private void SubscribeGlobal()
@@ -88,7 +128,8 @@ namespace OBSKeys
                         {
                             myTimer.Stop();
                         }
-                            _obs.SetSourceRender(Configuration.ObsKeys.KeysSetup[e.KeyCode], true); 
+
+                        _obs.SetSourceRender(Configuration.ObsKeys.KeysSetup[e.KeyCode], true); 
                         Log($"Visible \t{Configuration.ObsKeys.KeysSetup[e.KeyCode]}");   
                     }
                     else
