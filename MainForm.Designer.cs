@@ -27,67 +27,71 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.logConsole = new System.Windows.Forms.RichTextBox();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.imageList1 = new System.Windows.Forms.ImageList(this.components);
+            this.connectButton = new System.Windows.Forms.Button();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // logConsole
             // 
-            this.logConsole.BackColor = System.Drawing.Color.White;
+            this.logConsole.BackColor = System.Drawing.Color.Black;
             this.logConsole.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.logConsole.Cursor = System.Windows.Forms.Cursors.No;
             this.logConsole.DetectUrls = false;
-            this.logConsole.Location = new System.Drawing.Point(12, 41);
+            this.logConsole.ForeColor = System.Drawing.Color.Green;
+            this.logConsole.Location = new System.Drawing.Point(12, 91);
             this.logConsole.Name = "logConsole";
             this.logConsole.ReadOnly = true;
             this.logConsole.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
-            this.logConsole.Size = new System.Drawing.Size(231, 279);
+            this.logConsole.Size = new System.Drawing.Size(231, 500);
             this.logConsole.TabIndex = 0;
             this.logConsole.Text = "";
             // 
-            // button1
+            // pictureBox1
             // 
-            this.button1.BackColor = System.Drawing.Color.Black;
-            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button1.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
-            this.button1.ForeColor = System.Drawing.SystemColors.ActiveCaption;
-            this.button1.Location = new System.Drawing.Point(12, 12);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(108, 23);
-            this.button1.TabIndex = 1;
-            this.button1.Text = "Connect";
-            this.button1.UseVisualStyleBackColor = false;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.pictureBox1.Location = new System.Drawing.Point(190, 31);
+            this.pictureBox1.MaximumSize = new System.Drawing.Size(50, 50);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(50, 50);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox1.TabIndex = 4;
+            this.pictureBox1.TabStop = false;
             // 
-            // button2
+            // imageList1
             // 
-            this.button2.BackColor = System.Drawing.Color.Black;
-            this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button2.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button2.ForeColor = System.Drawing.SystemColors.ActiveCaption;
-            this.button2.Location = new System.Drawing.Point(135, 12);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(108, 23);
-            this.button2.TabIndex = 2;
-            this.button2.Text = "Disconnect";
-            this.button2.UseVisualStyleBackColor = false;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
+            this.imageList1.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList1.ImageStream")));
+            this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
+            this.imageList1.Images.SetKeyName(0, "connect.png");
+            this.imageList1.Images.SetKeyName(1, "disconnect.png");
+            // 
+            // connectButton
+            // 
+            this.connectButton.Location = new System.Drawing.Point(76, 32);
+            this.connectButton.Name = "connectButton";
+            this.connectButton.Size = new System.Drawing.Size(108, 23);
+            this.connectButton.TabIndex = 5;
+            this.connectButton.Text = "Connect";
+            this.connectButton.UseVisualStyleBackColor = true;
+            this.connectButton.Click += new System.EventHandler(this.connectButton_Click);
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.Black;
-            this.ClientSize = new System.Drawing.Size(255, 332);
-            this.Controls.Add(this.button2);
-            this.Controls.Add(this.button1);
+            this.BackColor = System.Drawing.Color.White;
+            this.ClientSize = new System.Drawing.Size(252, 603);
+            this.Controls.Add(this.connectButton);
+            this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.logConsole);
-            this.ForeColor = System.Drawing.SystemColors.ControlLightLight;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.Name = "MainForm";
             this.Text = "OBSKeys";
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -95,8 +99,9 @@
         #endregion
 
         private System.Windows.Forms.RichTextBox logConsole;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.ImageList imageList1;
+        private System.Windows.Forms.Button connectButton;
     }
 }
 

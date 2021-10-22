@@ -7,14 +7,6 @@ using Octokit;
 
 namespace OBSKeys
 {
-    static class Constant
-    {
-        public const string appName = "OBSKeys";
-        public const string releaseTag = "v0.1";
-        public const string githubName = "Morgyn";
-        public const string githubRepo = "OBSKeys";
-    }
-
     public partial class MainForm:Form
     {
         private IKeyboardMouseEvents _events;
@@ -27,6 +19,7 @@ namespace OBSKeys
         {
             _obs = new OBSWebsocket();
             InitializeComponent();
+            pictureBox1.Image = imageList1.Images[1];
             SubscribeGlobal();         
             _obs.Connected += OnConnect;
             _obs.Disconnected += OnDisconnect;
@@ -41,9 +34,10 @@ namespace OBSKeys
             var releases = await github.Repository.Release.GetAll(Constant.githubName, Constant.githubRepo);
             var latest = releases[0];
             Log(string.Format(
-                "The latest release is tagged at {0} and is named {1}",
+                "The latest release is tagged at {0} and is named {1} and the url is: {2}",
                 latest.TagName,
-                latest.Name));
+                latest.Name,
+                latest.HtmlUrl));
             var versionCheck = tagToVersion(Constant.releaseTag).CompareTo(tagToVersion(latest.TagName));
             if (0 < versionCheck)
             {
@@ -191,21 +185,23 @@ namespace OBSKeys
 
         private void OnConnect(object sender, EventArgs e)
         {
-            Log("Connected to OBS");
+            connectButton.Text = "Disonnect";
+            pictureBox1.Image = imageList1.Images[0];
         }
 
         private void OnDisconnect(object sender, EventArgs e)
         {
-            Log("Disconnected from OBS");
+            connectButton.Text = "Connect";
+            pictureBox1.Image = imageList1.Images[1];
         }
 
-        private void button1_Click(object sender,EventArgs e)
+        private void connectButton_Click(object sender, EventArgs e)
         {
-            if(!_obs.IsConnected)
+            if (!_obs.IsConnected)
             {
                 try
                 {
-                    Log("Connecting...");
+                    connectButton.Text = "Connecting...";
                     _obs.Connect($"ws://{Configuration.ObsKeys.Ip}:{Configuration.ObsKeys.Port}", Configuration.ObsKeys.Password);
                 }
                 catch (AuthFailureException)
@@ -219,19 +215,7 @@ namespace OBSKeys
             }
             else
             {
-                Log("Already connected.");
-            }
-        }
-
-        private void button2_Click(object sender,EventArgs e)
-        {
-            if (_obs.IsConnected)
-            {
                 _obs.Disconnect();
-            }
-            else
-            {
-                Log("Not connected.");
             }
         }
     }
