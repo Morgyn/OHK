@@ -33,6 +33,7 @@
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.connectButton = new System.Windows.Forms.Button();
+            this.reconnectCheckBox = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -78,12 +79,23 @@
             this.connectButton.UseVisualStyleBackColor = true;
             this.connectButton.Click += new System.EventHandler(this.connectButton_Click);
             // 
+            // reconnectCheckBox
+            // 
+            this.reconnectCheckBox.AutoSize = true;
+            this.reconnectCheckBox.Location = new System.Drawing.Point(76, 63);
+            this.reconnectCheckBox.Name = "reconnectCheckBox";
+            this.reconnectCheckBox.Size = new System.Drawing.Size(104, 17);
+            this.reconnectCheckBox.TabIndex = 6;
+            this.reconnectCheckBox.Text = "Auto-Reconnect";
+            this.reconnectCheckBox.UseVisualStyleBackColor = true;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(252, 603);
+            this.Controls.Add(this.reconnectCheckBox);
             this.Controls.Add(this.connectButton);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.logConsole);
@@ -93,6 +105,7 @@
             this.Text = "OBSKeys";
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -102,6 +115,7 @@
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.ImageList imageList1;
         private System.Windows.Forms.Button connectButton;
+        private System.Windows.Forms.CheckBox reconnectCheckBox;
     }
 }
 
