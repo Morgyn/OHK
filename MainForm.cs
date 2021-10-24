@@ -14,9 +14,11 @@ namespace OBSKeys
         private bool _isPaused;
         private OBSWebsocket _obs;
         private Timer myTimer;
+        private DebugLogForm debugLog;
 
         public MainForm()
         {
+            debugLog = new DebugLogForm();
             _obs = new OBSWebsocket();
             InitializeComponent();
             pictureBox1.Image = imageList1.Images[1];
@@ -25,7 +27,8 @@ namespace OBSKeys
             _obs.Disconnected += OnDisconnect;
             Log(String.Format("Started {0} {1}",Constant.appName,"(Modified by Morgyn)"));
             githubReleaseCheck();
-
+            
+            
         }
 
         private async void githubReleaseCheck()
@@ -79,9 +82,9 @@ namespace OBSKeys
             {
                 return;
             }
-
-            logConsole.AppendText($"{DateTime.Now.ToString("HH:mm:ss")}: " + text + "\n");
-            logConsole.ScrollToCaret();
+            debugLog.Log(text);
+            //debugLog.logConsole.AppendText($"{DateTime.Now.ToString("HH:mm:ss")}: " + text + "\n");
+            //debugLog.logConsole.ScrollToCaret();
         }
 
         private void OnKeyDown(object sender, KeyEventArgs e)
@@ -185,7 +188,7 @@ namespace OBSKeys
 
         private void OnConnect(object sender, EventArgs e)
         {
-            connectButton.Text = "Disonnect";
+            connectButton.Text = "Disconnect";
             pictureBox1.Image = imageList1.Images[0];
         }
 
@@ -217,6 +220,17 @@ namespace OBSKeys
             {
                 _obs.Disconnect();
             }
+        }
+
+
+        private void ergergToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            debugLog.Show();
+        }
+
+        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            System.Windows.Forms.Application.Exit();
         }
     }
 }
