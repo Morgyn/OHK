@@ -69,7 +69,7 @@
             this.connectButton.TabIndex = 5;
             this.connectButton.Text = "Connect";
             this.connectButton.UseVisualStyleBackColor = true;
-            this.connectButton.Click += new System.EventHandler(this.connectButton_Click);
+            this.connectButton.Click += new System.EventHandler(this.ConnectButton_Click);
             // 
             // reconnectCheckBox
             // 
@@ -125,7 +125,7 @@
             this.ergergToolStripMenuItem1.Name = "ergergToolStripMenuItem1";
             this.ergergToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
             this.ergergToolStripMenuItem1.Text = "View Debug Log...";
-            this.ergergToolStripMenuItem1.Click += new System.EventHandler(this.ergergToolStripMenuItem1_Click);
+            this.ergergToolStripMenuItem1.Click += new System.EventHandler(this.OpenDebugLogToolStripMenuItem_Click);
             // 
             // toolStripSeparator1
             // 

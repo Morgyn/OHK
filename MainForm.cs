@@ -1,8 +1,9 @@
-﻿ using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
 using Gma.System.MouseKeyHook;
 using OBSWebsocketDotNet;
+using Timers = System.Timers;
 using Octokit;
 
 namespace OBSKeys
@@ -15,7 +16,7 @@ namespace OBSKeys
         private OBSWebsocket _obs;
         private Dictionary<Keys,Timer> keyTimer = new Dictionary<Keys, Timer>();
         private DebugLogForm debugLog;
-        private bool disconnectButtonFlag;
+        private bool disconnectButtonFlag = false;
         private Timer reconnectTimer;
         private int reconnectCountdown;
 
@@ -204,23 +205,41 @@ namespace OBSKeys
 
         private void OnDisconnect(object sender, EventArgs e)
         {
-            Log("Disconnected from OBS");
-            connectButton.Text = "Connect";
+            Log(String.Format("Disconnected from OBS {0}",disconnectButtonFlag));
+            
+            UpdateConnectButton("Connect");
             connectionStatusPicture.Image = imageList1.Images[1];
             if (disconnectButtonFlag)
             {
                 disconnectButtonFlag = false;
                 //don't reconnect
-            } else
+            }
+            else
             {
                 reconnectCountdown = Configuration.ObsKeys.ReconnectDelay;
-                startReconnectTimer();
+                connectButton.Invoke(new MethodInvoker(delegate { StartReconnectTimer(); }));
                 // start reconnect
             }
         }
 
-        private void startReconnectTimer()
+        private void UpdateConnectButton( string text)
         {
+            if (connectButton.InvokeRequired)
+            {
+                connectButton.Invoke(new MethodInvoker(delegate { connectButton.Text = text; }));
+            } else
+            {
+                connectButton.Text = text;
+            }
+        }
+
+        private void StartReconnectTimer()
+        {
+            if (reconnectTimer != null && reconnectTimer.Enabled)
+            {
+                reconnectTimer.Stop();
+                reconnectTimer.Dispose();
+            }
             reconnectTimer = new Timer();
             reconnectTimer.Tick += ReconnectTimerEventProcessor;
             reconnectTimer.Interval = 1000;
@@ -232,9 +251,9 @@ namespace OBSKeys
             {
                 if (reconnectCountdown < 1)
                 {
-                    
+                    timer.Stop();
                     timer.Dispose();
-                    connectOBS();
+                    ConnectOBS();
                 }
                 else
                 {
@@ -244,22 +263,23 @@ namespace OBSKeys
             }
         }
 
-        private void connectButton_Click(object sender, EventArgs e)
+        private void ConnectButton_Click(object sender, EventArgs e)
         {
             if (!_obs.IsConnected)
             {
                 disconnectButtonFlag = false;
-                connectOBS();
+                ConnectOBS();
                 
             }
             else
             {
                 disconnectButtonFlag = true;
-                _obs.Disconnect();
+                DisconnectOBS();
             }
             
         }
-        private void connectOBS()
+    
+        private void ConnectOBS()
         {
             try
             {
@@ -276,13 +296,13 @@ namespace OBSKeys
             }
         }
 
-        private void disconnectOBS()
+        private void DisconnectOBS()
         {
             _obs.Disconnect();
         }
 
 
-        private void ergergToolStripMenuItem1_Click(object sender, EventArgs e)
+        private void OpenDebugLogToolStripMenuItem_Click(object sender, EventArgs e)
         {
             debugLog.Show();
         }
