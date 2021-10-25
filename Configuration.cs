@@ -48,6 +48,9 @@ namespace OBSKeys
             [JsonProperty("Delay after releasing key")]
             public int Delay;
 
+            [JsonProperty("Delay before attempting to reconnect")]
+            public int ReconnectDelay;
+
             public Dictionary<Keys, string> KeysSetup;
 
             public ObsKeysConfig()
@@ -57,6 +60,7 @@ namespace OBSKeys
                 Password = "test";
                 PauseKey = Keys.F6;
                 Delay = 300;
+                ReconnectDelay = 5;
                 KeysSetup = new Dictionary<Keys, string>
                 {
                     [Keys.G] = "Image"

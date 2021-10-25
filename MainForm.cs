@@ -13,15 +13,18 @@ namespace OBSKeys
         private bool _isHoldingDown;
         private bool _isPaused;
         private OBSWebsocket _obs;
-        private Timer myTimer;
+        private Dictionary<Keys,Timer> keyTimer = new Dictionary<Keys, Timer>();
         private DebugLogForm debugLog;
+        private bool disconnectButtonFlag;
+        private Timer reconnectTimer;
+        private int reconnectCountdown;
 
         public MainForm()
         {
             debugLog = new DebugLogForm();
             _obs = new OBSWebsocket();
             InitializeComponent();
-            pictureBox1.Image = imageList1.Images[1];
+            connectionStatusPicture.Image = imageList1.Images[1];
             SubscribeGlobal();         
             _obs.Connected += OnConnect;
             _obs.Disconnected += OnDisconnect;
@@ -82,9 +85,8 @@ namespace OBSKeys
             {
                 return;
             }
+            statusLabel.Text = text;
             debugLog.Log(text);
-            //debugLog.logConsole.AppendText($"{DateTime.Now.ToString("HH:mm:ss")}: " + text + "\n");
-            //debugLog.logConsole.ScrollToCaret();
         }
 
         private void OnKeyDown(object sender, KeyEventArgs e)
@@ -121,13 +123,18 @@ namespace OBSKeys
                 {
                     if (CheckSceneItems(Configuration.ObsKeys.KeysSetup[e.KeyCode]))
                     {
-                        if (myTimer != null && myTimer.Enabled == true)
+                        if (keyTimer.ContainsKey(e.KeyCode) && keyTimer[e.KeyCode].Enabled == true)
                         {
-                            myTimer.Stop();
+                            keyTimer[e.KeyCode].Stop();
+                            keyTimer.Remove(e.KeyCode);
+                            Log($"Timer still running, resetting timer \t{Configuration.ObsKeys.KeysSetup[e.KeyCode]}");
                         }
+                        else
+                        {
 
-                        _obs.SetSourceRender(Configuration.ObsKeys.KeysSetup[e.KeyCode], true); 
-                        Log($"Visible \t{Configuration.ObsKeys.KeysSetup[e.KeyCode]}");   
+                            _obs.SetSourceRender(Configuration.ObsKeys.KeysSetup[e.KeyCode], true);
+                            Log($"Show \t{Configuration.ObsKeys.KeysSetup[e.KeyCode]}");
+                        }
                     }
                     else
                     {
@@ -151,11 +158,10 @@ namespace OBSKeys
                 {
                     if (CheckSceneItems(Configuration.ObsKeys.KeysSetup[e.KeyCode]))
                     {
-                        myTimer = new Timer();
-                        myTimer.Tick += TimerEventProcessor;
-                        myTimer.Interval = Configuration.ObsKeys.Delay;
-                        myTimer.Tag = Configuration.ObsKeys.KeysSetup[e.KeyCode];
-                        myTimer.Start();  
+                        keyTimer.Add(e.KeyCode, new Timer());
+                        keyTimer[e.KeyCode].Tick += (timerSender, timerE) => KeyTimerEventProcessor(timerSender, timerE, e.KeyCode);
+                        keyTimer[e.KeyCode].Interval = Configuration.ObsKeys.Delay;
+                        keyTimer[e.KeyCode].Start();  
                     }
                     else
                     {
@@ -165,13 +171,16 @@ namespace OBSKeys
             }
         }
 
-        private void TimerEventProcessor(object sender, EventArgs e)
+        private void KeyTimerEventProcessor(object sender, EventArgs e, Keys keyCode)
         {
             if (sender is Timer timer)
             {
-                _obs.SetSourceRender(timer.Tag.ToString(), false);               
-                Log($"Invsible \t{timer.Tag}");
+                string sourceName = Configuration.ObsKeys.KeysSetup[keyCode];
+                _obs.SetSourceRender(sourceName, false);               
+                Log($"Hide \t{sourceName}");
                 timer.Dispose();
+                // somehow need to remove parent
+                keyTimer.Remove(keyCode);
             }
         }
 
@@ -188,38 +197,88 @@ namespace OBSKeys
 
         private void OnConnect(object sender, EventArgs e)
         {
+            Log("Connected to OBS");
             connectButton.Text = "Disconnect";
-            pictureBox1.Image = imageList1.Images[0];
+            connectionStatusPicture.Image = imageList1.Images[0];
         }
 
         private void OnDisconnect(object sender, EventArgs e)
         {
+            Log("Disconnected from OBS");
             connectButton.Text = "Connect";
-            pictureBox1.Image = imageList1.Images[1];
+            connectionStatusPicture.Image = imageList1.Images[1];
+            if (disconnectButtonFlag)
+            {
+                disconnectButtonFlag = false;
+                //don't reconnect
+            } else
+            {
+                reconnectCountdown = Configuration.ObsKeys.ReconnectDelay;
+                startReconnectTimer();
+                // start reconnect
+            }
+        }
+
+        private void startReconnectTimer()
+        {
+            reconnectTimer = new Timer();
+            reconnectTimer.Tick += ReconnectTimerEventProcessor;
+            reconnectTimer.Interval = 1000;
+            reconnectTimer.Start();
+        }
+        private void ReconnectTimerEventProcessor(object sender, EventArgs e)
+        {
+            if (sender is Timer timer)
+            {
+                if (reconnectCountdown < 1)
+                {
+                    
+                    timer.Dispose();
+                    connectOBS();
+                }
+                else
+                {
+                    Log(string.Format("Reconnect countdown {0}", reconnectCountdown));
+                    reconnectCountdown--;
+                }
+            }
         }
 
         private void connectButton_Click(object sender, EventArgs e)
         {
             if (!_obs.IsConnected)
             {
-                try
-                {
-                    connectButton.Text = "Connecting...";
-                    _obs.Connect($"ws://{Configuration.ObsKeys.Ip}:{Configuration.ObsKeys.Port}", Configuration.ObsKeys.Password);
-                }
-                catch (AuthFailureException)
-                {
-                    Log("Authentication failed.");
-                }
-                catch (ErrorResponseException ex)
-                {
-                    Log($"Connect failed : {ex}");
-                }
+                disconnectButtonFlag = false;
+                connectOBS();
+                
             }
             else
             {
+                disconnectButtonFlag = true;
                 _obs.Disconnect();
             }
+            
+        }
+        private void connectOBS()
+        {
+            try
+            {
+                connectButton.Text = "Connecting...";
+                _obs.Connect($"ws://{Configuration.ObsKeys.Ip}:{Configuration.ObsKeys.Port}", Configuration.ObsKeys.Password);
+            }
+            catch (AuthFailureException)
+            {
+                Log("Authentication failed.");
+            }
+            catch (ErrorResponseException ex)
+            {
+                Log($"Connect failed : {ex}");
+            }
+        }
+
+        private void disconnectOBS()
+        {
+            _obs.Disconnect();
         }
 
 

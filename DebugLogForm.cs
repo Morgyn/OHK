@@ -5,13 +5,14 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
+using System.Threading;
 using System.Windows.Forms;
 
 namespace OBSKeys
-{
+{   
     public partial class DebugLogForm : Form
     {
+        private delegate void SafeCallDelegate(string text);
         public DebugLogForm()
         {
             InitializeComponent();
@@ -30,8 +31,16 @@ namespace OBSKeys
             {
                 return;
             }
-            logConsole.AppendText($"{DateTime.Now.ToString("HH:mm:ss")}: " + text + "\n");
-            logConsole.ScrollToCaret();
+            if (this.logConsole.InvokeRequired)
+            {
+                var d = new SafeCallDelegate(Log);
+                logConsole.Invoke(d, new object[] { text });
+            }
+            else
+            {
+                logConsole.AppendText($"{DateTime.Now.ToString("HH:mm:ss")}: {text}\n");
+                logConsole.ScrollToCaret();
+            }
         }
 
         private void copyButton_Click(object sender, EventArgs e)

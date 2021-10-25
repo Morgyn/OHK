@@ -29,30 +29,30 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.connectionStatusPicture = new System.Windows.Forms.PictureBox();
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.connectButton = new System.Windows.Forms.Button();
             this.reconnectCheckBox = new System.Windows.Forms.CheckBox();
             this.statusStrip = new System.Windows.Forms.StatusStrip();
-            this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.statusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripDropDownButton1 = new System.Windows.Forms.ToolStripDropDownButton();
-            this.ergergToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.UpdateMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ergergToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.connectionStatusPicture)).BeginInit();
             this.statusStrip.SuspendLayout();
             this.SuspendLayout();
             // 
-            // pictureBox1
+            // connectionStatusPicture
             // 
-            this.pictureBox1.Location = new System.Drawing.Point(114, 0);
-            this.pictureBox1.MaximumSize = new System.Drawing.Size(50, 50);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(50, 50);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox1.TabIndex = 4;
-            this.pictureBox1.TabStop = false;
+            this.connectionStatusPicture.Location = new System.Drawing.Point(114, 0);
+            this.connectionStatusPicture.MaximumSize = new System.Drawing.Size(50, 50);
+            this.connectionStatusPicture.Name = "connectionStatusPicture";
+            this.connectionStatusPicture.Size = new System.Drawing.Size(50, 50);
+            this.connectionStatusPicture.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.connectionStatusPicture.TabIndex = 4;
+            this.connectionStatusPicture.TabStop = false;
             // 
             // imageList1
             // 
@@ -85,26 +85,26 @@
             // 
             this.statusStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripDropDownButton1,
-            this.toolStripStatusLabel1});
+            this.statusLabel});
             this.statusStrip.Location = new System.Drawing.Point(0, 52);
             this.statusStrip.Name = "statusStrip";
             this.statusStrip.Size = new System.Drawing.Size(163, 22);
             this.statusStrip.TabIndex = 9;
             this.statusStrip.Text = "statusStrip1";
             // 
-            // toolStripStatusLabel1
+            // statusLabel
             // 
-            this.toolStripStatusLabel1.BackColor = System.Drawing.Color.Transparent;
-            this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
-            this.toolStripStatusLabel1.Size = new System.Drawing.Size(39, 17);
-            this.toolStripStatusLabel1.Text = "Status";
+            this.statusLabel.BackColor = System.Drawing.Color.Transparent;
+            this.statusLabel.Name = "statusLabel";
+            this.statusLabel.Size = new System.Drawing.Size(39, 17);
+            this.statusLabel.Text = "Status";
             // 
             // toolStripDropDownButton1
             // 
             this.toolStripDropDownButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.toolStripDropDownButton1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.ergergToolStripMenuItem1,
-            this.ergergToolStripMenuItem,
+            this.UpdateMenuItem,
             this.toolStripSeparator1,
             this.exitToolStripMenuItem});
             this.toolStripDropDownButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripDropDownButton1.Image")));
@@ -114,11 +114,11 @@
             this.toolStripDropDownButton1.Size = new System.Drawing.Size(29, 20);
             this.toolStripDropDownButton1.Text = "toolStripDropDownButton1";
             // 
-            // ergergToolStripMenuItem
+            // UpdateMenuItem
             // 
-            this.ergergToolStripMenuItem.Name = "ergergToolStripMenuItem";
-            this.ergergToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.ergergToolStripMenuItem.Text = "Update Line";
+            this.UpdateMenuItem.Name = "UpdateMenuItem";
+            this.UpdateMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.UpdateMenuItem.Text = "Update Line";
             // 
             // ergergToolStripMenuItem1
             // 
@@ -149,12 +149,12 @@
             this.Controls.Add(this.statusStrip);
             this.Controls.Add(this.reconnectCheckBox);
             this.Controls.Add(this.connectButton);
-            this.Controls.Add(this.pictureBox1);
+            this.Controls.Add(this.connectionStatusPicture);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.Name = "MainForm";
             this.Text = "OBSKeys";
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.connectionStatusPicture)).EndInit();
             this.statusStrip.ResumeLayout(false);
             this.statusStrip.PerformLayout();
             this.ResumeLayout(false);
@@ -163,15 +163,15 @@
         }
 
         #endregion
-        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.PictureBox connectionStatusPicture;
         private System.Windows.Forms.ImageList imageList1;
         private System.Windows.Forms.Button connectButton;
         private System.Windows.Forms.CheckBox reconnectCheckBox;
         private System.Windows.Forms.StatusStrip statusStrip;
-        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
+        private System.Windows.Forms.ToolStripStatusLabel statusLabel;
         private System.Windows.Forms.ToolStripDropDownButton toolStripDropDownButton1;
         private System.Windows.Forms.ToolStripMenuItem ergergToolStripMenuItem1;
-        private System.Windows.Forms.ToolStripMenuItem ergergToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem UpdateMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
     }
