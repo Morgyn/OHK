@@ -19,6 +19,7 @@ namespace OBSKeys
         private bool disconnectButtonFlag = false;
         private Timer reconnectTimer;
         private int reconnectCountdown;
+        private string updateURL = "";
 
         public MainForm()
         {
@@ -29,7 +30,7 @@ namespace OBSKeys
             SubscribeGlobal();         
             _obs.Connected += OnConnect;
             _obs.Disconnected += OnDisconnect;
-            Log(String.Format("Started {0} {1}",Constant.appName,"(Modified by Morgyn)"));
+            Log(String.Format("Started {0} {1} {2}",Constant.appName,Constant.releaseTag,"(Modified by Morgyn)"));
             githubReleaseCheck();
             
             
@@ -46,17 +47,25 @@ namespace OBSKeys
                 latest.Name,
                 latest.HtmlUrl));
             var versionCheck = tagToVersion(Constant.releaseTag).CompareTo(tagToVersion(latest.TagName));
-            if (0 < versionCheck)
+            if (0 > versionCheck)
             {
+                updateURL = latest.HtmlUrl;
                 Log("Version: Update available.");
+                UpdateMenuItem.Text = "Update available";
+                toolStripDropDownButton1.Image = imageList1.Images[2];
+                UpdateMenuItem.Image = imageList1.Images[3];
             }
             else if (0 == versionCheck)
             {
+                updateURL = "";
                 Log("Version: Up to date");
+                UpdateMenuItem.Text = "Check for update";
             }
-            else if (0 > versionCheck)
+            else if (0 < versionCheck)
             {
+                updateURL = "";
                 Log("Version: You're in the future");
+                UpdateMenuItem.Text = "Future version";
             }
         }
 
@@ -318,6 +327,17 @@ namespace OBSKeys
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
         {
             System.Windows.Forms.Application.Exit();
+        }
+
+        private void UpdateMenuItem_Click(object sender, EventArgs e)
+        {
+            if (updateURL == "")
+            {
+                githubReleaseCheck();
+            } else
+            {
+                System.Diagnostics.Process.Start(updateURL); 
+            }
         }
     }
 }

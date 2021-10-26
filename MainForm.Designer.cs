@@ -34,12 +34,12 @@
             this.connectButton = new System.Windows.Forms.Button();
             this.reconnectCheckBox = new System.Windows.Forms.CheckBox();
             this.statusStrip = new System.Windows.Forms.StatusStrip();
-            this.statusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripDropDownButton1 = new System.Windows.Forms.ToolStripDropDownButton();
+            this.debugLogMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.UpdateMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.ergergToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.statusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             ((System.ComponentModel.ISupportInitialize)(this.connectionStatusPicture)).BeginInit();
             this.statusStrip.SuspendLayout();
             this.SuspendLayout();
@@ -60,6 +60,8 @@
             this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
             this.imageList1.Images.SetKeyName(0, "connect.png");
             this.imageList1.Images.SetKeyName(1, "disconnect.png");
+            this.imageList1.Images.SetKeyName(2, "bangburger.png");
+            this.imageList1.Images.SetKeyName(3, "bang.png");
             // 
             // connectButton
             // 
@@ -92,18 +94,11 @@
             this.statusStrip.TabIndex = 9;
             this.statusStrip.Text = "statusStrip1";
             // 
-            // statusLabel
-            // 
-            this.statusLabel.BackColor = System.Drawing.Color.Transparent;
-            this.statusLabel.Name = "statusLabel";
-            this.statusLabel.Size = new System.Drawing.Size(39, 17);
-            this.statusLabel.Text = "Status";
-            // 
             // toolStripDropDownButton1
             // 
             this.toolStripDropDownButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.toolStripDropDownButton1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.ergergToolStripMenuItem1,
+            this.debugLogMenuItem,
             this.UpdateMenuItem,
             this.toolStripSeparator1,
             this.exitToolStripMenuItem});
@@ -114,18 +109,19 @@
             this.toolStripDropDownButton1.Size = new System.Drawing.Size(29, 20);
             this.toolStripDropDownButton1.Text = "toolStripDropDownButton1";
             // 
+            // debugLogMenuItem
+            // 
+            this.debugLogMenuItem.Name = "debugLogMenuItem";
+            this.debugLogMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.debugLogMenuItem.Text = "View Debug Log...";
+            this.debugLogMenuItem.Click += new System.EventHandler(this.OpenDebugLogToolStripMenuItem_Click);
+            // 
             // UpdateMenuItem
             // 
             this.UpdateMenuItem.Name = "UpdateMenuItem";
             this.UpdateMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.UpdateMenuItem.Text = "Update Line";
-            // 
-            // ergergToolStripMenuItem1
-            // 
-            this.ergergToolStripMenuItem1.Name = "ergergToolStripMenuItem1";
-            this.ergergToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
-            this.ergergToolStripMenuItem1.Text = "View Debug Log...";
-            this.ergergToolStripMenuItem1.Click += new System.EventHandler(this.OpenDebugLogToolStripMenuItem_Click);
+            this.UpdateMenuItem.Text = "Check for updates";
+            this.UpdateMenuItem.Click += new System.EventHandler(this.UpdateMenuItem_Click);
             // 
             // toolStripSeparator1
             // 
@@ -138,6 +134,13 @@
             this.exitToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.exitToolStripMenuItem.Text = "Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
+            // 
+            // statusLabel
+            // 
+            this.statusLabel.BackColor = System.Drawing.Color.Transparent;
+            this.statusLabel.Name = "statusLabel";
+            this.statusLabel.Size = new System.Drawing.Size(39, 17);
+            this.statusLabel.Text = "Status";
             // 
             // MainForm
             // 
@@ -170,7 +173,7 @@
         private System.Windows.Forms.StatusStrip statusStrip;
         private System.Windows.Forms.ToolStripStatusLabel statusLabel;
         private System.Windows.Forms.ToolStripDropDownButton toolStripDropDownButton1;
-        private System.Windows.Forms.ToolStripMenuItem ergergToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem debugLogMenuItem;
         private System.Windows.Forms.ToolStripMenuItem UpdateMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
