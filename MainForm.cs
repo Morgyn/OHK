@@ -216,9 +216,12 @@ namespace OBSKeys
             }
             else
             {
-                reconnectCountdown = Configuration.ObsKeys.ReconnectDelay;
-                connectButton.Invoke(new MethodInvoker(delegate { StartReconnectTimer(); }));
-                // start reconnect
+                if (reconnectCheckBox.Checked)
+                {
+                    reconnectCountdown = Configuration.ObsKeys.ReconnectDelay;
+                    connectButton.Invoke(new MethodInvoker(delegate { StartReconnectTimer(); }));
+                    // start reconnect
+                }
             }
         }
 
@@ -249,16 +252,21 @@ namespace OBSKeys
         {
             if (sender is Timer timer)
             {
-                if (reconnectCountdown < 1)
+                if (reconnectCheckBox.Checked)
                 {
-                    timer.Stop();
+                    if (reconnectCountdown < 1)
+                    {
+                        timer.Dispose();
+                        ConnectOBS();
+                    }
+                    else
+                    {
+                        Log(string.Format("Reconnect countdown {0}", reconnectCountdown));
+                        reconnectCountdown--;
+                    }
+                } else
+                {
                     timer.Dispose();
-                    ConnectOBS();
-                }
-                else
-                {
-                    Log(string.Format("Reconnect countdown {0}", reconnectCountdown));
-                    reconnectCountdown--;
                 }
             }
         }
