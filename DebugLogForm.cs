@@ -8,6 +8,9 @@ using System.Text;
 using System.Threading;
 using System.Windows.Forms;
 
+// TODO: make debug scale
+// TODO: allow saving of debug log
+
 namespace OBSKeys
 {   
     public partial class DebugLogForm : Form
@@ -49,6 +52,11 @@ namespace OBSKeys
         }
 
         private void DebugLogForm_ResizeEnd(object sender, EventArgs e)
+        {
+
+        }
+
+        private void tableLayoutPanel1_Paint(object sender, PaintEventArgs e)
         {
 
         }
