@@ -6,6 +6,10 @@ using OBSWebsocketDotNet;
 using Timers = System.Timers;
 using Octokit;
 
+//TODO: logging selective if it goes to status or log or both (default just log, 1 both, 2 just status?)
+//TODO: Make config windows connectiom & keys
+//TODO: move config to registry
+//TODO: export config option
 namespace OHK
 {
     public partial class MainForm:Form
@@ -13,7 +17,7 @@ namespace OHK
         private IKeyboardMouseEvents _events;
         private bool _isHoldingDown;
         private bool _isPaused;
-        private OBSWebsocket _obs;
+        private OBSWebsocket OBSws;
         private Dictionary<Keys,Timer> keyTimer = new Dictionary<Keys, Timer>();
         private bool disconnectButtonFlag = false;
         private Timer reconnectTimer;
@@ -22,12 +26,12 @@ namespace OHK
 
         public MainForm()
         {
-            _obs = new OBSWebsocket();
+            OBSws = new OBSWebsocket();
             InitializeComponent();
             connectionStatusPicture.Image = imageList1.Images[1];
             SubscribeGlobal();         
-            _obs.Connected += OnConnect;
-            _obs.Disconnected += OnDisconnect;
+            OBSws.Connected += OnConnect;
+            OBSws.Disconnected += OnDisconnect;
             Log(string.Format("Started {0} {1} {2}",Constant.appName,Constant.releaseTag,""));
             githubReleaseCheck();
         }
@@ -125,7 +129,7 @@ namespace OHK
 
                 _isHoldingDown = true;
 
-                if (_obs.IsConnected)
+                if (OBSws.IsConnected)
                 {
                     if (CheckSceneItems(Configuration.OHK.KeysSetup[e.KeyCode]))
                     {
@@ -138,7 +142,7 @@ namespace OHK
                         else
                         {
 
-                            _obs.SetSourceRender(Configuration.OHK.KeysSetup[e.KeyCode], true);
+                            OBSws.SetSourceRender(Configuration.OHK.KeysSetup[e.KeyCode], true);
                             Log($"Show \t{Configuration.OHK.KeysSetup[e.KeyCode]}");
                         }
                     }
@@ -160,7 +164,7 @@ namespace OHK
             if (Configuration.OHK.KeysSetup.ContainsKey(e.KeyCode))
             {
                 _isHoldingDown = false;
-                if (_obs.IsConnected && CheckSceneItems(Configuration.OHK.KeysSetup[e.KeyCode]))
+                if (OBSws.IsConnected && CheckSceneItems(Configuration.OHK.KeysSetup[e.KeyCode]))
                 {
                     if (CheckSceneItems(Configuration.OHK.KeysSetup[e.KeyCode]))
                     {
@@ -182,7 +186,7 @@ namespace OHK
             if (sender is Timer timer)
             {
                 string sourceName = Configuration.OHK.KeysSetup[keyCode];
-                _obs.SetSourceRender(sourceName, false);               
+                OBSws.SetSourceRender(sourceName, false);               
                 Log($"Hide \t{sourceName}");
                 timer.Dispose();
                 // somehow need to remove parent
@@ -193,7 +197,7 @@ namespace OHK
         private bool CheckSceneItems(string item)
         {
             var itemNames = new List<string>();
-            foreach (var sceneItem in _obs.GetCurrentScene().Items)
+            foreach (var sceneItem in OBSws.GetCurrentScene().Items)
             {
                 itemNames.Add(sceneItem.SourceName);
             }
@@ -210,7 +214,7 @@ namespace OHK
 
         private void OnDisconnect(object sender, EventArgs e)
         {
-            Log(string.Format("Disconnected from OBS {0}",disconnectButtonFlag));
+            Log(string.Format("Disconnected from OBS"));
             
             UpdateConnectButton("Connect");
             connectionStatusPicture.Image = imageList1.Images[1];
@@ -278,7 +282,7 @@ namespace OHK
 
         private void ConnectButton_Click(object sender, EventArgs e)
         {
-            if (!_obs.IsConnected)
+            if (!OBSws.IsConnected)
             {
                 disconnectButtonFlag = false;
                 ConnectOBS();
@@ -297,7 +301,7 @@ namespace OHK
             try
             {
                 connectButton.Text = "Connecting...";
-                _obs.Connect($"ws://{Configuration.OHK.Ip}:{Configuration.OHK.Port}", Configuration.OHK.Password);
+                OBSws.Connect($"ws://{Configuration.OHK.Ip}:{Configuration.OHK.Port}", Configuration.OHK.Password);
             }
             catch (AuthFailureException)
             {
@@ -305,13 +309,13 @@ namespace OHK
             }
             catch (ErrorResponseException ex)
             {
-                Log($"Connect failed : {ex}");
+                Log(string.Format("Connect failed: ",ex.Message));
             }
         }
 
         private void DisconnectOBS()
         {
-            _obs.Disconnect();
+            OBSws.Disconnect();
         }
 
 
