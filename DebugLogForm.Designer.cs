@@ -44,6 +44,7 @@ namespace OHK
             this.saveButton.TabIndex = 3;
             this.saveButton.Text = "Save to file";
             this.saveButton.UseVisualStyleBackColor = true;
+            this.saveButton.Click += new System.EventHandler(this.saveButton_Click);
             // 
             // copyButton
             // 

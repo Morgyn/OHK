@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Windows.Forms;
 
 // TODO: make debug scale
@@ -9,6 +10,7 @@ namespace OHK
     public partial class DebugLogForm : Form
     {
         private static readonly DebugLogForm instance = new DebugLogForm();
+        private static SaveFileDialog LogFileDialog = new SaveFileDialog();
         private delegate void SafeCallDelegate(string text);
 
         static DebugLogForm ()
@@ -52,6 +54,30 @@ namespace OHK
         private void copyButton_Click(object sender, EventArgs e)
         {
             Clipboard.SetText(logConsole.Text);
+        }
+
+        private void saveButton_Click(object sender, EventArgs e)
+        {
+            LogFileDialog.CreatePrompt      = false;
+            LogFileDialog.OverwritePrompt   = true;
+            LogFileDialog.FileName          = Constant.appName+"_Log";
+            LogFileDialog.DefaultExt        = "txt";
+            LogFileDialog.Filter            = "Text files (*.txt)|*.txt|All files (*.*)|*.*";
+            LogFileDialog.InitialDirectory  = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+
+            DialogResult result = LogFileDialog.ShowDialog();
+            Stream fileStream;
+
+            if (result == DialogResult.OK)
+            {
+                // Open the file, copy the contents of memoryStream to fileStream,
+                // and close fileStream. Set the memoryStream.Position value to 0 
+                // to copy the entire stream. 
+                fileStream = LogFileDialog.OpenFile();
+                logConsole.SaveFile(fileStream, RichTextBoxStreamType.PlainText);
+                fileStream.Close();
+                Log(string.Format("Debug log written as {0}",LogFileDialog.FileName));
+            }
         }
     }
 }
