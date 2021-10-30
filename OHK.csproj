@@ -7,8 +7,8 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{173BB9D5-5F0A-4924-B7A8-5D508A3F116C}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>OBSKeys</RootNamespace>
-    <AssemblyName>OBSKeys</AssemblyName>
+    <RootNamespace>OHK</RootNamespace>
+    <AssemblyName>OHK</AssemblyName>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
     <NuGetPackageImportStamp>

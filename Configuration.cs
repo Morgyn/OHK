@@ -3,6 +3,7 @@ using System.IO;
 using System.Windows.Forms;
 using Newtonsoft.Json;
 
+
 namespace OHK
 {
     class Configuration
@@ -13,9 +14,12 @@ namespace OHK
 
         static Configuration()
         {
+
+            DebugLogForm.Instance.Log(string.Format("Checking for config at: {0}/{1}", ConfigFolder, ConfigFile));
             if (!Directory.Exists(ConfigFolder))
             {
                 Directory.CreateDirectory(ConfigFolder);
+                DebugLogForm.Instance.Log("Config directory doesn't exist. Creating.");
             }
 
             if (!File.Exists(ConfigFolder + "/" + ConfigFile))

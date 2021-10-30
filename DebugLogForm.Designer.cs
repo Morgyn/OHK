@@ -71,7 +71,6 @@ namespace OHK
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.Size = new System.Drawing.Size(445, 269);
             this.tableLayoutPanel1.TabIndex = 5;
-            this.tableLayoutPanel1.Paint += new System.Windows.Forms.PaintEventHandler(this.tableLayoutPanel1_Paint);
             // 
             // logConsole
             // 
@@ -100,7 +99,6 @@ namespace OHK
             this.RightToLeftLayout = true;
             this.Text = "Debug Log";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.DebugLogForm_FormClosing);
-            this.ResizeEnd += new System.EventHandler(this.DebugLogForm_ResizeEnd);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.ResumeLayout(false);
 

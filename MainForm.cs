@@ -15,7 +15,6 @@ namespace OHK
         private bool _isPaused;
         private OBSWebsocket _obs;
         private Dictionary<Keys,Timer> keyTimer = new Dictionary<Keys, Timer>();
-        private DebugLogForm debugLog;
         private bool disconnectButtonFlag = false;
         private Timer reconnectTimer;
         private int reconnectCountdown;
@@ -23,17 +22,14 @@ namespace OHK
 
         public MainForm()
         {
-            debugLog = new DebugLogForm();
             _obs = new OBSWebsocket();
             InitializeComponent();
             connectionStatusPicture.Image = imageList1.Images[1];
             SubscribeGlobal();         
             _obs.Connected += OnConnect;
             _obs.Disconnected += OnDisconnect;
-            Log(String.Format("Started {0} {1} {2}",Constant.appName,Constant.releaseTag,""));
+            Log(string.Format("Started {0} {1} {2}",Constant.appName,Constant.releaseTag,""));
             githubReleaseCheck();
-            
-            
         }
 
         private async void githubReleaseCheck()
@@ -96,12 +92,12 @@ namespace OHK
                 return;
             }
             statusLabel.Text = text;
-            debugLog.Log(text);
+            DebugLogForm.Instance.Log(text);
         }
 
         private void OnKeyDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode == Configuration.OHK.PauseKey)
+            if(e.KeyCode == Configuration.OHK.PauseKey)
             {
                 if (_isPaused)
                 {
@@ -214,7 +210,7 @@ namespace OHK
 
         private void OnDisconnect(object sender, EventArgs e)
         {
-            Log(String.Format("Disconnected from OBS {0}",disconnectButtonFlag));
+            Log(string.Format("Disconnected from OBS {0}",disconnectButtonFlag));
             
             UpdateConnectButton("Connect");
             connectionStatusPicture.Image = imageList1.Images[1];
@@ -321,7 +317,7 @@ namespace OHK
 
         private void OpenDebugLogToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            debugLog.Show();
+            DebugLogForm.Instance.Show();
         }
 
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
