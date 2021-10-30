@@ -1,5 +1,5 @@
 ﻿
-namespace OBSKeys
+namespace OHK
 {
     partial class DebugLogForm
     {

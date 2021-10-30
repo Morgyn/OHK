@@ -11,7 +11,7 @@ using System.Windows.Forms;
 // TODO: make debug scale
 // TODO: allow saving of debug log
 
-namespace OBSKeys
+namespace OHK
 {   
     public partial class DebugLogForm : Form
     {

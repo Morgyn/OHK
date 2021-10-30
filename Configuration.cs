@@ -3,13 +3,13 @@ using System.IO;
 using System.Windows.Forms;
 using Newtonsoft.Json;
 
-namespace OBSKeys
+namespace OHK
 {
     class Configuration
     {
         private const string ConfigFolder = "Config";
         private const string ConfigFile = "config.json";
-        public static ObsKeysConfig ObsKeys;
+        public static OHKConfig OHK;
 
         static Configuration()
         {
@@ -20,18 +20,18 @@ namespace OBSKeys
 
             if (!File.Exists(ConfigFolder + "/" + ConfigFile))
             {
-                ObsKeys = new ObsKeysConfig();
-                string json = JsonConvert.SerializeObject(ObsKeys, Formatting.Indented);
+                OHK = new OHKConfig();
+                string json = JsonConvert.SerializeObject(OHK, Formatting.Indented);
                 File.WriteAllText(ConfigFolder + "/" + ConfigFile, json);
             }
             else
             {
                 string json = File.ReadAllText(ConfigFolder + "/" + ConfigFile);
-                ObsKeys = JsonConvert.DeserializeObject<ObsKeysConfig>(json);
+                OHK = JsonConvert.DeserializeObject<OHKConfig>(json);
             }
         }
 
-        public class ObsKeysConfig
+        public class OHKConfig
         {
             [JsonProperty("IP Adress. Default: 127.0.0.1")]
             public string Ip;
@@ -53,7 +53,7 @@ namespace OBSKeys
 
             public Dictionary<Keys, string> KeysSetup;
 
-            public ObsKeysConfig()
+            public OHKConfig()
             {
                 Ip = "127.0.0.1";
                 Port = "4444";

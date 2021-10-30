@@ -6,7 +6,7 @@ using OBSWebsocketDotNet;
 using Timers = System.Timers;
 using Octokit;
 
-namespace OBSKeys
+namespace OHK
 {
     public partial class MainForm:Form
     {
@@ -30,7 +30,7 @@ namespace OBSKeys
             SubscribeGlobal();         
             _obs.Connected += OnConnect;
             _obs.Disconnected += OnDisconnect;
-            Log(String.Format("Started {0} {1} {2}",Constant.appName,Constant.releaseTag,"(Modified by Morgyn)"));
+            Log(String.Format("Started {0} {1} {2}",Constant.appName,Constant.releaseTag,""));
             githubReleaseCheck();
             
             
@@ -101,7 +101,7 @@ namespace OBSKeys
 
         private void OnKeyDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode == Configuration.ObsKeys.PauseKey)
+            if (e.KeyCode == Configuration.OHK.PauseKey)
             {
                 if (_isPaused)
                 {
@@ -120,7 +120,7 @@ namespace OBSKeys
                 return;
             }
 
-            if (Configuration.ObsKeys.KeysSetup.ContainsKey(e.KeyCode))
+            if (Configuration.OHK.KeysSetup.ContainsKey(e.KeyCode))
             {
                 if (_isHoldingDown)
                 {
@@ -131,19 +131,19 @@ namespace OBSKeys
 
                 if (_obs.IsConnected)
                 {
-                    if (CheckSceneItems(Configuration.ObsKeys.KeysSetup[e.KeyCode]))
+                    if (CheckSceneItems(Configuration.OHK.KeysSetup[e.KeyCode]))
                     {
                         if (keyTimer.ContainsKey(e.KeyCode) && keyTimer[e.KeyCode].Enabled == true)
                         {
                             keyTimer[e.KeyCode].Stop();
                             keyTimer.Remove(e.KeyCode);
-                            Log($"Timer still running, resetting timer \t{Configuration.ObsKeys.KeysSetup[e.KeyCode]}");
+                            Log($"Timer still running, resetting timer \t{Configuration.OHK.KeysSetup[e.KeyCode]}");
                         }
                         else
                         {
 
-                            _obs.SetSourceRender(Configuration.ObsKeys.KeysSetup[e.KeyCode], true);
-                            Log($"Show \t{Configuration.ObsKeys.KeysSetup[e.KeyCode]}");
+                            _obs.SetSourceRender(Configuration.OHK.KeysSetup[e.KeyCode], true);
+                            Log($"Show \t{Configuration.OHK.KeysSetup[e.KeyCode]}");
                         }
                     }
                     else
@@ -161,16 +161,16 @@ namespace OBSKeys
                 return;
             }
 
-            if (Configuration.ObsKeys.KeysSetup.ContainsKey(e.KeyCode))
+            if (Configuration.OHK.KeysSetup.ContainsKey(e.KeyCode))
             {
                 _isHoldingDown = false;
-                if (_obs.IsConnected && CheckSceneItems(Configuration.ObsKeys.KeysSetup[e.KeyCode]))
+                if (_obs.IsConnected && CheckSceneItems(Configuration.OHK.KeysSetup[e.KeyCode]))
                 {
-                    if (CheckSceneItems(Configuration.ObsKeys.KeysSetup[e.KeyCode]))
+                    if (CheckSceneItems(Configuration.OHK.KeysSetup[e.KeyCode]))
                     {
                         keyTimer.Add(e.KeyCode, new Timer());
                         keyTimer[e.KeyCode].Tick += (timerSender, timerE) => KeyTimerEventProcessor(timerSender, timerE, e.KeyCode);
-                        keyTimer[e.KeyCode].Interval = Configuration.ObsKeys.Delay;
+                        keyTimer[e.KeyCode].Interval = Configuration.OHK.Delay;
                         keyTimer[e.KeyCode].Start();  
                     }
                     else
@@ -185,7 +185,7 @@ namespace OBSKeys
         {
             if (sender is Timer timer)
             {
-                string sourceName = Configuration.ObsKeys.KeysSetup[keyCode];
+                string sourceName = Configuration.OHK.KeysSetup[keyCode];
                 _obs.SetSourceRender(sourceName, false);               
                 Log($"Hide \t{sourceName}");
                 timer.Dispose();
@@ -227,7 +227,7 @@ namespace OBSKeys
             {
                 if (reconnectCheckBox.Checked)
                 {
-                    reconnectCountdown = Configuration.ObsKeys.ReconnectDelay;
+                    reconnectCountdown = Configuration.OHK.ReconnectDelay;
                     connectButton.Invoke(new MethodInvoker(delegate { StartReconnectTimer(); }));
                     // start reconnect
                 }
@@ -301,7 +301,7 @@ namespace OBSKeys
             try
             {
                 connectButton.Text = "Connecting...";
-                _obs.Connect($"ws://{Configuration.ObsKeys.Ip}:{Configuration.ObsKeys.Port}", Configuration.ObsKeys.Password);
+                _obs.Connect($"ws://{Configuration.OHK.Ip}:{Configuration.OHK.Port}", Configuration.OHK.Password);
             }
             catch (AuthFailureException)
             {

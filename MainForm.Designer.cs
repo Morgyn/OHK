@@ -1,4 +1,4 @@
-﻿namespace OBSKeys
+﻿namespace OHK
 {
     partial class MainForm
     {
@@ -156,7 +156,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.Name = "MainForm";
-            this.Text = "OBSKeys";
+            this.Text = "OHK";
             ((System.ComponentModel.ISupportInitialize)(this.connectionStatusPicture)).EndInit();
             this.statusStrip.ResumeLayout(false);
             this.statusStrip.PerformLayout();

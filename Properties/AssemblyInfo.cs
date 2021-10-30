@@ -5,10 +5,10 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("OBSKeys")]
+[assembly: AssemblyTitle("OHK")]
 [assembly: AssemblyDescription("Customisable hotkeys for OBS Studio via websockets")]
-[assembly: AssemblyConfiguration("OBSKeys\\Config\\config.json")]
-[assembly: AssemblyProduct("OBSKeys")]
+[assembly: AssemblyConfiguration("OHK\\Config\\config.json")]
+[assembly: AssemblyProduct("OHK")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
