@@ -1,0 +1,2648 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>CodeHollow.FeedReader</name>
+    </assembly>
+    <members>
+        <member name="T:CodeHollow.FeedReader.Extensions">
+            <summary>
+            Extension methods
+            </summary>
+        </member>
+        <member name="M:CodeHollow.FeedReader.Extensions.HtmlDecode(System.String)">
+            <summary>
+            Decodes a html encoded string
+            </summary>
+            <param name="text">html text</param>
+            <returns>decoded html</returns>
+        </member>
+        <member name="M:CodeHollow.FeedReader.Extensions.EqualsIgnoreCase(System.String,System.String)">
+            <summary>
+            Determines whether this string and another string object have the same value.
+            </summary>
+            <param name="text">the string</param>
+            <param name="compareTo">the string to compare to</param>
+            <returns></returns>
+        </member>
+        <member name="M:CodeHollow.FeedReader.Extensions.EqualsIgnoreCase(System.String,System.String[])">
+            <summary>
+            Determines whether this string equals one of the given strings.
+            </summary>
+            <param name="text">the string</param>
+            <param name="compareTo">all strings to compare to</param>
+            <returns></returns>
+        </member>
+        <member name="M:CodeHollow.FeedReader.Extensions.ToUtf8(System.String)">
+            <summary>
+            Converts a string to UTF-8
+            </summary>
+            <param name="text">text to convert</param>
+            <returns>text as utf8 encoded string</returns>
+        </member>
+        <member name="M:CodeHollow.FeedReader.Extensions.ToUtf8(System.String,System.Text.Encoding)">
+            <summary>
+            Converts a string to UTF-8
+            </summary>
+            <param name="text">text to convert</param>
+            <param name="encoding">the encoding of the text</param>
+            <returns>text as utf8 encoded string</returns>
+        </member>
+        <member name="M:CodeHollow.FeedReader.Extensions.GetValue(System.Xml.Linq.XElement)">
+            <summary>
+            Gets the value of an xml element encoded as utf8
+            </summary>
+            <param name="element">the xml element</param>
+            <returns>value of the element utf8 encoded</returns>
+        </member>
+        <member name="M:CodeHollow.FeedReader.Extensions.GetValue(System.Xml.Linq.XElement,System.String)">
+            <summary>
+            Gets the value of the element "name"
+            </summary>
+            <param name="element">xml element</param>
+            <param name="name">name of the element</param>
+            <returns>the value of the XElement</returns>
+        </member>
+        <member name="M:CodeHollow.FeedReader.Extensions.GetValue(System.Xml.Linq.XElement,System.String,System.String)">
+            <summary>
+            Gets the value of the element "name"
+            </summary>
+            <param name="element">xml element</param>
+            <param name="namespacePrefix">the namespace prefix of the element that should be returned</param>
+            <param name="name">name of the element</param>
+            <returns>the value of the XElement</returns>
+        </member>
+        <member name="M:CodeHollow.FeedReader.Extensions.GetValue(System.Xml.Linq.XAttribute)">
+            <summary>
+            Gets the value of the given attribute
+            </summary>
+            <param name="attribute">the xml attribute</param>
+            <returns>value</returns>
+        </member>
+        <member name="M:CodeHollow.FeedReader.Extensions.GetAttributeValue(System.Xml.Linq.XElement,System.String)">
+            <summary>
+            Gets the value of the attribute <paramref name="name"/>
+            </summary>
+            <param name="element">the xml element</param>
+            <param name="name">the name of the attribute</param>
+            <returns>value of the attribute</returns>
+        </member>
+        <member name="M:CodeHollow.FeedReader.Extensions.GetAttribute(System.Xml.Linq.XElement,System.String)">
+            <summary>
+            Gets the attribute <paramref name="name"/> of the given XElement
+            </summary>
+            <param name="element">the xml element</param>
+            <param name="name">the name of the attribute</param>
+            <returns>the xml attribute</returns>
+        </member>
+        <member name="M:CodeHollow.FeedReader.Extensions.GetAttribute(System.Xml.Linq.XElement,System.String,System.String)">
+            <summary>
+            Gets the attribute with the namespace <paramref name="namespacePrefix"/> and name <paramref name="name"/> of the given XElement
+            </summary>
+            <param name="element">the xml element</param>
+            <param name="namespacePrefix">the namespace prefix of the attribute</param>
+            <param name="name">the name of the attribute</param>
+            <returns>the xml attribute</returns>
+        </member>
+        <member name="M:CodeHollow.FeedReader.Extensions.GetElement(System.Xml.Linq.XElement,System.String)">
+            <summary>
+            Gets the element of the given XElement
+            </summary>
+            <param name="element">the xml element</param>
+            <param name="name">Name of the element that should be returned</param>
+            <returns>the "name" element of the XElement</returns>
+        </member>
+        <member name="M:CodeHollow.FeedReader.Extensions.GetElement(System.Xml.Linq.XElement,System.String,System.String)">
+            <summary>
+            Gets the element of the given XElement
+            </summary>
+            <param name="element">the xml element</param>
+            <param name="namespacePrefix">the namespace prefix of the element that should be returned</param>
+            <param name="name">Name of the element that should be returned</param>
+            <returns>the "name" element with the prefix "namespacePrefix" of the XElement</returns>
+        </member>
+        <member name="M:CodeHollow.FeedReader.Extensions.GetElements(System.Xml.Linq.XElement,System.String)">
+            <summary>
+            Gets all elements of the given XElement
+            </summary>
+            <param name="element">the xml element</param>
+            <param name="name">Name of the elements that should be returned</param>
+            <returns>all "name" elements of the given XElement</returns>
+        </member>
+        <member name="M:CodeHollow.FeedReader.Extensions.GetElements(System.Xml.Linq.XElement,System.String,System.String)">
+            <summary>
+            Gets all elements of the given XElement
+            </summary>
+            <param name="element">the xml element</param>
+            <param name="namespacePrefix">the namespace prefix of the elements that should be returned</param>
+            <param name="name">Name of the elements that should be returned</param>
+            <returns>all "name" elements of the given XElement</returns>
+        </member>
+        <member name="M:CodeHollow.FeedReader.Extensions.GetNamespacePrefix(System.Xml.Linq.XElement)">
+            <summary>
+            Gets the namespace prefix of the given XElement
+            </summary>
+            <param name="element">the xml element</param>
+            <returns>the namespace prefix</returns>
+        </member>
+        <member name="M:CodeHollow.FeedReader.Extensions.GetNamespacePrefix(System.Xml.Linq.XElement,System.String)">
+            <summary>
+            Gets the namespace prefix of the given XElement, if namespacePrefix is null or empty, it returns the default namespace.
+            </summary>
+            <param name="element">the xml element</param>
+            <param name="namespacePrefix">the namespace prefix</param>
+            <returns>the namespace prefix or default namespace if the <paramref name="namespacePrefix"/> is null or empty</returns>
+        </member>
+        <member name="M:CodeHollow.FeedReader.Extensions.SplitName(System.String)">
+            <summary>
+            splits the name into namespace and name if it contains a :
+            if it does not contain a namespace, item1 is null and item2 is the original name
+            </summary>
+            <param name="name">the input name</param>
+            <returns>splitted namespace and name, item1 is null if namespace is empty</returns>
+        </member>
+        <member name="T:CodeHollow.FeedReader.Feed">
+            <summary>
+            Generic Feed object that contains some basic properties. If a property is not available
+            for a specific feed type (e.g. Rss 1.0), then the property is empty.
+            If a feed has more properties, like the Generator property for Rss 2.0, then you can use
+            the <see cref="P:CodeHollow.FeedReader.Feed.SpecificFeed"/> property.
+            </summary>
+        </member>
+        <member name="P:CodeHollow.FeedReader.Feed.Type">
+            <summary>
+            The Type of the feed - Rss 2.0, 1.0, 0.92, Atom or others
+            </summary>
+        </member>
+        <member name="P:CodeHollow.FeedReader.Feed.Title">
+            <summary>
+            The title of the field
+            </summary>
+        </member>
+        <member name="P:CodeHollow.FeedReader.Feed.Link">
+            <summary>
+            The link (url) to the feed
+            </summary>
+        </member>
+        <member name="P:CodeHollow.FeedReader.Feed.Description">
+            <summary>
+            The description of the feed
+            </summary>
+        </member>
+        <member name="P:CodeHollow.FeedReader.Feed.Language">
+            <summary>
+            The language of the feed
+            </summary>
+        </member>
+        <member name="P:CodeHollow.FeedReader.Feed.Copyright">
+            <summary>
+            The copyright of the feed
+            </summary>
+        </member>
+        <member name="P:CodeHollow.FeedReader.Feed.LastUpdatedDateString">
+            <summary>
+            The last updated date as string. This is filled, if a last updated
+            date is set - independent if it is a correct date or not
+            </summary>
+        </member>
+        <member name="P:CodeHollow.FeedReader.Feed.LastUpdatedDate">
+            <summary>
+            The last updated date as datetime. Null if parsing failed or if
+            no last updated date is set. If null, please check <see cref="P:CodeHollow.FeedReader.Feed.LastUpdatedDateString"/> property.
+            </summary>
+        </member>
+        <member name="P:CodeHollow.FeedReader.Feed.ImageUrl">
+            <summary>
+            The url of the image
+            </summary>
+        </member>
+        <member name="P:CodeHollow.FeedReader.Feed.Items">
+            <summary>
+            List of items
+            </summary>
+        </member>
+        <member name="P:CodeHollow.FeedReader.Feed.OriginalDocument">
+            <summary>
+            Gets the whole, original feed as string
+            </summary>
+        </member>
+        <member name="P:CodeHollow.FeedReader.Feed.SpecificFeed">
+            <summary>
+            The parsed feed element - e.g. of type <see cref="T:CodeHollow.FeedReader.Feeds.Rss20Feed"/> which contains
+            e.g. the Generator property which does not exist in others.
+            </summary>
+        </member>
+        <member name="M:CodeHollow.FeedReader.Feed.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:CodeHollow.FeedReader.Feed"/> class.
+            Default constructor, just there for serialization.
+            </summary>
+        </member>
+        <member name="M:CodeHollow.FeedReader.Feed.#ctor(CodeHollow.FeedReader.Feeds.BaseFeed)">
+            <summary>
+            Initializes a new instance of the <see cref="T:CodeHollow.FeedReader.Feed"/> class.
+            Creates the generic feed object based on a parsed BaseFeed
+            </summary>
+            <param name="feed">BaseFeed which is a <see cref="T:CodeHollow.FeedReader.Feeds.Rss20Feed"/> , <see cref="T:CodeHollow.FeedReader.Feeds.Rss10Feed"/>, or another.</param>
+        </member>
+        <member name="T:CodeHollow.FeedReader.FeedItem">
+            <summary>
+            Generic feed item object that contains some basic properties. The feed item is typically
+            an article or a blog post. If a property is not available
+            for a specific feed type (e.g. Rss 1.0), then the property is empty.
+            If a feed item has more properties, like the Generator property for Rss 2.0, then you can use
+            the <see cref="P:CodeHollow.FeedReader.FeedItem.SpecificItem"/> property.
+            </summary>
+        </member>
+        <member name="P:CodeHollow.FeedReader.FeedItem.Title">
+            <summary>
+            The title of the feed item
+            </summary>
+        </member>
+        <member name="P:CodeHollow.FeedReader.FeedItem.Link">
+            <summary>
+            The link (url) to the feed item
+            </summary>
+        </member>
+        <member name="P:CodeHollow.FeedReader.FeedItem.Description">
+            <summary>
+            The description of the feed item
+            </summary>
+        </member>
+        <member name="P:CodeHollow.FeedReader.FeedItem.PublishingDateString">
+            <summary>
+            The publishing date as string. This is filled, if a publishing
+            date is set - independent if it is a correct date or not
+            </summary>
+        </member>
+        <member name="P:CodeHollow.FeedReader.FeedItem.PublishingDate">
+            <summary>
+            The published date as datetime. Null if parsing failed or if
+            no publishing date is set. If null, please check <see cref="P:CodeHollow.FeedReader.FeedItem.PublishingDateString"/> property.
+            </summary>
+        </member>
+        <member name="P:CodeHollow.FeedReader.FeedItem.Author">
+            <summary>
+            The author of the feed item
+            </summary>
+        </member>
+        <member name="P:CodeHollow.FeedReader.FeedItem.Id">
+            <summary>
+            The id of the feed item
+            </summary>
+        </member>
+        <member name="P:CodeHollow.FeedReader.FeedItem.Categories">
+            <summary>
+            The categories of the feeditem
+            </summary>
+        </member>
+        <member name="P:CodeHollow.FeedReader.FeedItem.Content">
+            <summary>
+            The content of the feed item
+            </summary>
+        </member>
+        <member name="P:CodeHollow.FeedReader.FeedItem.SpecificItem">
+            <summary>
+            The parsed feed item element - e.g. of type <see cref="T:CodeHollow.FeedReader.Feeds.Rss20FeedItem"/> which contains
+            e.g. the Enclosure property which does not exist in other feed types.
+            </summary>
+        </member>
+        <member name="M:CodeHollow.FeedReader.FeedItem.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:CodeHollow.FeedReader.FeedItem"/> class.
+            Default constructor, just there for serialization.
+            </summary>
+        </member>
+        <member name="M:CodeHollow.FeedReader.FeedItem.#ctor(CodeHollow.FeedReader.Feeds.BaseFeedItem)">
+            <summary>
+            Initializes a new instance of the <see cref="T:CodeHollow.FeedReader.FeedItem"/> class.
+            Creates the generic feed item object based on a parsed <see cref="T:CodeHollow.FeedReader.Feeds.BaseFeedItem"/>
+            </summary>
+            <param name="feedItem">BaseFeedItem which is a <see cref="T:CodeHollow.FeedReader.Feeds.Rss20FeedItem"/> , <see cref="T:CodeHollow.FeedReader.Feeds.Rss10FeedItem"/>, or another.</param>
+        </member>
+        <member name="T:CodeHollow.FeedReader.FeedReader">
+            <summary>
+            The static FeedReader class which allows to read feeds from a given url. Use it to
+            parse a feed from an url <see cref="M:CodeHollow.FeedReader.FeedReader.Read(System.String)"/>, a file <see cref="M:CodeHollow.FeedReader.FeedReader.ReadFromFile(System.String)"/> or <see cref="M:CodeHollow.FeedReader.FeedReader.ReadFromFileAsync(System.String)"/>, a byte array <see cref="M:CodeHollow.FeedReader.FeedReader.ReadFromByteArray(System.Byte[])"/>
+            or a string <see cref="M:CodeHollow.FeedReader.FeedReader.ReadFromString(System.String)"/>. If the feed url is not known, <see cref="M:CodeHollow.FeedReader.FeedReader.ParseFeedUrlsFromHtml(System.String)"/>
+            returns all feed links on a given page.
+            </summary>
+            <example>
+            var links = FeedReader.ParseFeedUrlsFromHtml("https://codehollow.com");
+            var firstLink = links.First();
+            var feed = FeedReader.Read(firstLink.Url);
+            Console.WriteLine(feed.Title);
+            </example>
+        </member>
+        <member name="M:CodeHollow.FeedReader.FeedReader.GetAbsoluteUrl(System.String)">
+            <summary>
+            gets a url (with or without http) and returns the full url
+            </summary>
+            <param name="url">url with or without http</param>
+            <returns>full url</returns>
+            <example>GetUrl("codehollow.com"); => returns https://codehollow.com</example>
+        </member>
+        <member name="M:CodeHollow.FeedReader.FeedReader.GetAbsoluteFeedUrl(System.String,CodeHollow.FeedReader.HtmlFeedLink)">
+            <summary>
+            Returns the absolute url of a link on a page. If you got the feed links via
+            GetFeedUrlsFromUrl(url) and the url is relative, you can use this method to get the full url.
+            </summary>
+            <param name="pageUrl">the original url to the page</param>
+            <param name="feedLink">a referenced feed (link)</param>
+            <returns>a feed link</returns>
+            <example>GetAbsoluteFeedUrl("codehollow.com", myRelativeFeedLink);</example>
+        </member>
+        <member name="M:CodeHollow.FeedReader.FeedReader.GetFeedUrlsFromUrl(System.String)">
+            <summary>
+            Opens a webpage and reads all feed urls from it (link rel="alternate" type="application/...")
+            </summary>
+            <param name="url">the url of the page</param>
+            <returns>a list of links including the type and title, an empty list if no links are found</returns>
+            <example>FeedReader.GetFeedUrlsFromUrl("codehollow.com"); // returns a list of all available feeds at
+            https://codehollow.com </example>
+        </member>
+        <member name="M:CodeHollow.FeedReader.FeedReader.GetFeedUrlsFromUrlAsync(System.String,System.Threading.CancellationToken,System.Boolean)">
+            <summary>
+            Opens a webpage and reads all feed urls from it (link rel="alternate" type="application/...")
+            </summary>
+            <param name="url">the url of the page</param>
+            <param name="cancellationToken">token to cancel operation</param>
+            /// <param name="autoRedirect">autoredirect if page is moved permanently</param>
+            <returns>a list of links including the type and title, an empty list if no links are found</returns>
+            <example>FeedReader.GetFeedUrlsFromUrl("codehollow.com"); // returns a list of all available feeds at
+            https://codehollow.com </example>
+        </member>
+        <member name="M:CodeHollow.FeedReader.FeedReader.GetFeedUrlsFromUrlAsync(System.String,System.Boolean)">
+            <summary>
+            Opens a webpage and reads all feed urls from it (link rel="alternate" type="application/...")
+            </summary>
+            <param name="url">the url of the page</param>
+            /// <param name="autoRedirect">autoredirect if page is moved permanently</param>
+            <returns>a list of links including the type and title, an empty list if no links are found</returns>
+            <example>FeedReader.GetFeedUrlsFromUrl("codehollow.com"); // returns a list of all available feeds at
+            https://codehollow.com </example>
+        </member>
+        <member name="M:CodeHollow.FeedReader.FeedReader.ParseFeedUrlsAsString(System.String)">
+            <summary>
+            Opens a webpage and reads all feed urls from it (link rel="alternate" type="application/...")
+            </summary>
+            <param name="url">the url of the page</param>
+            <returns>a list of links, an empty list if no links are found</returns>
+        </member>
+        <member name="M:CodeHollow.FeedReader.FeedReader.ParseFeedUrlsAsStringAsync(System.String,System.Threading.CancellationToken)">
+            <summary>
+            Opens a webpage and reads all feed urls from it (link rel="alternate" type="application/...")
+            </summary>
+            <param name="url">the url of the page</param>
+            <param name="cancellationToken">token to cancel operation</param>
+            <returns>a list of links, an empty list if no links are found</returns>
+        </member>
+        <member name="M:CodeHollow.FeedReader.FeedReader.ParseFeedUrlsAsStringAsync(System.String)">
+            <summary>
+            Opens a webpage and reads all feed urls from it (link rel="alternate" type="application/...")
+            </summary>
+            <param name="url">the url of the page</param>
+            <returns>a list of links, an empty list if no links are found</returns>
+        </member>
+        <member name="M:CodeHollow.FeedReader.FeedReader.ParseFeedUrlsFromHtml(System.String)">
+            <summary>
+            Parses RSS links from html page and returns all links
+            </summary>
+            <param name="htmlContent">the content of the html page</param>
+            <returns>all RSS/feed links</returns>
+        </member>
+        <member name="M:CodeHollow.FeedReader.FeedReader.Read(System.String)">
+            <summary>
+            reads a feed from an url. the url must be a feed. Use ParseFeedUrlsFromHtml to
+            parse the feeds from a url which is not a feed.
+            </summary>
+            <param name="url">the url to a feed</param>
+            <returns>parsed feed</returns>
+        </member>
+        <member name="M:CodeHollow.FeedReader.FeedReader.ReadAsync(System.String,System.Threading.CancellationToken,System.Boolean,System.String)">
+            <summary>
+            reads a feed from an url. the url must be a feed. Use ParseFeedUrlsFromHtml to
+            parse the feeds from a url which is not a feed.
+            </summary>
+            <param name="url">the url to a feed</param>
+            <param name="cancellationToken">token to cancel operation</param>
+            <param name="autoRedirect">autoredirect if page is moved permanently</param>
+            <param name="userAgent">override built-in user-agent header</param>
+            <returns>parsed feed</returns>
+        </member>
+        <member name="M:CodeHollow.FeedReader.FeedReader.ReadAsync(System.String,System.Boolean,System.String)">
+            <summary>
+            reads a feed from an url. the url must be a feed. Use ParseFeedUrlsFromHtml to
+            parse the feeds from a url which is not a feed.
+            </summary>
+            <param name="url">the url to a feed</param>
+            <param name="autoRedirect">autoredirect if page is moved permanently</param>
+            <param name="userAgent">override built-in user-agent header</param>
+            <returns>parsed feed</returns>
+        </member>
+        <member name="M:CodeHollow.FeedReader.FeedReader.ReadFromFile(System.String)">
+            <summary>
+            reads a feed from a file
+            </summary>
+            <param name="filePath">the path to the feed file</param>
+            <returns>parsed feed</returns>
+        </member>
+        <member name="M:CodeHollow.FeedReader.FeedReader.ReadFromFileAsync(System.String,System.Threading.CancellationToken)">
+            <summary>
+            reads a feed from a file
+            </summary>
+            <param name="filePath">the path to the feed file</param>
+            <param name="cancellationToken">token to cancel operation</param>
+            <returns>parsed feed</returns>
+        </member>
+        <member name="M:CodeHollow.FeedReader.FeedReader.ReadFromFileAsync(System.String)">
+            <summary>
+            reads a feed from a file
+            </summary>
+            <param name="filePath">the path to the feed file</param>
+            <returns>parsed feed</returns>
+        </member>
+        <member name="M:CodeHollow.FeedReader.FeedReader.ReadFromString(System.String)">
+            <summary>
+            reads a feed from the <paramref name="feedContent" />
+            </summary>
+            <param name="feedContent">the feed content (xml)</param>
+            <returns>parsed feed</returns>
+        </member>
+        <member name="M:CodeHollow.FeedReader.FeedReader.ReadFromByteArray(System.Byte[])">
+            <summary>
+            reads a feed from the bytearray <paramref name="feedContent"/>
+            This could be useful if some special encoding is used.
+            </summary>
+            <param name="feedContent"></param>
+            <returns></returns>
+        </member>
+        <member name="T:CodeHollow.FeedReader.Feeds.Rss091Feed">
+            <summary>
+            Rss Feed according to Rss 0.91 specification:
+            http://www.rssboard.org/rss-0-9-1-netscape
+            </summary>
+        </member>
+        <member name="P:CodeHollow.FeedReader.Feeds.Rss091Feed.Description">
+            <summary>
+            The required field "description"
+            </summary>
+        </member>
+        <member name="P:CodeHollow.FeedReader.Feeds.Rss091Feed.Language">
+            <summary>
+            The required field "language"
+            /// </summary>
+        </member>
+        <member name="P:CodeHollow.FeedReader.Feeds.Rss091Feed.Copyright">
+            <summary>
+            The "copyright" field
+            </summary>
+        </member>
+        <member name="P:CodeHollow.FeedReader.Feeds.Rss091Feed.Docs">
+            <summary>
+            The "docs" field
+            </summary>
+        </member>
+        <member name="P:CodeHollow.FeedReader.Feeds.Rss091Feed.Image">
+            <summary>
+            The "image" element
+            </summary>
+        </member>
+        <member name="P:CodeHollow.FeedReader.Feeds.Rss091Feed.LastBuildDateString">
+            <summary>
+            The "lastBuildDate" element
+            </summary>
+        </member>
+        <member name="P:CodeHollow.FeedReader.Feeds.Rss091Feed.LastBuildDate">
+            <summary>
+            The "lastBuildDate" as DateTime. Null if parsing failed or lastBuildDate is empty.
+            </summary>
+        </member>
+        <member name="P:CodeHollow.FeedReader.Feeds.Rss091Feed.ManagingEditor">
+            <summary>
+            The "managingEditor" field
+            </summary>
+        </member>
+        <member name="P:CodeHollow.FeedReader.Feeds.Rss091Feed.PublishingDateString">
+            <summary>
+            The "pubDate" field
+            </summary>
+        </member>
+        <member name="P:CodeHollow.FeedReader.Feeds.Rss091Feed.PublishingDate">
+            <summary>
+            The "pubDate" field as DateTime. Null if parsing failed or pubDate is empty.
+            </summary>
+        </member>
+        <member name="P:CodeHollow.FeedReader.Feeds.Rss091Feed.Rating">
+            <summary>
+            The "rating" field
+            </summary>
+        </member>
+        <member name="P:CodeHollow.FeedReader.Feeds.Rss091Feed.SkipDays">
+            <summary>
+            All "day" elements in "skipDays"
+            </summary>
+        </member>
+        <member name="P:CodeHollow.FeedReader.Feeds.Rss091Feed.SkipHours">
+            <summary>
+            All "hour" elements in "skipHours"
+            </summary>
+        </member>
+        <member name="P:CodeHollow.FeedReader.Feeds.Rss091Feed.TextInput">
+            <summary>
+            The "textInput" element
+            </summary>
+        </member>
+        <member name="P:CodeHollow.FeedReader.Feeds.Rss091Feed.WebMaster">
+            <summary>
+            The "webMaster" element
+            </summary>
+        </member>
+        <member name="P:CodeHollow.FeedReader.Feeds.Rss091Feed.Sy">
+            <summary>
+            All elements that start with "sy:"
+            </summary>
+        </member>
+        <member name="M:CodeHollow.FeedReader.Feeds.Rss091Feed.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:CodeHollow.FeedReader.Feeds.Rss091Feed"/> class.
+            default constructor (for serialization)
+            </summary>
+        </member>
+        <member name="M:CodeHollow.FeedReader.Feeds.Rss091Feed.#ctor(System.String,System.Xml.Linq.XElement)">
+            <summary>
+            Initializes a new instance of the <see cref="T:CodeHollow.FeedReader.Feeds.Rss091Feed"/> class.
+            Reads a rss 0.91 feed based on the xml given in channel
+            </summary>
+            <param name="feedXml">the entire feed xml as string</param>
+            <param name="channel">the "channel" element in the xml as XElement</param>
+        </member>
+        <member name="M:CodeHollow.FeedReader.Feeds.Rss091Feed.ToFeed">
+            <summary>
+            Creates the base <see cref="T:CodeHollow.FeedReader.Feed"/> element out of this feed.
+            </summary>
+            <returns>feed</returns>
+        </member>
+        <member name="M:CodeHollow.FeedReader.Feeds.Rss091Feed.AddItems(System.Collections.Generic.IEnumerable{System.Xml.Linq.XElement})">
+            <summary>
+            Adds feed items to the items collection
+            </summary>
+            <param name="items">feed items as XElements</param>
+        </member>
+        <member name="T:CodeHollow.FeedReader.Feeds.Rss091FeedImage">
+            <summary>
+            Rss 0.91 Feed Image according to specification: http://www.rssboard.org/rss-0-9-1-netscape#image
+            </summary>
+        </member>
+        <member name="P:CodeHollow.FeedReader.Feeds.Rss091FeedImage.Description">
+            <summary>
+            The "description" element
+            </summary>
+        </member>
+        <member name="P:CodeHollow.FeedReader.Feeds.Rss091FeedImage.Width">
+            <summary>
+            The "width" element
+            </summary>
+        </member>
+        <member name="P:CodeHollow.FeedReader.Feeds.Rss091FeedImage.Height">
+            <summary>
+            The "height" element
+            </summary>
+        </member>
+        <member name="M:CodeHollow.FeedReader.Feeds.Rss091FeedImage.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:CodeHollow.FeedReader.Feeds.Rss091FeedImage"/> class.
+            default constructor (for serialization)
+            </summary>
+        </member>
+        <member name="M:CodeHollow.FeedReader.Feeds.Rss091FeedImage.#ctor(System.Xml.Linq.XElement)">
+            <summary>
+            Initializes a new instance of the <see cref="T:CodeHollow.FeedReader.Feeds.Rss091FeedImage"/> class.
+            Creates this object based on the xml in the XElement parameter.
+            </summary>
+            <param name="element">feed image as xml</param>
+        </member>
+        <member name="T:CodeHollow.FeedReader.Feeds.Rss091FeedItem">
+            <summary>
+            Rss 0.91 Feed Item according to specification: http://www.rssboard.org/rss-0-9-1-netscape#image
+            </summary>
+        </member>
+        <member name="P:CodeHollow.FeedReader.Feeds.Rss091FeedItem.Description">
+            <summary>
+            The "description" field
+            </summary>
+        </member>
+        <member name="P:CodeHollow.FeedReader.Feeds.Rss091FeedItem.PublishingDateString">
+            <summary>
+            The "pubDate" field
+            </summary>
+        </member>
+        <member name="P:CodeHollow.FeedReader.Feeds.Rss091FeedItem.PublishingDate">
+            <summary>
+            The "pubDate" field as DateTime. Null if parsing failed or pubDate is empty.
+            </summary>
+        </member>
+        <member name="M:CodeHollow.FeedReader.Feeds.Rss091FeedItem.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:CodeHollow.FeedReader.Feeds.Rss091FeedItem"/> class.
+            default constructor (for serialization)
+            </summary>
+        </member>
+        <member name="M:CodeHollow.FeedReader.Feeds.Rss091FeedItem.#ctor(System.Xml.Linq.XElement)">
+            <summary>
+            Initializes a new instance of the <see cref="T:CodeHollow.FeedReader.Feeds.Rss091FeedItem"/> class.
+            Creates this object based on the xml in the XElement parameter.
+            </summary>
+            <param name="item">feed item as xml</param>
+        </member>
+        <member name="T:CodeHollow.FeedReader.Feeds.Rss092Feed">
+            <summary>
+            Rss 0.92 feed according to specification: http://backend.userland.com/rss092
+            </summary>
+        </member>
+        <member name="P:CodeHollow.FeedReader.Feeds.Rss092Feed.Cloud">
+            <summary>
+            The "cloud" field
+            </summary>
+        </member>
+        <member name="M:CodeHollow.FeedReader.Feeds.Rss092Feed.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:CodeHollow.FeedReader.Feeds.Rss092Feed"/> class.
+            default constructor (for serialization)
+            </summary>
+        </member>
+        <member name="M:CodeHollow.FeedReader.Feeds.Rss092Feed.#ctor(System.String,System.Xml.Linq.XElement)">
+            <summary>
+            Initializes a new instance of the <see cref="T:CodeHollow.FeedReader.Feeds.Rss092Feed"/> class.
+            Reads a rss 0.92 feed based on the xml given in channel
+            </summary>
+            <param name="feedXml">the entire feed xml as string</param>
+            <param name="channel">the "channel" element in the xml as XElement</param>
+        </member>
+        <member name="M:CodeHollow.FeedReader.Feeds.Rss092Feed.AddItems(System.Collections.Generic.IEnumerable{System.Xml.Linq.XElement})">
+            <inheritdoc/>
+        </member>
+        <member name="M:CodeHollow.FeedReader.Feeds.Rss092Feed.ToFeed">
+            <summary>
+            Creates the base <see cref="T:CodeHollow.FeedReader.Feed"/> element out of this feed.
+            </summary>
+            <returns>feed</returns>
+        </member>
+        <member name="T:CodeHollow.FeedReader.Feeds.Rss092FeedImage">
+            <summary>
+            Rss 0.92 Feed Image according to specification: http://backend.userland.com/rss092
+            </summary>
+        </member>
+        <member name="M:CodeHollow.FeedReader.Feeds.Rss092FeedImage.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:CodeHollow.FeedReader.Feeds.Rss092FeedImage"/> class.
+            default constructor (for serialization)
+            </summary>
+        </member>
+        <member name="M:CodeHollow.FeedReader.Feeds.Rss092FeedImage.#ctor(System.Xml.Linq.XElement)">
+            <summary>
+            Initializes a new instance of the <see cref="T:CodeHollow.FeedReader.Feeds.Rss092FeedImage"/> class.
+            Creates this object based on the xml in the XElement parameter.
+            </summary>
+            <param name="element">rss 0.92 image as xml</param>
+        </member>
+        <member name="T:CodeHollow.FeedReader.Feeds.Rss092FeedItem">
+            <summary>
+            Rss 0.92 feed item according to specification: http://backend.userland.com/rss092
+            </summary>
+        </member>
+        <member name="P:CodeHollow.FeedReader.Feeds.Rss092FeedItem.Categories">
+            <summary>
+            All entries "category" entries
+            </summary>
+        </member>
+        <member name="P:CodeHollow.FeedReader.Feeds.Rss092FeedItem.Enclosure">
+            <summary>
+            The "enclosure" field
+            </summary>
+        </member>
+        <member name="P:CodeHollow.FeedReader.Feeds.Rss092FeedItem.Source">
+            <summary>
+            The "source" field
+            </summary>
+        </member>
+        <member name="M:CodeHollow.FeedReader.Feeds.Rss092FeedItem.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:CodeHollow.FeedReader.Feeds.Rss092FeedItem"/> class.
+            default constructor (for serialization)
+            </summary>
+        </member>
+        <member name="M:CodeHollow.FeedReader.Feeds.Rss092FeedItem.#ctor(System.Xml.Linq.XElement)">
+            <summary>
+            Initializes a new instance of the <see cref="T:CodeHollow.FeedReader.Feeds.Rss092FeedItem"/> class.
+            Creates a new feed item element based on the given xml XELement
+            </summary>
+            <param name="item">the xml containing the feed item</param>
+        </member>
+        <member name="T:CodeHollow.FeedReader.Feeds.Rss10Feed">
+            <summary>
+            Rss 1.0 Feed according to specification: http://web.resource.org/rss/1.0/spec
+            </summary>
+        </member>
+        <member name="P:CodeHollow.FeedReader.Feeds.Rss10Feed.About">
+            <summary>
+            The "about" attribute of the element
+            </summary>
+        </member>
+        <member name="P:CodeHollow.FeedReader.Feeds.Rss10Feed.DC">
+            <summary>
+            All elements starting with "dc:"
+            </summary>
+        </member>
+        <member name="P:CodeHollow.FeedReader.Feeds.Rss10Feed.Sy">
+            <summary>
+            All elements starting with "sy:"
+            </summary>
+        </member>
+        <member name="P:CodeHollow.FeedReader.Feeds.Rss10Feed.Description">
+            <summary>
+            The "description" field
+            </summary>
+        </member>
+        <member name="P:CodeHollow.FeedReader.Feeds.Rss10Feed.Image">
+            <summary>
+            The "image" element
+            </summary>
+        </member>
+        <member name="P:CodeHollow.FeedReader.Feeds.Rss10Feed.TextInput">
+            <summary>
+            The "textInput" element
+            </summary>
+        </member>
+        <member name="M:CodeHollow.FeedReader.Feeds.Rss10Feed.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:CodeHollow.FeedReader.Feeds.Rss10Feed"/> class.
+            default constructor (for serialization)
+            </summary>
+        </member>
+        <member name="M:CodeHollow.FeedReader.Feeds.Rss10Feed.#ctor(System.String,System.Xml.Linq.XElement)">
+            <summary>
+            Initializes a new instance of the <see cref="T:CodeHollow.FeedReader.Feeds.Rss10Feed"/> class.
+            Reads a rss 1.0 feed based on the xml given in xelement
+            </summary>
+            <param name="feedXml">the entire feed xml as string</param>
+            <param name="channel">the "channel" element in the xml as XElement</param>
+        </member>
+        <member name="M:CodeHollow.FeedReader.Feeds.Rss10Feed.ToFeed">
+            <summary>
+            Creates the base <see cref="T:CodeHollow.FeedReader.Feed"/> element out of this feed.
+            </summary>
+            <returns>feed</returns>
+        </member>
+        <member name="T:CodeHollow.FeedReader.Feeds.Rss10FeedImage">
+            <summary>
+            Rss 1.0 Feed image according to specification: http://web.resource.org/rss/1.0/spec
+            </summary>
+        </member>
+        <member name="P:CodeHollow.FeedReader.Feeds.Rss10FeedImage.About">
+            <summary>
+            The "about" attribute of the element
+            </summary>
+        </member>
+        <member name="M:CodeHollow.FeedReader.Feeds.Rss10FeedImage.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:CodeHollow.FeedReader.Feeds.Rss10FeedImage"/> class.
+            default constructor (for serialization)
+            </summary>
+        </member>
+        <member name="M:CodeHollow.FeedReader.Feeds.Rss10FeedImage.#ctor(System.Xml.Linq.XElement)">
+            <summary>
+            Initializes a new instance of the <see cref="T:CodeHollow.FeedReader.Feeds.Rss10FeedImage"/> class.
+            Reads a rss 1.0 feed image based on the xml given in element
+            </summary>
+            <param name="element">feed image as xml</param>
+        </member>
+        <member name="T:CodeHollow.FeedReader.Feeds.Rss10FeedItem">
+            <summary>
+            Rss 1.0 Feed Item according to specification: http://web.resource.org/rss/1.0/spec
+            </summary>
+        </member>
+        <member name="P:CodeHollow.FeedReader.Feeds.Rss10FeedItem.About">
+            <summary>
+            The "about" attribute of the element
+            </summary>
+        </member>
+        <member name="P:CodeHollow.FeedReader.Feeds.Rss10FeedItem.Description">
+            <summary>
+            The "description" field
+            </summary>
+        </member>
+        <member name="P:CodeHollow.FeedReader.Feeds.Rss10FeedItem.DC">
+            <summary>
+            All elements starting with "dc:"
+            </summary>
+        </member>
+        <member name="P:CodeHollow.FeedReader.Feeds.Rss10FeedItem.Sy">
+            <summary>
+            All elements starting with "sy:"
+            </summary>
+        </member>
+        <member name="M:CodeHollow.FeedReader.Feeds.Rss10FeedItem.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:CodeHollow.FeedReader.Feeds.Rss10FeedItem"/> class.
+            default constructor (for serialization)
+            </summary>
+        </member>
+        <member name="M:CodeHollow.FeedReader.Feeds.Rss10FeedItem.#ctor(System.Xml.Linq.XElement)">
+            <summary>
+            Initializes a new instance of the <see cref="T:CodeHollow.FeedReader.Feeds.Rss10FeedItem"/> class.
+            Reads a rss 1.0 feed item based on the xml given in item
+            </summary>
+            <param name="item">feed item as xml</param>
+        </member>
+        <member name="M:CodeHollow.FeedReader.Feeds.Rss10FeedItem.ToFeedItem">
+            <inheritdoc/>
+        </member>
+        <member name="T:CodeHollow.FeedReader.Feeds.Rss10FeedTextInput">
+            <summary>
+            Rss 1.0 Feed textinput according to specification: http://web.resource.org/rss/1.0/spec
+            </summary>
+        </member>
+        <member name="P:CodeHollow.FeedReader.Feeds.Rss10FeedTextInput.About">
+            <summary>
+            The "about" attribute of the element
+            </summary>
+        </member>
+        <member name="M:CodeHollow.FeedReader.Feeds.Rss10FeedTextInput.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:CodeHollow.FeedReader.Feeds.Rss10FeedTextInput"/> class.
+            default constructor (for serialization)
+            </summary>
+        </member>
+        <member name="M:CodeHollow.FeedReader.Feeds.Rss10FeedTextInput.#ctor(System.Xml.Linq.XElement)">
+            <summary>
+            Initializes a new instance of the <see cref="T:CodeHollow.FeedReader.Feeds.Rss10FeedTextInput"/> class.
+            Reads a rss 1.0 textInput element based on the xml given in item
+            </summary>
+            <param name="element">about element as xml</param>
+        </member>
+        <member name="T:CodeHollow.FeedReader.Feeds.Rss20Feed">
+            <summary>
+            RSS 2.0 feed accoring to specification: https://validator.w3.org/feed/docs/rss2.html
+            </summary>
+        </member>
+        <member name="P:CodeHollow.FeedReader.Feeds.Rss20Feed.Description">
+            <summary>
+            The "description" element
+            </summary>
+        </member>
+        <member name="P:CodeHollow.FeedReader.Feeds.Rss20Feed.Language">
+            <summary>
+            The "language" element
+            </summary>
+        </member>
+        <member name="P:CodeHollow.FeedReader.Feeds.Rss20Feed.Copyright">
+            <summary>
+            The "copyright" element
+            </summary>
+        </member>
+        <member name="P:CodeHollow.FeedReader.Feeds.Rss20Feed.Docs">
+            <summary>
+            The "docs" element
+            </summary>
+        </member>
+        <member name="P:CodeHollow.FeedReader.Feeds.Rss20Feed.Image">
+            <summary>
+            The "image" element
+            </summary>
+        </member>
+        <member name="P:CodeHollow.FeedReader.Feeds.Rss20Feed.LastBuildDateString">
+            <summary>
+            The "lastBuildDate" element as string
+            </summary>
+        </member>
+        <member name="P:CodeHollow.FeedReader.Feeds.Rss20Feed.LastBuildDate">
+            <summary>
+            The "lastBuildDate" element as DateTime. Null if parsing failed of lastBuildDate is empty.
+            </summary>
+        </member>
+        <member name="P:CodeHollow.FeedReader.Feeds.Rss20Feed.ManagingEditor">
+            <summary>
+            The "managingEditor" element
+            </summary>
+        </member>
+        <member name="P:CodeHollow.FeedReader.Feeds.Rss20Feed.PublishingDateString">
+            <summary>
+            The "pubDate" field
+            </summary>
+        </member>
+        <member name="P:CodeHollow.FeedReader.Feeds.Rss20Feed.PublishingDate">
+            <summary>
+            The "pubDate" field as DateTime. Null if parsing failed or pubDate is empty.
+            </summary>
+        </member>
+        <member name="P:CodeHollow.FeedReader.Feeds.Rss20Feed.WebMaster">
+            <summary>
+            The "webMaster" field
+            </summary>
+        </member>
+        <member name="P:CodeHollow.FeedReader.Feeds.Rss20Feed.Categories">
+            <summary>
+            All "category" elements
+            </summary>
+        </member>
+        <member name="P:CodeHollow.FeedReader.Feeds.Rss20Feed.Generator">
+            <summary>
+            The "generator" element
+            </summary>
+        </member>
+        <member name="P:CodeHollow.FeedReader.Feeds.Rss20Feed.Cloud">
+            <summary>
+            The "cloud" element
+            </summary>
+        </member>
+        <member name="P:CodeHollow.FeedReader.Feeds.Rss20Feed.TTL">
+            <summary>
+            The time to life "ttl" element
+            </summary>
+        </member>
+        <member name="P:CodeHollow.FeedReader.Feeds.Rss20Feed.SkipDays">
+            <summary>
+            All "day" elements in "skipDays"
+            </summary>
+        </member>
+        <member name="P:CodeHollow.FeedReader.Feeds.Rss20Feed.SkipHours">
+            <summary>
+            All "hour" elements in "skipHours"
+            </summary>
+        </member>
+        <member name="P:CodeHollow.FeedReader.Feeds.Rss20Feed.TextInput">
+            <summary>
+            The "textInput" element
+            </summary>
+        </member>
+        <member name="P:CodeHollow.FeedReader.Feeds.Rss20Feed.Sy">
+            <summary>
+            All elements starting with "sy:"
+            </summary>
+        </member>
+        <member name="M:CodeHollow.FeedReader.Feeds.Rss20Feed.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:CodeHollow.FeedReader.Feeds.Rss20Feed"/> class.
+            default constructor (for serialization)
+            </summary>
+        </member>
+        <member name="M:CodeHollow.FeedReader.Feeds.Rss20Feed.#ctor(System.String,System.Xml.Linq.XElement)">
+            <summary>
+            Initializes a new instance of the <see cref="T:CodeHollow.FeedReader.Feeds.Rss20Feed"/> class.
+            Reads a rss 2.0 feed based on the xml given in channel
+            </summary>
+            <param name="feedXml">the entire feed xml as string</param>
+            <param name="channel">the "channel" element in the xml as XElement</param>
+        </member>
+        <member name="M:CodeHollow.FeedReader.Feeds.Rss20Feed.ToFeed">
+            <summary>
+            Creates the base <see cref="T:CodeHollow.FeedReader.Feed"/> element out of this feed.
+            </summary>
+            <returns>feed</returns>
+        </member>
+        <member name="M:CodeHollow.FeedReader.Feeds.Rss20Feed.ParseDates(System.String,System.String,System.String)">
+            <summary>
+            Sets the PublishingDate and LastBuildDate. If parsing fails, then it checks if the language
+            is set and tries to parse the date based on the culture of the language.
+            </summary>
+            <param name="language">language of the feed</param>
+            <param name="publishingDate">publishing date as string</param>
+            <param name="lastBuildDate">last build date as string</param>
+        </member>
+        <member name="T:CodeHollow.FeedReader.Feeds.Rss20FeedImage">
+            <summary>
+            Rss 2.0 Image according to specification: https://validator.w3.org/feed/docs/rss2.html#ltimagegtSubelementOfLtchannelgt
+            </summary>
+        </member>
+        <member name="M:CodeHollow.FeedReader.Feeds.Rss20FeedImage.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:CodeHollow.FeedReader.Feeds.Rss20FeedImage"/> class.
+            default constructor (for serialization)
+            </summary>
+        </member>
+        <member name="M:CodeHollow.FeedReader.Feeds.Rss20FeedImage.#ctor(System.Xml.Linq.XElement)">
+            <summary>
+            Initializes a new instance of the <see cref="T:CodeHollow.FeedReader.Feeds.Rss20FeedImage"/> class.
+            Reads a rss 2.0 feed image based on the xml given in element
+            </summary>
+            <param name="element">feed image as xml</param>
+        </member>
+        <member name="T:CodeHollow.FeedReader.Feeds.Rss20FeedItem">
+            <summary>
+            RSS 2.0 feed item accoring to specification: https://validator.w3.org/feed/docs/rss2.html
+            </summary>
+        </member>
+        <member name="P:CodeHollow.FeedReader.Feeds.Rss20FeedItem.Description">
+            <summary>
+            The "description" field of the feed item
+            </summary>
+        </member>
+        <member name="P:CodeHollow.FeedReader.Feeds.Rss20FeedItem.Author">
+            <summary>
+            The "author" field of the feed item
+            </summary>
+        </member>
+        <member name="P:CodeHollow.FeedReader.Feeds.Rss20FeedItem.Comments">
+            <summary>
+            The "comments" field of the feed item
+            </summary>
+        </member>
+        <member name="P:CodeHollow.FeedReader.Feeds.Rss20FeedItem.Enclosure">
+            <summary>
+            The "enclosure" field
+            </summary>
+        </member>
+        <member name="P:CodeHollow.FeedReader.Feeds.Rss20FeedItem.Guid">
+            <summary>
+            The "guid" field
+            </summary>
+        </member>
+        <member name="P:CodeHollow.FeedReader.Feeds.Rss20FeedItem.PublishingDateString">
+            <summary>
+            The "pubDate" field
+            </summary>
+        </member>
+        <member name="P:CodeHollow.FeedReader.Feeds.Rss20FeedItem.PublishingDate">
+            <summary>
+            The "pubDate" field as DateTime. Null if parsing failed or pubDate is empty.
+            </summary>
+        </member>
+        <member name="P:CodeHollow.FeedReader.Feeds.Rss20FeedItem.Source">
+            <summary>
+            The "source" field
+            </summary>
+        </member>
+        <member name="P:CodeHollow.FeedReader.Feeds.Rss20FeedItem.Categories">
+            <summary>
+            All entries "category" entries
+            </summary>
+        </member>
+        <member name="P:CodeHollow.FeedReader.Feeds.Rss20FeedItem.Content">
+            <summary>
+            The "content:encoded" field
+            </summary>
+        </member>
+        <member name="P:CodeHollow.FeedReader.Feeds.Rss20FeedItem.DC">
+            <summary>
+            All elements starting with "dc:"
+            </summary>
+        </member>
+        <member name="M:CodeHollow.FeedReader.Feeds.Rss20FeedItem.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:CodeHollow.FeedReader.Feeds.Rss20FeedItem"/> class.
+            default constructor (for serialization)
+            </summary>
+        </member>
+        <member name="M:CodeHollow.FeedReader.Feeds.Rss20FeedItem.#ctor(System.Xml.Linq.XElement)">
+            <summary>
+            Initializes a new instance of the <see cref="T:CodeHollow.FeedReader.Feeds.Rss20FeedItem"/> class.
+            Reads a new feed item element based on the given xml item
+            </summary>
+            <param name="item">the xml containing the feed item</param>
+        </member>
+        <member name="M:CodeHollow.FeedReader.Feeds.Rss20FeedItem.ToFeedItem">
+            <inheritdoc/>
+        </member>
+        <member name="T:CodeHollow.FeedReader.Feeds.AtomFeed">
+            <summary>
+            Atom 1.0 feed object according to specification: https://validator.w3.org/feed/docs/atom.html
+            </summary>
+        </member>
+        <member name="P:CodeHollow.FeedReader.Feeds.AtomFeed.Author">
+            <summary>
+            The "author" element
+            </summary>
+        </member>
+        <member name="P:CodeHollow.FeedReader.Feeds.AtomFeed.Categories">
+            <summary>
+            All "category" elements
+            </summary>
+        </member>
+        <member name="P:CodeHollow.FeedReader.Feeds.AtomFeed.Contributor">
+            <summary>
+            The "contributor" element
+            </summary>
+        </member>
+        <member name="P:CodeHollow.FeedReader.Feeds.AtomFeed.Generator">
+            <summary>
+            The "generator" element
+            </summary>
+        </member>
+        <member name="P:CodeHollow.FeedReader.Feeds.AtomFeed.Icon">
+            <summary>
+            The "icon" element
+            </summary>
+        </member>
+        <member name="P:CodeHollow.FeedReader.Feeds.AtomFeed.Id">
+            <summary>
+            The "id" element
+            </summary>
+        </member>
+        <member name="P:CodeHollow.FeedReader.Feeds.AtomFeed.Logo">
+            <summary>
+            The "logo" element
+            </summary>
+        </member>
+        <member name="P:CodeHollow.FeedReader.Feeds.AtomFeed.Rights">
+            <summary>
+            The "rights" element
+            </summary>
+        </member>
+        <member name="P:CodeHollow.FeedReader.Feeds.AtomFeed.Subtitle">
+            <summary>
+            The "subtitle" element
+            </summary>
+        </member>
+        <member name="P:CodeHollow.FeedReader.Feeds.AtomFeed.UpdatedDateString">
+            <summary>
+            The "updated" element as string
+            </summary>
+        </member>
+        <member name="P:CodeHollow.FeedReader.Feeds.AtomFeed.UpdatedDate">
+            <summary>
+            The "updated" element as DateTime. Null if parsing failed of updatedDate is empty.
+            </summary>
+        </member>
+        <member name="P:CodeHollow.FeedReader.Feeds.AtomFeed.Links">
+            <summary>
+            All "link" elements
+            </summary>
+        </member>
+        <member name="M:CodeHollow.FeedReader.Feeds.AtomFeed.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:CodeHollow.FeedReader.Feeds.AtomFeed"/> class.
+            default constructor (for serialization)
+            </summary>
+        </member>
+        <member name="M:CodeHollow.FeedReader.Feeds.AtomFeed.#ctor(System.String,System.Xml.Linq.XElement)">
+            <summary>
+            Initializes a new instance of the <see cref="T:CodeHollow.FeedReader.Feeds.AtomFeed"/> class.
+            Reads an atom feed based on the xml given in channel
+            </summary>
+            <param name="feedXml">the entire feed xml as string</param>
+            <param name="feed">the feed element in the xml as XElement</param>
+        </member>
+        <member name="M:CodeHollow.FeedReader.Feeds.AtomFeed.ToFeed">
+            <summary>
+            Creates the base <see cref="T:CodeHollow.FeedReader.Feed"/> element out of this feed.
+            </summary>
+            <returns>feed</returns>
+        </member>
+        <member name="T:CodeHollow.FeedReader.Feeds.AtomFeedItem">
+            <summary>
+            Atom 1.0 feed item object according to specification: https://validator.w3.org/feed/docs/atom.html
+            </summary>
+        </member>
+        <member name="P:CodeHollow.FeedReader.Feeds.AtomFeedItem.Author">
+            <summary>
+            The "author" element
+            </summary>
+        </member>
+        <member name="P:CodeHollow.FeedReader.Feeds.AtomFeedItem.Categories">
+            <summary>
+            All "category" elements
+            </summary>
+        </member>
+        <member name="P:CodeHollow.FeedReader.Feeds.AtomFeedItem.Content">
+            <summary>
+            The "content" element
+            </summary>
+        </member>
+        <member name="P:CodeHollow.FeedReader.Feeds.AtomFeedItem.Contributor">
+            <summary>
+            The "contributor" element
+            </summary>
+        </member>
+        <member name="P:CodeHollow.FeedReader.Feeds.AtomFeedItem.Id">
+            <summary>
+            The "id" element
+            </summary>
+        </member>
+        <member name="P:CodeHollow.FeedReader.Feeds.AtomFeedItem.PublishedDateString">
+            <summary>
+            The "published" date as string
+            </summary>
+        </member>
+        <member name="P:CodeHollow.FeedReader.Feeds.AtomFeedItem.PublishedDate">
+            <summary>
+            The "published" element as DateTime. Null if parsing failed or published is empty.
+            </summary>
+        </member>
+        <member name="P:CodeHollow.FeedReader.Feeds.AtomFeedItem.Rights">
+            <summary>
+            The "rights" element
+            </summary>
+        </member>
+        <member name="P:CodeHollow.FeedReader.Feeds.AtomFeedItem.Source">
+            <summary>
+            The "source" element
+            </summary>
+        </member>
+        <member name="P:CodeHollow.FeedReader.Feeds.AtomFeedItem.Summary">
+            <summary>
+            The "summary" element
+            </summary>
+        </member>
+        <member name="P:CodeHollow.FeedReader.Feeds.AtomFeedItem.UpdatedDateString">
+            <summary>
+            The "updated" element
+            </summary>
+        </member>
+        <member name="P:CodeHollow.FeedReader.Feeds.AtomFeedItem.UpdatedDate">
+            <summary>
+            The "updated" element as DateTime. Null if parsing failed or updated is empty
+            </summary>
+        </member>
+        <member name="P:CodeHollow.FeedReader.Feeds.AtomFeedItem.Links">
+            <summary>
+            All "link" elements
+            </summary>
+        </member>
+        <member name="M:CodeHollow.FeedReader.Feeds.AtomFeedItem.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:CodeHollow.FeedReader.Feeds.AtomFeedItem"/> class.
+            default constructor (for serialization)
+            </summary>
+        </member>
+        <member name="M:CodeHollow.FeedReader.Feeds.AtomFeedItem.#ctor(System.Xml.Linq.XElement)">
+            <summary>
+            Initializes a new instance of the <see cref="T:CodeHollow.FeedReader.Feeds.AtomFeedItem"/> class.
+            Reads an atom feed based on the xml given in item
+            </summary>
+            <param name="item">feed item as xml</param>
+        </member>
+        <member name="M:CodeHollow.FeedReader.Feeds.AtomFeedItem.ToFeedItem">
+            <inheritdoc/>
+        </member>
+        <member name="T:CodeHollow.FeedReader.Feeds.AtomLink">
+            <summary>
+            Atom 1.0 link according to specification: https://validator.w3.org/feed/docs/atom.html#link
+            </summary>
+        </member>
+        <member name="P:CodeHollow.FeedReader.Feeds.AtomLink.Href">
+            <summary>
+            The "href" element
+            </summary>
+        </member>
+        <member name="P:CodeHollow.FeedReader.Feeds.AtomLink.Relation">
+            <summary>
+            The "rel" element
+            </summary>
+        </member>
+        <member name="P:CodeHollow.FeedReader.Feeds.AtomLink.LinkType">
+            <summary>
+            The "type" element
+            </summary>
+        </member>
+        <member name="P:CodeHollow.FeedReader.Feeds.AtomLink.HrefLanguage">
+            <summary>
+            The "hreflang" element
+            </summary>
+        </member>
+        <member name="P:CodeHollow.FeedReader.Feeds.AtomLink.Title">
+            <summary>
+            The "title" element
+            </summary>
+        </member>
+        <member name="P:CodeHollow.FeedReader.Feeds.AtomLink.Length">
+            <summary>
+            The "length" elemnt as int
+            </summary>
+        </member>
+        <member name="M:CodeHollow.FeedReader.Feeds.AtomLink.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:CodeHollow.FeedReader.Feeds.AtomLink"/> class.
+            default constructor (for serialization)
+            </summary>
+        </member>
+        <member name="M:CodeHollow.FeedReader.Feeds.AtomLink.#ctor(System.Xml.Linq.XElement)">
+            <summary>
+            Initializes a new instance of the <see cref="T:CodeHollow.FeedReader.Feeds.AtomLink"/> class.
+            Reads an atom link based on the xml given in element
+            </summary>
+            <param name="element">link as xml</param>
+        </member>
+        <member name="M:CodeHollow.FeedReader.Feeds.AtomLink.ToString">
+            <summary>
+            Returns the Href of the link
+            </summary>
+            <returns>the href of the link</returns>
+        </member>
+        <member name="T:CodeHollow.FeedReader.Feeds.AtomPerson">
+            <summary>
+            Atom 1.0 person element according to specification: https://validator.w3.org/feed/docs/atom.html
+            </summary>
+        </member>
+        <member name="P:CodeHollow.FeedReader.Feeds.AtomPerson.Name">
+            <summary>
+            The "name" element
+            </summary>
+        </member>
+        <member name="P:CodeHollow.FeedReader.Feeds.AtomPerson.EMail">
+            <summary>
+            The "email" element
+            </summary>
+        </member>
+        <member name="P:CodeHollow.FeedReader.Feeds.AtomPerson.Uri">
+            <summary>
+            The "uri" element
+            </summary>
+        </member>
+        <member name="M:CodeHollow.FeedReader.Feeds.AtomPerson.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:CodeHollow.FeedReader.Feeds.AtomPerson"/> class.
+            default constructor (for serialization)
+            </summary>
+        </member>
+        <member name="M:CodeHollow.FeedReader.Feeds.AtomPerson.#ctor(System.Xml.Linq.XElement)">
+            <summary>
+            Initializes a new instance of the <see cref="T:CodeHollow.FeedReader.Feeds.AtomPerson"/> class.
+            Reads an atom person based on the xml given in element
+            </summary>
+            <param name="element">person element as xml</param>
+        </member>
+        <member name="M:CodeHollow.FeedReader.Feeds.AtomPerson.ToString">
+            <summary>
+            returns the name of the author including the email if available
+            </summary>
+            <returns>name of the author with email if available</returns>
+        </member>
+        <member name="T:CodeHollow.FeedReader.Feeds.BaseFeed">
+            <summary>
+            BaseFeed object which contains the basic properties that each feed has.
+            </summary>
+        </member>
+        <member name="M:CodeHollow.FeedReader.Feeds.BaseFeed.ToFeed">
+            <summary>
+            creates the generic <see cref="T:CodeHollow.FeedReader.Feed"/> object.
+            </summary>
+            <returns>Feed</returns>
+        </member>
+        <member name="P:CodeHollow.FeedReader.Feeds.BaseFeed.Title">
+            <summary>
+            The title of the feed
+            </summary>
+        </member>
+        <member name="P:CodeHollow.FeedReader.Feeds.BaseFeed.Link">
+            <summary>
+            The link (url) to the feed
+            </summary>
+        </member>
+        <member name="P:CodeHollow.FeedReader.Feeds.BaseFeed.Items">
+            <summary>
+            The items that are in the feed
+            </summary>
+        </member>
+        <member name="P:CodeHollow.FeedReader.Feeds.BaseFeed.OriginalDocument">
+            <summary>
+            Gets the whole, original feed as string
+            </summary>
+        </member>
+        <member name="P:CodeHollow.FeedReader.Feeds.BaseFeed.Element">
+            <summary>
+            Gets the underlying XElement in order to allow reading properties that are not available in the class itself
+            </summary>
+        </member>
+        <member name="M:CodeHollow.FeedReader.Feeds.BaseFeed.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:CodeHollow.FeedReader.Feeds.BaseFeed"/> class.
+            default constructor (for serialization)
+            </summary>
+        </member>
+        <member name="M:CodeHollow.FeedReader.Feeds.BaseFeed.#ctor(System.String,System.Xml.Linq.XElement)">
+            <summary>
+            Initializes a new instance of the <see cref="T:CodeHollow.FeedReader.Feeds.BaseFeed"/> class.
+            Reads a base feed based on the xml given in element
+            </summary>
+            <param name="feedXml">the entire feed xml as string</param>
+            <param name="channel">the "channel" element in the xml as XElement</param>
+        </member>
+        <member name="T:CodeHollow.FeedReader.Feeds.BaseFeedItem">
+            <summary>
+            The base object for all feed items
+            </summary>
+        </member>
+        <member name="P:CodeHollow.FeedReader.Feeds.BaseFeedItem.Title">
+            <summary>
+            The "title" element
+            </summary>
+        </member>
+        <member name="P:CodeHollow.FeedReader.Feeds.BaseFeedItem.Link">
+            <summary>
+            The "link" element
+            </summary>
+        </member>
+        <member name="P:CodeHollow.FeedReader.Feeds.BaseFeedItem.Element">
+            <summary>
+            Gets the underlying XElement in order to allow reading properties that are not available in the class itself
+            </summary>
+        </member>
+        <member name="M:CodeHollow.FeedReader.Feeds.BaseFeedItem.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:CodeHollow.FeedReader.Feeds.BaseFeedItem"/> class.
+            default constructor (for serialization)
+            </summary>
+        </member>
+        <member name="M:CodeHollow.FeedReader.Feeds.BaseFeedItem.#ctor(System.Xml.Linq.XElement)">
+            <summary>
+            Initializes a new instance of the <see cref="T:CodeHollow.FeedReader.Feeds.BaseFeedItem"/> class.
+            Reads a base feed item based on the xml given in element
+            </summary>
+            <param name="item">feed item as xml</param>
+        </member>
+        <member name="T:CodeHollow.FeedReader.Feeds.FeedCloud">
+            <summary>
+            Cloud object according to Rss 2.0 specification: https://validator.w3.org/feed/docs/rss2.html#ltcloudgtSubelementOfLtchannelgt
+            </summary>
+        </member>
+        <member name="P:CodeHollow.FeedReader.Feeds.FeedCloud.Domain">
+            <summary>
+            The "domain" element
+            </summary>
+        </member>
+        <member name="P:CodeHollow.FeedReader.Feeds.FeedCloud.Port">
+            <summary>
+            The "port" element
+            </summary>
+        </member>
+        <member name="P:CodeHollow.FeedReader.Feeds.FeedCloud.Path">
+            <summary>
+            The "path" element
+            </summary>
+        </member>
+        <member name="P:CodeHollow.FeedReader.Feeds.FeedCloud.RegisterProcedure">
+            <summary>
+            The "registerProcedure" element
+            </summary>
+        </member>
+        <member name="P:CodeHollow.FeedReader.Feeds.FeedCloud.Protocol">
+            <summary>
+            The "protocol" element
+            </summary>
+        </member>
+        <member name="M:CodeHollow.FeedReader.Feeds.FeedCloud.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:CodeHollow.FeedReader.Feeds.FeedCloud"/> class.
+            default constructor (for serialization)
+            </summary>
+        </member>
+        <member name="M:CodeHollow.FeedReader.Feeds.FeedCloud.#ctor(System.Xml.Linq.XElement)">
+            <summary>
+            Initializes a new instance of the <see cref="T:CodeHollow.FeedReader.Feeds.FeedCloud"/> class.
+            Reads a rss feed cloud element based on the xml given in element
+            </summary>
+            <param name="element">cloud element as xml</param>
+        </member>
+        <member name="T:CodeHollow.FeedReader.Feeds.FeedImage">
+            <summary>
+            feed image object that is used in feed (rss 0.91, 2.0, atom, ...)
+            </summary>
+        </member>
+        <member name="P:CodeHollow.FeedReader.Feeds.FeedImage.Title">
+            <summary>
+            The "title" element
+            </summary>
+        </member>
+        <member name="P:CodeHollow.FeedReader.Feeds.FeedImage.Url">
+            <summary>
+            The "url" element
+            </summary>
+        </member>
+        <member name="P:CodeHollow.FeedReader.Feeds.FeedImage.Link">
+            <summary>
+            The "link" element
+            </summary>
+        </member>
+        <member name="M:CodeHollow.FeedReader.Feeds.FeedImage.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:CodeHollow.FeedReader.Feeds.FeedImage"/> class.
+            default constructor (for serialization)
+            </summary>
+        </member>
+        <member name="M:CodeHollow.FeedReader.Feeds.FeedImage.#ctor(System.Xml.Linq.XElement)">
+            <summary>
+            Initializes a new instance of the <see cref="T:CodeHollow.FeedReader.Feeds.FeedImage"/> class.
+            Reads a feed image based on the xml given in element
+            </summary>
+            <param name="element">feed image as xml</param>
+        </member>
+        <member name="T:CodeHollow.FeedReader.Feeds.FeedItemEnclosure">
+            <summary>
+            Enclosure object of Rss 2.0 according to specification: https://validator.w3.org/feed/docs/rss2.html
+            </summary>
+        </member>
+        <member name="P:CodeHollow.FeedReader.Feeds.FeedItemEnclosure.Url">
+            <summary>
+            The "url" element
+            </summary>
+        </member>
+        <member name="P:CodeHollow.FeedReader.Feeds.FeedItemEnclosure.Length">
+            <summary>
+            The "length" element as int
+            </summary>
+        </member>
+        <member name="P:CodeHollow.FeedReader.Feeds.FeedItemEnclosure.MediaType">
+            <summary>
+            The "type" element
+            </summary>
+        </member>
+        <member name="M:CodeHollow.FeedReader.Feeds.FeedItemEnclosure.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:CodeHollow.FeedReader.Feeds.FeedItemEnclosure"/> class.
+            default constructor (for serialization)
+            </summary>
+        </member>
+        <member name="M:CodeHollow.FeedReader.Feeds.FeedItemEnclosure.#ctor(System.Xml.Linq.XElement)">
+            <summary>
+            Initializes a new instance of the <see cref="T:CodeHollow.FeedReader.Feeds.FeedItemEnclosure"/> class.
+            Reads a rss feed item enclosure based on the xml given in element
+            </summary>
+            <param name="element">enclosure element as xml</param>
+        </member>
+        <member name="T:CodeHollow.FeedReader.Feeds.FeedItemSource">
+            <summary>
+            item source object from rss 2.0 according to specification: https://validator.w3.org/feed/docs/rss2.html
+            </summary>
+        </member>
+        <member name="P:CodeHollow.FeedReader.Feeds.FeedItemSource.Url">
+            <summary>
+            The "url" element
+            </summary>
+        </member>
+        <member name="P:CodeHollow.FeedReader.Feeds.FeedItemSource.Value">
+            <summary>
+            The value of the element
+            </summary>
+        </member>
+        <member name="M:CodeHollow.FeedReader.Feeds.FeedItemSource.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:CodeHollow.FeedReader.Feeds.FeedItemSource"/> class.
+            default constructor (for serialization)
+            </summary>
+        </member>
+        <member name="M:CodeHollow.FeedReader.Feeds.FeedItemSource.#ctor(System.Xml.Linq.XElement)">
+            <summary>
+            Initializes a new instance of the <see cref="T:CodeHollow.FeedReader.Feeds.FeedItemSource"/> class.
+            Reads a rss feed item based on the xml given in element
+            </summary>
+            <param name="element">item source element as xml</param>
+        </member>
+        <member name="T:CodeHollow.FeedReader.Feeds.FeedTextInput">
+            <summary>
+            default text input object for Rss 0.91, 0.92, 1.0, 2.0 and ATOM
+            </summary>
+        </member>
+        <member name="P:CodeHollow.FeedReader.Feeds.FeedTextInput.Title">
+            <summary>
+            The "title" element
+            </summary>
+        </member>
+        <member name="P:CodeHollow.FeedReader.Feeds.FeedTextInput.Link">
+            <summary>
+            The "link" element
+            </summary>
+        </member>
+        <member name="P:CodeHollow.FeedReader.Feeds.FeedTextInput.Description">
+            <summary>
+            The "description" field
+            </summary>
+        </member>
+        <member name="P:CodeHollow.FeedReader.Feeds.FeedTextInput.Name">
+            <summary>
+            The "name" element
+            </summary>
+        </member>
+        <member name="M:CodeHollow.FeedReader.Feeds.FeedTextInput.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:CodeHollow.FeedReader.Feeds.FeedTextInput"/> class.
+            default constructor (for serialization)
+            </summary>
+        </member>
+        <member name="M:CodeHollow.FeedReader.Feeds.FeedTextInput.#ctor(System.Xml.Linq.XElement)">
+            <summary>
+            Initializes a new instance of the <see cref="T:CodeHollow.FeedReader.Feeds.FeedTextInput"/> class.
+            Reads a rss textInput element based on the xml given in element
+            </summary>
+            <param name="element">text input element as xml</param>
+        </member>
+        <member name="T:CodeHollow.FeedReader.Feeds.DublinCore">
+            <summary>
+            The parsed "dc:" elements in a feed
+            </summary>
+        </member>
+        <member name="P:CodeHollow.FeedReader.Feeds.DublinCore.Title">
+            <summary>
+            The "title" element
+            </summary>
+        </member>
+        <member name="P:CodeHollow.FeedReader.Feeds.DublinCore.Creator">
+            <summary>
+            The "creator" element
+            </summary>
+        </member>
+        <member name="P:CodeHollow.FeedReader.Feeds.DublinCore.Subject">
+            <summary>
+            The "subject" element
+            </summary>
+        </member>
+        <member name="P:CodeHollow.FeedReader.Feeds.DublinCore.Description">
+            <summary>
+            The "description" field
+            </summary>
+        </member>
+        <member name="P:CodeHollow.FeedReader.Feeds.DublinCore.Publisher">
+            <summary>
+            The "publisher" element
+            </summary>
+        </member>
+        <member name="P:CodeHollow.FeedReader.Feeds.DublinCore.Contributor">
+            <summary>
+            The "contributor" element
+            </summary>
+        </member>
+        <member name="P:CodeHollow.FeedReader.Feeds.DublinCore.DateString">
+            <summary>
+            The "date" element
+            </summary>
+        </member>
+        <member name="P:CodeHollow.FeedReader.Feeds.DublinCore.Date">
+            <summary>
+            The "date" element as datetime. Null if parsing failed or date is empty.
+            </summary>
+        </member>
+        <member name="P:CodeHollow.FeedReader.Feeds.DublinCore.Type">
+            <summary>
+            The "type" element
+            </summary>
+        </member>
+        <member name="P:CodeHollow.FeedReader.Feeds.DublinCore.Format">
+            <summary>
+            The "format" element
+            </summary>
+        </member>
+        <member name="P:CodeHollow.FeedReader.Feeds.DublinCore.Identifier">
+            <summary>
+            The "identifier" element
+            </summary>
+        </member>
+        <member name="P:CodeHollow.FeedReader.Feeds.DublinCore.Source">
+            <summary>
+            The "source" element
+            </summary>
+        </member>
+        <member name="P:CodeHollow.FeedReader.Feeds.DublinCore.Language">
+            <summary>
+            The "language" element
+            </summary>
+        </member>
+        <member name="P:CodeHollow.FeedReader.Feeds.DublinCore.Relation">
+            <summary>
+            The "rel" element
+            </summary>
+        </member>
+        <member name="P:CodeHollow.FeedReader.Feeds.DublinCore.Coverage">
+            <summary>
+            The "coverage" element
+            </summary>
+        </member>
+        <member name="P:CodeHollow.FeedReader.Feeds.DublinCore.Rights">
+            <summary>
+            The "rights" element
+            </summary>
+        </member>
+        <member name="M:CodeHollow.FeedReader.Feeds.DublinCore.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:CodeHollow.FeedReader.Feeds.DublinCore"/> class.
+            default constructor (for serialization)
+            </summary>
+        </member>
+        <member name="M:CodeHollow.FeedReader.Feeds.DublinCore.#ctor(System.Xml.Linq.XElement)">
+            <summary>
+            Initializes a new instance of the <see cref="T:CodeHollow.FeedReader.Feeds.DublinCore"/> class.
+            Reads a dublincore (dc:) element based on the xml given in element
+            </summary>
+            <param name="item">item element as xml</param>
+        </member>
+        <member name="T:CodeHollow.FeedReader.Feeds.Itunes.ItunesCategory">
+            <summary>
+            The itunes:category element
+            </summary>
+        </member>
+        <member name="M:CodeHollow.FeedReader.Feeds.Itunes.ItunesCategory.#ctor(System.String,CodeHollow.FeedReader.Feeds.Itunes.ItunesCategory[])">
+            <summary>
+            Initializes a new instance of the <see cref="T:CodeHollow.FeedReader.Feeds.Itunes.ItunesCategory"/> class.
+            itunes:category element
+            </summary>
+            <param name="text"></param>
+            <param name="children"></param>
+        </member>
+        <member name="P:CodeHollow.FeedReader.Feeds.Itunes.ItunesCategory.Text">
+            <summary>
+            The text attribute
+            </summary>
+        </member>
+        <member name="P:CodeHollow.FeedReader.Feeds.Itunes.ItunesCategory.Children">
+            <summary>
+            All child itunes:category elements
+            </summary>
+        </member>
+        <member name="T:CodeHollow.FeedReader.Feeds.Itunes.ItunesChannel">
+            <summary>
+            The basic itunes: elements that are part of the channel xml element of an rss2.0 feed
+            </summary>
+        </member>
+        <member name="M:CodeHollow.FeedReader.Feeds.Itunes.ItunesChannel.#ctor(System.Xml.Linq.XElement)">
+            <summary>
+            Initializes a new instance of the <see cref="T:CodeHollow.FeedReader.Feeds.Itunes.ItunesChannel"/> class.
+            </summary>
+            <param name="channelElement"></param>
+        </member>
+        <member name="P:CodeHollow.FeedReader.Feeds.Itunes.ItunesChannel.Author">
+            <summary>
+            The itunes:author element
+            </summary>
+        </member>
+        <member name="P:CodeHollow.FeedReader.Feeds.Itunes.ItunesChannel.Block">
+            <summary>
+            The itunes:block element
+            </summary>
+        </member>
+        <member name="P:CodeHollow.FeedReader.Feeds.Itunes.ItunesChannel.Categories">
+            <summary>
+            The itunes:category elements
+            </summary>
+        </member>
+        <member name="P:CodeHollow.FeedReader.Feeds.Itunes.ItunesChannel.Image">
+            <summary>
+            The itunes:image element
+            </summary>
+        </member>
+        <member name="P:CodeHollow.FeedReader.Feeds.Itunes.ItunesChannel.Explicit">
+            <summary>
+            The itunes:explicit element
+            </summary>
+        </member>
+        <member name="P:CodeHollow.FeedReader.Feeds.Itunes.ItunesChannel.Complete">
+            <summary>
+            The itunes:complete element
+            </summary>
+        </member>
+        <member name="P:CodeHollow.FeedReader.Feeds.Itunes.ItunesChannel.NewFeedUrl">
+            <summary>
+            The itunes:new-feed-url element
+            </summary>
+        </member>
+        <member name="P:CodeHollow.FeedReader.Feeds.Itunes.ItunesChannel.Owner">
+            <summary>
+            The itunes:owner element
+            </summary>
+        </member>
+        <member name="P:CodeHollow.FeedReader.Feeds.Itunes.ItunesChannel.Subtitle">
+            <summary>
+            The itunes:subtitle element
+            </summary>
+        </member>
+        <member name="P:CodeHollow.FeedReader.Feeds.Itunes.ItunesChannel.Summary">
+            <summary>
+            The itunes:summary element
+            </summary>
+        </member>
+        <member name="M:CodeHollow.FeedReader.Feeds.Itunes.ItunesChannel.GetItunesCategories(System.Xml.Linq.XElement)">
+            <summary>
+            Sets the itunes categories
+            </summary>
+            <param name="element">the channel element</param>
+            <returns>the itunes:categries</returns>
+        </member>
+        <member name="T:CodeHollow.FeedReader.Feeds.Itunes.ItunesExtensions">
+            <summary>
+            Extension method that allows to access the itunes tags for a feed
+            </summary>
+        </member>
+        <member name="M:CodeHollow.FeedReader.Feeds.Itunes.ItunesExtensions.GetItunesChannel(CodeHollow.FeedReader.Feed)">
+            <summary>
+            Returns the itunes elements of a rss feed
+            </summary>
+            <param name="feed">the rss feed</param>
+            <returns>ItunesChannel object which contains itunes:... properties</returns>
+        </member>
+        <member name="M:CodeHollow.FeedReader.Feeds.Itunes.ItunesExtensions.GetItunesItem(CodeHollow.FeedReader.FeedItem)">
+            <summary>
+            Returns the itunes element of a rss feeditem
+            </summary>
+            <param name="item">the rss feed item</param>
+            <returns>ItunesItem object which contains itunes:... properties</returns>
+        </member>
+        <member name="T:CodeHollow.FeedReader.Feeds.Itunes.ItunesImage">
+            <summary>
+            The itunes:image xml element
+            </summary>
+        </member>
+        <member name="M:CodeHollow.FeedReader.Feeds.Itunes.ItunesImage.#ctor(System.Xml.Linq.XElement)">
+            <summary>
+            Initializes a new instance of the <see cref="T:CodeHollow.FeedReader.Feeds.Itunes.ItunesImage"/> class.
+            </summary>
+            <param name="image">The itunes:image element</param>
+        </member>
+        <member name="P:CodeHollow.FeedReader.Feeds.Itunes.ItunesImage.Href">
+            <summary>
+            The value of the href attribute
+            </summary>
+        </member>
+        <member name="T:CodeHollow.FeedReader.Feeds.Itunes.ItunesItem">
+            <summary>
+            The itunes:... elements of an rss 2.0 item
+            </summary>
+        </member>
+        <member name="M:CodeHollow.FeedReader.Feeds.Itunes.ItunesItem.#ctor(System.Xml.Linq.XElement)">
+            <summary>
+            Initializes a new instance of the <see cref="T:CodeHollow.FeedReader.Feeds.Itunes.ItunesItem"/> class.
+            </summary>
+            <param name="itemElement"></param>
+        </member>
+        <member name="P:CodeHollow.FeedReader.Feeds.Itunes.ItunesItem.Author">
+            <summary>
+            The itunes:author element
+            </summary>
+        </member>
+        <member name="P:CodeHollow.FeedReader.Feeds.Itunes.ItunesItem.Block">
+            <summary>
+            The itunes:block element
+            </summary>
+        </member>
+        <member name="P:CodeHollow.FeedReader.Feeds.Itunes.ItunesItem.Image">
+            <summary>
+            The itunes:image element
+            </summary>
+        </member>
+        <member name="P:CodeHollow.FeedReader.Feeds.Itunes.ItunesItem.Duration">
+            <summary>
+            The itunes:duration element
+            </summary>
+        </member>
+        <member name="P:CodeHollow.FeedReader.Feeds.Itunes.ItunesItem.Explicit">
+            <summary>
+            The itunes:explicit element
+            </summary>
+        </member>
+        <member name="P:CodeHollow.FeedReader.Feeds.Itunes.ItunesItem.IsClosedCaptioned">
+            <summary>
+            The itunes:isClosedCaptioned element
+            </summary>
+        </member>
+        <member name="P:CodeHollow.FeedReader.Feeds.Itunes.ItunesItem.Order">
+            <summary>
+            The itunes:order element
+            </summary>
+        </member>
+        <member name="P:CodeHollow.FeedReader.Feeds.Itunes.ItunesItem.Subtitle">
+            <summary>
+            The itunes:subtitle element
+            </summary>
+        </member>
+        <member name="P:CodeHollow.FeedReader.Feeds.Itunes.ItunesItem.Summary">
+            <summary>
+            The itunes:summary element
+            </summary>
+        </member>
+        <member name="T:CodeHollow.FeedReader.Feeds.Itunes.ItunesOwner">
+            <summary>
+            The itunes:owner xml element
+            </summary>
+        </member>
+        <member name="M:CodeHollow.FeedReader.Feeds.Itunes.ItunesOwner.#ctor(System.Xml.Linq.XElement)">
+            <summary>
+            Initializes a new instance of the <see cref="T:CodeHollow.FeedReader.Feeds.Itunes.ItunesOwner"/> class.
+            </summary>
+            <param name="ownerElement">the owner xml element</param>
+        </member>
+        <member name="P:CodeHollow.FeedReader.Feeds.Itunes.ItunesOwner.Email">
+            <summary>
+            The itunes:email of the owner
+            </summary>
+        </member>
+        <member name="P:CodeHollow.FeedReader.Feeds.Itunes.ItunesOwner.Name">
+            <summary>
+            The itunes:name of the owner
+            </summary>
+        </member>
+        <member name="T:CodeHollow.FeedReader.Feeds.MediaRSS.Media">
+            <summary>
+            Media object
+            </summary>
+        </member>
+        <member name="P:CodeHollow.FeedReader.Feeds.MediaRSS.Media.Element">
+            <summary>
+            Gets the underlying XElement in order to allow reading properties that are not available in the class itself
+            </summary>
+        </member>
+        <member name="M:CodeHollow.FeedReader.Feeds.MediaRSS.Media.#ctor(System.Xml.Linq.XElement)">
+            <summary>
+            Initializes a new instance of the <see cref="T:CodeHollow.FeedReader.Feeds.MediaRSS.Media"/> class.
+            Reads a rss feed item enclosure based on the xml given in element
+            </summary>
+            <param name="element">enclosure element as xml</param>
+        </member>
+        <member name="P:CodeHollow.FeedReader.Feeds.MediaRSS.Media.Url">
+            <summary>
+            The direct URL to the media object
+            </summary>
+        </member>
+        <member name="P:CodeHollow.FeedReader.Feeds.MediaRSS.Media.FileSize">
+            <summary>
+            Number of bytes of the media object. Optional attribute
+            </summary>
+        </member>
+        <member name="P:CodeHollow.FeedReader.Feeds.MediaRSS.Media.Type">
+            <summary>
+            Standard MIME type of the object. Optional attribute
+            </summary>
+        </member>
+        <member name="P:CodeHollow.FeedReader.Feeds.MediaRSS.Media.Medium">
+            <summary>
+            Type of object. Optional attribute
+            </summary>
+        </member>
+        <member name="P:CodeHollow.FeedReader.Feeds.MediaRSS.Media.isDefault">
+            <summary>
+            Determines if this is the default object that should be used for the <see cref="T:CodeHollow.FeedReader.Feeds.MediaRSS.MediaGroup"/>
+            </summary>
+        </member>
+        <member name="P:CodeHollow.FeedReader.Feeds.MediaRSS.Media.Duration">
+            <summary>
+            Number of seconds the media object plays. Optional attribute
+            </summary>
+        </member>
+        <member name="P:CodeHollow.FeedReader.Feeds.MediaRSS.Media.Height">
+            <summary>
+            Height of the object media. Optional attribute
+            </summary>
+        </member>
+        <member name="P:CodeHollow.FeedReader.Feeds.MediaRSS.Media.Width">
+            <summary>
+            Width of the object media. Optional attribute
+            </summary>
+        </member>
+        <member name="P:CodeHollow.FeedReader.Feeds.MediaRSS.Media.Language">
+            <summary>
+            The primary language encapsulated in the media object. Language codes possible are detailed in RFC 3066. This attribute is used similar to the xml:lang attribute detailed in the XML 1.0 Specification (Third Edition). It is an optional attribute.
+            </summary>
+        </member>
+        <member name="P:CodeHollow.FeedReader.Feeds.MediaRSS.Media.Thumbnails">
+            <summary>
+            Representative images for the media object
+            </summary>
+        </member>
+        <member name="T:CodeHollow.FeedReader.Feeds.MediaRSS.MediaGroup">
+            <summary>
+            A collection of media that are effectively the same content, yet different representations. For isntance: the same song recorded in both WAV and MP3 format.
+            </summary>
+        </member>
+        <member name="P:CodeHollow.FeedReader.Feeds.MediaRSS.MediaGroup.Element">
+            <summary>
+            Gets the underlying XElement in order to allow reading properties that are not available in the class itself
+            </summary>
+        </member>
+        <member name="M:CodeHollow.FeedReader.Feeds.MediaRSS.MediaGroup.#ctor(System.Xml.Linq.XElement)">
+            <summary>
+            Initializes a new instance of the <see cref="T:CodeHollow.FeedReader.Feeds.MediaRSS.MediaGroup"/> class.
+            Reads a rss media group item enclosure based on the xml given in element
+            </summary>
+            <param name="element">enclosure element as xml</param>
+        </member>
+        <member name="P:CodeHollow.FeedReader.Feeds.MediaRSS.MediaGroup.Media">
+            <summary>
+            Media object
+            </summary>
+        </member>
+        <member name="T:CodeHollow.FeedReader.Feeds.MediaRSS.Medium">
+            <summary>
+            Specifies the type of an object
+            </summary>
+        </member>
+        <member name="F:CodeHollow.FeedReader.Feeds.MediaRSS.Medium.Image">
+            <summary>
+            Image
+            </summary>
+        </member>
+        <member name="F:CodeHollow.FeedReader.Feeds.MediaRSS.Medium.Audio">
+            <summary>
+            Audio
+            </summary>
+        </member>
+        <member name="F:CodeHollow.FeedReader.Feeds.MediaRSS.Medium.Video">
+            <summary>
+            Video
+            </summary>
+        </member>
+        <member name="F:CodeHollow.FeedReader.Feeds.MediaRSS.Medium.Document">
+            <summary>
+            Document
+            </summary>
+        </member>
+        <member name="F:CodeHollow.FeedReader.Feeds.MediaRSS.Medium.Executable">
+            <summary>
+            Executable
+            </summary>
+        </member>
+        <member name="F:CodeHollow.FeedReader.Feeds.MediaRSS.Medium.Unknown">
+            <summary>
+            Type could not be determined
+            </summary>
+        </member>
+        <member name="T:CodeHollow.FeedReader.Feeds.MediaRSS.Thumbnail">
+            <summary>
+            Allows particular images to be used as representative images for the media object. If multiple thumbnails are included, and time coding is not at play, it is assumed that the images are in order of importance. 
+            </summary>
+        </member>
+        <member name="M:CodeHollow.FeedReader.Feeds.MediaRSS.Thumbnail.#ctor(System.Xml.Linq.XElement)">
+            <summary>
+            Initializes a new instance of the <see cref="T:CodeHollow.FeedReader.Feeds.MediaRSS.Thumbnail"/> class.
+            Reads a rss feed item enclosure based on the xml given in element
+            </summary>
+            <param name="element">enclosure element as xml</param>
+        </member>
+        <member name="P:CodeHollow.FeedReader.Feeds.MediaRSS.Thumbnail.Url">
+            <summary>
+            The url of the thumbnail. Required attribute
+            </summary>
+        </member>
+        <member name="P:CodeHollow.FeedReader.Feeds.MediaRSS.Thumbnail.Height">
+            <summary>
+            Height of the object media. Optional attribute
+            </summary>
+        </member>
+        <member name="P:CodeHollow.FeedReader.Feeds.MediaRSS.Thumbnail.Width">
+            <summary>
+            Width of the object media. Optional attribute
+            </summary>
+        </member>
+        <member name="P:CodeHollow.FeedReader.Feeds.MediaRSS.Thumbnail.Time">
+            <summary>
+            Specifies the time offset in relation to the media object
+            </summary>
+        </member>
+        <member name="T:CodeHollow.FeedReader.Feeds.MediaRssFeed">
+            <summary>
+            Media RSS 2.0 feed according to specification: http://www.rssboard.org/media-rss
+            </summary>
+        </member>
+        <member name="P:CodeHollow.FeedReader.Feeds.MediaRssFeed.Description">
+            <summary>
+            The "description" element
+            </summary>
+        </member>
+        <member name="P:CodeHollow.FeedReader.Feeds.MediaRssFeed.Language">
+            <summary>
+            The "language" element
+            </summary>
+        </member>
+        <member name="P:CodeHollow.FeedReader.Feeds.MediaRssFeed.Copyright">
+            <summary>
+            The "copyright" element
+            </summary>
+        </member>
+        <member name="P:CodeHollow.FeedReader.Feeds.MediaRssFeed.Docs">
+            <summary>
+            The "docs" element
+            </summary>
+        </member>
+        <member name="P:CodeHollow.FeedReader.Feeds.MediaRssFeed.Image">
+            <summary>
+            The "image" element
+            </summary>
+        </member>
+        <member name="P:CodeHollow.FeedReader.Feeds.MediaRssFeed.LastBuildDateString">
+            <summary>
+            The "lastBuildDate" element as string
+            </summary>
+        </member>
+        <member name="P:CodeHollow.FeedReader.Feeds.MediaRssFeed.LastBuildDate">
+            <summary>
+            The "lastBuildDate" element as DateTime. Null if parsing failed of lastBuildDate is empty.
+            </summary>
+        </member>
+        <member name="P:CodeHollow.FeedReader.Feeds.MediaRssFeed.ManagingEditor">
+            <summary>
+            The "managingEditor" element
+            </summary>
+        </member>
+        <member name="P:CodeHollow.FeedReader.Feeds.MediaRssFeed.PublishingDateString">
+            <summary>
+            The "pubDate" field
+            </summary>
+        </member>
+        <member name="P:CodeHollow.FeedReader.Feeds.MediaRssFeed.PublishingDate">
+            <summary>
+            The "pubDate" field as DateTime. Null if parsing failed or pubDate is empty.
+            </summary>
+        </member>
+        <member name="P:CodeHollow.FeedReader.Feeds.MediaRssFeed.WebMaster">
+            <summary>
+            The "webMaster" field
+            </summary>
+        </member>
+        <member name="P:CodeHollow.FeedReader.Feeds.MediaRssFeed.Categories">
+            <summary>
+            All "category" elements
+            </summary>
+        </member>
+        <member name="P:CodeHollow.FeedReader.Feeds.MediaRssFeed.Generator">
+            <summary>
+            The "generator" element
+            </summary>
+        </member>
+        <member name="P:CodeHollow.FeedReader.Feeds.MediaRssFeed.Cloud">
+            <summary>
+            The "cloud" element
+            </summary>
+        </member>
+        <member name="P:CodeHollow.FeedReader.Feeds.MediaRssFeed.TTL">
+            <summary>
+            The time to life "ttl" element
+            </summary>
+        </member>
+        <member name="P:CodeHollow.FeedReader.Feeds.MediaRssFeed.SkipDays">
+            <summary>
+            All "day" elements in "skipDays"
+            </summary>
+        </member>
+        <member name="P:CodeHollow.FeedReader.Feeds.MediaRssFeed.SkipHours">
+            <summary>
+            All "hour" elements in "skipHours"
+            </summary>
+        </member>
+        <member name="P:CodeHollow.FeedReader.Feeds.MediaRssFeed.TextInput">
+            <summary>
+            The "textInput" element
+            </summary>
+        </member>
+        <member name="P:CodeHollow.FeedReader.Feeds.MediaRssFeed.Sy">
+            <summary>
+            All elements starting with "sy:"
+            </summary>
+        </member>
+        <member name="M:CodeHollow.FeedReader.Feeds.MediaRssFeed.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:CodeHollow.FeedReader.Feeds.MediaRssFeed"/> class.
+            default constructor (for serialization)
+            </summary>
+        </member>
+        <member name="M:CodeHollow.FeedReader.Feeds.MediaRssFeed.#ctor(System.String,System.Xml.Linq.XElement)">
+            <summary>
+            Initializes a new instance of the <see cref="T:CodeHollow.FeedReader.Feeds.MediaRssFeed"/> class.
+            Reads a Media Rss feed based on the xml given in channel
+            </summary>
+            <param name="feedXml">the entire feed xml as string</param>
+            <param name="channel">the "channel" element in the xml as XElement</param>
+        </member>
+        <member name="M:CodeHollow.FeedReader.Feeds.MediaRssFeed.ToFeed">
+            <summary>
+            Creates the base <see cref="T:CodeHollow.FeedReader.Feed"/> element out of this feed.
+            </summary>
+            <returns>feed</returns>
+        </member>
+        <member name="M:CodeHollow.FeedReader.Feeds.MediaRssFeed.ParseDates(System.String,System.String,System.String)">
+            <summary>
+            Sets the PublishingDate and LastBuildDate. If parsing fails, then it checks if the language
+            is set and tries to parse the date based on the culture of the language.
+            </summary>
+            <param name="language">language of the feed</param>
+            <param name="publishingDate">publishing date as string</param>
+            <param name="lastBuildDate">last build date as string</param>
+        </member>
+        <member name="T:CodeHollow.FeedReader.Feeds.MediaRssFeedImage">
+            <summary>
+            Rss 2.0 Image according to specification: https://validator.w3.org/feed/docs/rss2.html#ltimagegtSubelementOfLtchannelgt
+            </summary>
+        </member>
+        <member name="M:CodeHollow.FeedReader.Feeds.MediaRssFeedImage.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:CodeHollow.FeedReader.Feeds.MediaRssFeedImage"/> class.
+            default constructor (for serialization)
+            </summary>
+        </member>
+        <member name="M:CodeHollow.FeedReader.Feeds.MediaRssFeedImage.#ctor(System.Xml.Linq.XElement)">
+            <summary>
+            Initializes a new instance of the <see cref="T:CodeHollow.FeedReader.Feeds.MediaRssFeedImage"/> class.
+            Reads a rss 2.0 feed image based on the xml given in element
+            </summary>
+            <param name="element">feed image as xml</param>
+        </member>
+        <member name="T:CodeHollow.FeedReader.Feeds.MediaRssFeedItem">
+            <summary>
+            RSS 2.0 feed item accoring to specification: https://validator.w3.org/feed/docs/rss2.html
+            </summary>
+        </member>
+        <member name="P:CodeHollow.FeedReader.Feeds.MediaRssFeedItem.Description">
+            <summary>
+            The "description" field of the feed item
+            </summary>
+        </member>
+        <member name="P:CodeHollow.FeedReader.Feeds.MediaRssFeedItem.Author">
+            <summary>
+            The "author" field of the feed item
+            </summary>
+        </member>
+        <member name="P:CodeHollow.FeedReader.Feeds.MediaRssFeedItem.Comments">
+            <summary>
+            The "comments" field of the feed item
+            </summary>
+        </member>
+        <member name="P:CodeHollow.FeedReader.Feeds.MediaRssFeedItem.Enclosure">
+            <summary>
+            The "enclosure" field
+            </summary>
+        </member>
+        <member name="P:CodeHollow.FeedReader.Feeds.MediaRssFeedItem.Guid">
+            <summary>
+            The "guid" field
+            </summary>
+        </member>
+        <member name="P:CodeHollow.FeedReader.Feeds.MediaRssFeedItem.PublishingDateString">
+            <summary>
+            The "pubDate" field
+            </summary>
+        </member>
+        <member name="P:CodeHollow.FeedReader.Feeds.MediaRssFeedItem.PublishingDate">
+            <summary>
+            The "pubDate" field as DateTime. Null if parsing failed or pubDate is empty.
+            </summary>
+        </member>
+        <member name="P:CodeHollow.FeedReader.Feeds.MediaRssFeedItem.Source">
+            <summary>
+            The "source" field
+            </summary>
+        </member>
+        <member name="P:CodeHollow.FeedReader.Feeds.MediaRssFeedItem.Categories">
+            <summary>
+            All entries "category" entries
+            </summary>
+        </member>
+        <member name="P:CodeHollow.FeedReader.Feeds.MediaRssFeedItem.Media">
+            <summary>
+            All entries from the "media:content" elements.
+            </summary>
+        </member>
+        <member name="P:CodeHollow.FeedReader.Feeds.MediaRssFeedItem.MediaGroups">
+            <summary>
+            All entries from the "media:group" elements. 
+            </summary>
+        </member>
+        <member name="P:CodeHollow.FeedReader.Feeds.MediaRssFeedItem.Content">
+            <summary>
+            The "content:encoded" field
+            </summary>
+        </member>
+        <member name="P:CodeHollow.FeedReader.Feeds.MediaRssFeedItem.DC">
+            <summary>
+            All elements starting with "dc:"
+            </summary>
+        </member>
+        <member name="M:CodeHollow.FeedReader.Feeds.MediaRssFeedItem.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:CodeHollow.FeedReader.Feeds.MediaRssFeedItem"/> class.
+            default constructor (for serialization)
+            </summary>
+        </member>
+        <member name="M:CodeHollow.FeedReader.Feeds.MediaRssFeedItem.#ctor(System.Xml.Linq.XElement)">
+            <summary>
+            Initializes a new instance of the <see cref="T:CodeHollow.FeedReader.Feeds.MediaRssFeedItem"/> class.
+            Reads a new feed item element based on the given xml item
+            </summary>
+            <param name="item">the xml containing the feed item</param>
+        </member>
+        <member name="M:CodeHollow.FeedReader.Feeds.MediaRssFeedItem.ToFeedItem">
+            <inheritdoc/>
+        </member>
+        <member name="T:CodeHollow.FeedReader.Feeds.Syndication">
+            <summary>
+            The parsed syndication elements. Those are all elements that start with "sy:"
+            </summary>
+        </member>
+        <member name="P:CodeHollow.FeedReader.Feeds.Syndication.UpdatePeriod">
+            <summary>
+            The "updatePeriod" element
+            </summary>
+        </member>
+        <member name="P:CodeHollow.FeedReader.Feeds.Syndication.UpdateFrequency">
+            <summary>
+            The "updateFrequency" element
+            </summary>
+        </member>
+        <member name="P:CodeHollow.FeedReader.Feeds.Syndication.UpdateBase">
+            <summary>
+            The "updateBase" element
+            </summary>
+        </member>
+        <member name="M:CodeHollow.FeedReader.Feeds.Syndication.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:CodeHollow.FeedReader.Feeds.Syndication"/> class.
+            default constructor (for serialization)
+            </summary>
+        </member>
+        <member name="M:CodeHollow.FeedReader.Feeds.Syndication.#ctor(System.Xml.Linq.XElement)">
+            <summary>
+            Initializes a new instance of the <see cref="T:CodeHollow.FeedReader.Feeds.Syndication"/> class.
+            Creates the object based on the xml in the given XElement
+            </summary>
+            <param name="xelement">syndication element as xml</param>
+        </member>
+        <member name="T:CodeHollow.FeedReader.FeedType">
+            <summary>
+            The type of the feed (Rss 0.91, Rss 2.0, Atom, ...)
+            </summary>
+        </member>
+        <member name="F:CodeHollow.FeedReader.FeedType.Atom">
+            <summary>
+            Atom Feed
+            </summary>
+        </member>
+        <member name="F:CodeHollow.FeedReader.FeedType.Rss_0_91">
+            <summary>
+            Rss 0.91 feed
+            </summary>
+        </member>
+        <member name="F:CodeHollow.FeedReader.FeedType.Rss_0_92">
+            <summary>
+            Rss 0.92 feed
+            </summary>
+        </member>
+        <member name="F:CodeHollow.FeedReader.FeedType.Rss_1_0">
+            <summary>
+            Rss 1.0 feed
+            </summary>
+        </member>
+        <member name="F:CodeHollow.FeedReader.FeedType.Rss_2_0">
+            <summary>
+            Rss 2.0 feed
+            </summary>
+        </member>
+        <member name="F:CodeHollow.FeedReader.FeedType.MediaRss">
+            <summary>
+            Media Rss feed
+            </summary>
+        </member>
+        <member name="F:CodeHollow.FeedReader.FeedType.Rss">
+            <summary>
+            Rss feed - is used for <see cref="T:CodeHollow.FeedReader.HtmlFeedLink"/> type
+            </summary>
+        </member>
+        <member name="F:CodeHollow.FeedReader.FeedType.Unknown">
+            <summary>
+            Unknown - default type
+            </summary>
+        </member>
+        <member name="T:CodeHollow.FeedReader.Helpers">
+            <summary>
+            static class with helper functions
+            </summary>
+        </member>
+        <member name="M:CodeHollow.FeedReader.Helpers.Download(System.String)">
+            <summary>
+            Download the content from an url
+            </summary>
+            <param name="url">correct url</param>
+            <returns>Content as string</returns>
+        </member>
+        <member name="M:CodeHollow.FeedReader.Helpers.DownloadBytesAsync(System.String,System.Threading.CancellationToken,System.Boolean,System.String)">
+            <summary>
+            Download the content from an url
+            </summary>
+            <param name="url">correct url</param>
+            <param name="cancellationToken">token to cancel operation</param>
+            <param name="autoRedirect">autoredirect if page is moved permanently</param>
+            <param name="userAgent">override built-in user-agent header</param>
+            <returns>Content as byte array</returns>
+        </member>
+        <member name="M:CodeHollow.FeedReader.Helpers.DownloadBytesAsync(System.String,System.Boolean)">
+            <summary>
+            Download the content from an url
+            </summary>
+            <param name="url">correct url</param>
+            <param name="autoRedirect">autoredirect if page is moved permanently</param>
+            <returns>Content as byte array</returns>
+        </member>
+        <member name="M:CodeHollow.FeedReader.Helpers.DownloadAsync(System.String,System.Threading.CancellationToken,System.Boolean)">
+            <summary>
+            Download the content from an url and returns it as utf8 encoded string.
+            Preferred way is to use <see cref="M:CodeHollow.FeedReader.Helpers.DownloadBytesAsync(System.String,System.Boolean)"/> because it works
+            better with encoding.
+            </summary>
+            <param name="url">correct url</param>
+            <param name="cancellationToken">token to cancel operation</param>
+            <param name="autoRedirect">autoredirect if page is moved permanently</param>
+            <returns>Content as string</returns>
+        </member>
+        <member name="M:CodeHollow.FeedReader.Helpers.DownloadAsync(System.String,System.Boolean)">
+            <summary>
+            Download the content from an url and returns it as utf8 encoded string.
+            Preferred way is to use <see cref="M:CodeHollow.FeedReader.Helpers.DownloadBytesAsync(System.String,System.Boolean)"/> because it works
+            better with encoding.
+            </summary>
+            <param name="url">correct url</param>
+            <param name="autoRedirect">autoredirect if page is moved permanently</param>
+            <returns>Content as string</returns>
+        </member>
+        <member name="M:CodeHollow.FeedReader.Helpers.TryParseDateTime(System.String,System.Globalization.CultureInfo)">
+            <summary>
+            Tries to parse the string as datetime and returns null if it fails
+            </summary>
+            <param name="datetime">datetime as string</param>
+            <param name="cultureInfo">The cultureInfo for parsing</param>
+            <returns>datetime or null</returns>
+        </member>
+        <member name="M:CodeHollow.FeedReader.Helpers.TryParseInt(System.String)">
+            <summary>
+            Tries to parse the string as int and returns null if it fails
+            </summary>
+            <param name="input">int as string</param>
+            <returns>integer or null</returns>
+        </member>
+        <member name="M:CodeHollow.FeedReader.Helpers.TryParseMedium(System.String)">
+            <summary>
+            Tries to parse a string and returns the media type
+            </summary>
+            <param name="medium">media type as string</param>
+            <returns><see cref="T:CodeHollow.FeedReader.Feeds.MediaRSS.Medium"/></returns>
+        </member>
+        <member name="M:CodeHollow.FeedReader.Helpers.TryParseBool(System.String)">
+            <summary>
+            Tries to parse the string as int and returns null if it fails
+            </summary>
+            <param name="input">int as string</param>
+            <returns>integer or null</returns>
+        </member>
+        <member name="M:CodeHollow.FeedReader.Helpers.GetFeedLinkFromLinkTag(System.String)">
+            <summary>
+            Returns a HtmlFeedLink object from a linktag (link href="" type="")
+            only support application/rss and application/atom as type
+            if type is not supported, null is returned
+            </summary>
+            <param name="input">link tag, e.g. &lt;link rel="alternate" type="application/rss+xml" title="codehollow &gt; Feed" href="https://codehollow.com/feed/" /&gt;</param>
+            <returns>Parsed HtmlFeedLink</returns>
+        </member>
+        <member name="M:CodeHollow.FeedReader.Helpers.ParseFeedUrlsFromHtml(System.String)">
+            <summary>
+            Parses RSS links from html page and returns all links
+            </summary>
+            <param name="htmlContent">the content of the html page</param>
+            <returns>all RSS/feed links</returns>
+        </member>
+        <member name="M:CodeHollow.FeedReader.Helpers.GetAttributeFromLinkTag(System.String,System.String)">
+            <summary>
+            reads an attribute from an html tag
+            </summary>
+            <param name="attribute">name of the attribute, e.g. title</param>
+            <param name="htmlTag">the html tag, e.g. &lt;link title="my title"&gt;</param>
+            <returns>the value of the attribute, e.g. my title</returns>
+        </member>
+        <member name="T:CodeHollow.FeedReader.HtmlFeedLink">
+            <summary>
+            An html feed link, containing the title, the url and the type of the feed
+            </summary>
+        </member>
+        <member name="P:CodeHollow.FeedReader.HtmlFeedLink.Title">
+            <summary>
+            The title of the feed
+            </summary>
+        </member>
+        <member name="P:CodeHollow.FeedReader.HtmlFeedLink.Url">
+            <summary>
+            The url to the feed
+            </summary>
+        </member>
+        <member name="P:CodeHollow.FeedReader.HtmlFeedLink.FeedType">
+            <summary>
+            The type of the feed - rss or atom
+            </summary>
+        </member>
+        <member name="M:CodeHollow.FeedReader.HtmlFeedLink.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:CodeHollow.FeedReader.HtmlFeedLink"/> class.
+            default constructor (for serialization)
+            </summary>
+        </member>
+        <member name="M:CodeHollow.FeedReader.HtmlFeedLink.#ctor(System.String,System.String,CodeHollow.FeedReader.FeedType)">
+            <summary>
+            Initializes a new instance of the <see cref="T:CodeHollow.FeedReader.HtmlFeedLink"/> class.
+            Creates an html feed link item
+            </summary>
+            <param name="title">title fo the feed</param>
+            <param name="url">url of the feed</param>
+            <param name="feedtype">type of the feed (rss 1.0, 2.0, ...)</param>
+        </member>
+        <member name="T:CodeHollow.FeedReader.Parser.FeedTypeNotSupportedException">
+            <summary>
+            Exception is thrown if the type of the feed is not supported. Supported feed types
+            are RSS 0.91, RSS 0.92, RSS 1.0, RSS 2.0 and ATOM
+            </summary>
+        </member>
+        <member name="M:CodeHollow.FeedReader.Parser.FeedTypeNotSupportedException.#ctor">
+            <summary>
+            Initializes a new FeedTypeNotSupportedException
+            </summary>
+        </member>
+        <member name="M:CodeHollow.FeedReader.Parser.FeedTypeNotSupportedException.#ctor(System.String)">
+            <summary>
+            Initializes a new FeedTypeNotSupportedException with a message
+            </summary>
+            <param name="message">custom error message</param>
+        </member>
+        <member name="M:CodeHollow.FeedReader.Parser.FeedTypeNotSupportedException.#ctor(System.String,System.Exception)">
+            <summary>
+            Initializes a new FeedTypeNotSupportedException with a message and an innerException
+            </summary>
+            <param name="message">custom error message</param>
+            <param name="innerException">the inner exception</param>
+        </member>
+        <member name="T:CodeHollow.FeedReader.Parser.InvalidFeedLinkException">
+            <summary>
+            Exception is thrown if the html link element contains a feed type that does not exist. Feed types are rss or atom
+            </summary>
+        </member>
+        <member name="M:CodeHollow.FeedReader.Parser.InvalidFeedLinkException.#ctor">
+            <summary>
+            Initializes a new InvalidFeedLinkException
+            </summary>
+        </member>
+        <member name="M:CodeHollow.FeedReader.Parser.InvalidFeedLinkException.#ctor(System.String)">
+            <summary>
+            Initializes a new InvalidFeedLinkException with a message
+            </summary>
+            <param name="message">custom error message</param>
+        </member>
+        <member name="M:CodeHollow.FeedReader.Parser.InvalidFeedLinkException.#ctor(System.String,System.Exception)">
+            <summary>
+            Initializes a new InvalidFeedLinkException with a message and an innerException
+            </summary>
+            <param name="message">custom error message</param>
+            <param name="innerException">the inner exception</param>
+        </member>
+        <member name="T:CodeHollow.FeedReader.Parser.FeedParser">
+            <summary>
+            Internal FeedParser - returns the type of the feed or the parsed feed.
+            </summary>
+        </member>
+        <member name="M:CodeHollow.FeedReader.Parser.FeedParser.ParseFeedType(System.Xml.Linq.XDocument)">
+            <summary>
+            Returns the feed type - rss 1.0, rss 2.0, atom, ...
+            </summary>
+            <param name="doc">the xml document</param>
+            <returns>the feed type</returns>
+        </member>
+        <member name="M:CodeHollow.FeedReader.Parser.FeedParser.GetFeed(System.Byte[])">
+            <summary>
+            Returns the parsed feed.
+            This method checks the encoding of the received file
+            </summary>
+            <param name="feedContentData">the feed document</param>
+            <returns>parsed feed</returns>
+        </member>
+        <member name="M:CodeHollow.FeedReader.Parser.FeedParser.GetFeed(System.String)">
+            <summary>
+            Returns the parsed feed
+            </summary>
+            <param name="feedContent">the feed document</param>
+            <returns>parsed feed</returns>
+        </member>
+        <member name="M:CodeHollow.FeedReader.Parser.FeedParser.GetEncoding(System.Xml.Linq.XDocument)">
+            <summary>
+            reads the encoding from a feed document, returns UTF8 by default
+            </summary>
+            <param name="feedDoc">rss feed document</param>
+            <returns>encoding or utf8 by default</returns>
+        </member>
+        <member name="M:CodeHollow.FeedReader.Parser.FeedParser.RemoveWrongChars(System.String)">
+            <summary>
+            removes some characters at the beginning of the document. These shouldn't be there,
+            but unfortunately they are sometimes there. If they are not removed - xml parsing would fail.
+            </summary>
+            <param name="feedContent">rss feed content</param>
+            <returns>cleaned up rss feed content</returns>
+        </member>
+        <member name="T:CodeHollow.FeedReader.UrlNotFoundException">
+            <summary>
+            An exception thrown when the given url was not found.
+            </summary>
+        </member>
+        <member name="M:CodeHollow.FeedReader.UrlNotFoundException.#ctor">
+            <summary>
+            Initializes a new UrlNotFoundException
+            </summary>
+        </member>
+        <member name="M:CodeHollow.FeedReader.UrlNotFoundException.#ctor(System.String)">
+            <summary>
+            Initializes a new UrlNotFoundException with a message
+            </summary>
+            <param name="message">custom error message</param>
+        </member>
+        <member name="M:CodeHollow.FeedReader.UrlNotFoundException.#ctor(System.String,System.Exception)">
+            <summary>
+            Initializes a new UrlNotFoundException with a message and an innerException
+            </summary>
+            <param name="message">custom error message</param>
+            <param name="innerException">the inner exception</param>
+        </member>
+    </members>
+</doc>

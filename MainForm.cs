@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Windows.Forms;
+using CodeHollow.FeedReader;
 using Gma.System.MouseKeyHook;
 using OBSWebsocketDotNet;
 using Timers = System.Timers;
-using Octokit;
 
 //TODO: logging selective if it goes to status or log or both (default just log, 1 both, 2 just status?)
 //TODO: Make config windows connectiom & keys
@@ -32,41 +33,75 @@ namespace OHK
             SubscribeGlobal();         
             OBSws.Connected += OnConnect;
             OBSws.Disconnected += OnDisconnect;
-            Log(string.Format("Started {0} {1} {2}",Constant.appName,Constant.releaseTag,""));
+            Log(string.Format("Started {0} {1} {2}",Constant.appName,Constant.releaseVersion,""));
             githubReleaseCheck();
         }
 
         private async void githubReleaseCheck()
         {
-            var github = new GitHubClient(new ProductHeaderValue(Constant.appName));
-            var releases = await github.Repository.Release.GetAll(Constant.githubName, Constant.githubRepo);
-            var latest = releases[0];
-            Log(string.Format(
-                "The latest release is tagged at {0} and is named {1} and the url is: {2}",
-                latest.TagName,
-                latest.Name,
-                latest.HtmlUrl));
-            var versionCheck = tagToVersion(Constant.releaseTag).CompareTo(tagToVersion(latest.TagName));
-            if (0 > versionCheck)
+            string feedUrl = $"https://github.com/{Constant.githubName}/{Constant.githubRepo}/releases.atom";
+
+            try
             {
-                updateURL = latest.HtmlUrl;
-                Log("Version: Update available.");
-                UpdateMenuItem.Text = "Update available";
-                toolStripDropDownButton1.Image = imageList1.Images[2];
-                UpdateMenuItem.Image = imageList1.Images[3];
+                var feed = await FeedReader.ReadAsync(feedUrl);
+
+                if (feed != null && feed.Items != null && feed.Items.Any())
+                {
+
+                    var versions = feed.Items
+                        .Select(item => new
+                        {
+                            Version = item.Title,
+                            Item = item
+                        })
+                        .Where(versionItem => !string.IsNullOrEmpty(versionItem.Version))
+                        .OrderByDescending(versionItem => versionItem.Version)
+                        .FirstOrDefault();
+                    var latestVersion = versions?.Version;
+
+                    Log($"Latest Version: {latestVersion}");
+
+                    if (float.TryParse(latestVersion, out float ghVersion) && float.TryParse(Constant.releaseVersion, out float cVersion))
+                    {
+                        // Compare floats
+                        if (ghVersion < cVersion)
+                        {
+                            updateURL = "";
+                            Log("Version: You're in the future");
+                            UpdateMenuItem.Text = "Future version";
+                        }
+                        else if (ghVersion > cVersion)
+                        {
+                            updateURL = versions?.Item.Link;
+                            Log("Version: Update available.");
+                            UpdateMenuItem.Text = "Update available";
+                            toolStripDropDownButton1.Image = imageList1.Images[2];
+                            UpdateMenuItem.Image = imageList1.Images[3];
+                        }
+                        else
+                        {
+                            updateURL = "";
+                            Log("Version: Up to date");
+                            UpdateMenuItem.Text = "Check for update";
+                        }
+                    }
+                    else
+                    {
+                        Console.WriteLine("Error parsing floats");
+                    }
+                }
+                else
+                {
+                    Log("No feed items found.");
+                }
+
+
             }
-            else if (0 == versionCheck)
+            catch (Exception ex)
             {
-                updateURL = "";
-                Log("Version: Up to date");
-                UpdateMenuItem.Text = "Check for update";
+                Log($"Error: {ex.Message}");
             }
-            else if (0 < versionCheck)
-            {
-                updateURL = "";
-                Log("Version: You're in the future");
-                UpdateMenuItem.Text = "Future version";
-            }
+ 
         }
 
         private Version tagToVersion(string tag)
