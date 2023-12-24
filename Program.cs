@@ -10,7 +10,9 @@ namespace OHK
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new MainForm());
+            MainForm mainForm = MainForm.Instance;
+
+            Application.Run(mainForm);
         }
     }
 

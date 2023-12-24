@@ -1,73 +1,102 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Windows.Forms;
+using Gma.System.MouseKeyHook.HotKeys;
+using Microsoft.Win32;
 using Newtonsoft.Json;
 
 
 namespace OHK
 {
+    public class HotKey
+    {
+        public Keys Key { get; set; }
+        public string Scene { get; set; }
+        public string Source { get; set; }
+        public int Delay { get; set; }
+        public string Type { get; set; }
+    }
     class Configuration
     {
         private const string ConfigFolder = "Config";
         private const string ConfigFile = "config.json";
         public static OHKConfig OHK;
+        private const string RegPath = @"SOFTWARE\"+Constant.Author+@"\"+Constant.appName;
 
         static Configuration()
         {
-
-            DebugLogForm.Instance.Log(string.Format("Checking for config at: {0}/{1}", ConfigFolder, ConfigFile));
-            if (!Directory.Exists(ConfigFolder))
-            {
-                Directory.CreateDirectory(ConfigFolder);
-                DebugLogForm.Instance.Log("Config directory doesn't exist. Creating.");
-            }
-
-            if (!File.Exists(ConfigFolder + "/" + ConfigFile))
+            try
             {
                 OHK = new OHKConfig();
-                string json = JsonConvert.SerializeObject(OHK, Formatting.Indented);
-                File.WriteAllText(ConfigFolder + "/" + ConfigFile, json);
+
+                using (RegistryKey rk = Registry.CurrentUser.OpenSubKey(RegPath))
+                {
+                    if (rk == null)
+                    {
+                        using (RegistryKey rki = Registry.CurrentUser.CreateSubKey(RegPath))
+                        {
+                            rki.SetValue("IP", OHK.Ip);
+                            rki.SetValue("Port", OHK.Port);
+                            rki.SetValue("Password", OHK.Password);
+                            string hotkeysJSON = JsonConvert.SerializeObject(OHK.hotKeys, Formatting.Indented);
+                            rki.SetValue("HotKeys", hotkeysJSON);
+                        }
+                    }
+                    else
+                    {
+                        OHK.Ip = rk.GetValue("IP").ToString();
+                        OHK.Port = rk.GetValue("Port").ToString();
+                        OHK.Password = rk.GetValue("Password").ToString();
+                        //DebugLogForm.Instance.Log($"reg: { rk.GetValue("HotKeys") }");
+                        OHK.hotKeys = JsonConvert.DeserializeObject<HotKey[]>(rk.GetValue("HotKeys").ToString());
+                    }
+                }
+
             }
-            else
+            catch (Exception ex)
             {
-                string json = File.ReadAllText(ConfigFolder + "/" + ConfigFile);
-                OHK = JsonConvert.DeserializeObject<OHKConfig>(json);
+                DebugLogForm.Instance.Log($"Registry exception: {ex}");
+            }
+        }
+        private void Log(string text)
+        {
+            DebugLogForm.Instance.Log(text);
+        }
+        static public void SaveConfig()
+        {
+            using (RegistryKey rk = Registry.CurrentUser.OpenSubKey(RegPath, true))
+            {
+                if (rk != null)
+                {
+                    rk.SetValue("IP", OHK.Ip);
+                    rk.SetValue("Port", OHK.Port);
+                    rk.SetValue("Password", OHK.Password);
+                    string hotkeysJSON = JsonConvert.SerializeObject(OHK.hotKeys, Formatting.Indented);
+                    DebugLogForm.Instance.Log($"Hotkeys: {hotkeysJSON}");
+                    rk.SetValue("HotKeys", hotkeysJSON);
+                }
             }
         }
 
         public class OHKConfig
         {
-            [JsonProperty("IP Adress. Default: 127.0.0.1")]
             public string Ip;
-
-            [JsonProperty("Port. Default: 4444")]
             public string Port;
-
-            [JsonProperty("Password from your OBS websocket plugin")]
             public string Password;
-
-            [JsonProperty("Key to pause the application")]
-            public Keys PauseKey;
-
-            [JsonProperty("Delay after releasing key")]
-            public int Delay;
-
-            [JsonProperty("Delay before attempting to reconnect")]
             public int ReconnectDelay;
-
-            public Dictionary<Keys, string> KeysSetup;
+            [JsonProperty("Hotkeys")]
+            public HotKey[] hotKeys;
 
             public OHKConfig()
             {
                 Ip = "127.0.0.1";
-                Port = "4444";
-                Password = "test";
-                PauseKey = Keys.F6;
-                Delay = 300;
+                Port = "4455";
+                Password = "testtest";
                 ReconnectDelay = 5;
-                KeysSetup = new Dictionary<Keys, string>
+                hotKeys = new HotKey[]
                 {
-                    [Keys.G] = "Image"
+                     new HotKey { Key = Keys.G, Scene = "", Source = "", Delay = 300, Type = "Show" }
                 };
             }
         }

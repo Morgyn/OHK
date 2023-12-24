@@ -4,37 +4,52 @@ using System.Linq;
 using System.Windows.Forms;
 using CodeHollow.FeedReader;
 using Gma.System.MouseKeyHook;
+using Gma.System.MouseKeyHook.HotKeys;
 using OBSWebsocketDotNet;
+using OBSWebsocketDotNet.Types;
 using Timers = System.Timers;
 
 //TODO: logging selective if it goes to status or log or both (default just log, 1 both, 2 just status?)
 //TODO: Make config windows connectiom & keys
 //TODO: move config to registry
 //TODO: export config option
+//TODO: Import/Export settings
+//TODO: Show config options if ran and no config set
+//TODO: Check Config On Connect (Scenes and Sources)
 namespace OHK
 {
     public partial class MainForm:Form
     {
+        private static readonly MainForm instance = new MainForm();
         private IKeyboardMouseEvents _events;
-        private bool _isHoldingDown;
-        private bool _isPaused;
-        private OBSWebsocket OBSws;
+        public OBSWebsocket OBSws;
         private Dictionary<Keys,Timer> keyTimer = new Dictionary<Keys, Timer>();
         private bool disconnectButtonFlag = false;
         private Timer reconnectTimer;
         private int reconnectCountdown;
         private string updateURL = "";
+        private Timer ConnectionTimer;
 
         public MainForm()
         {
             OBSws = new OBSWebsocket();
+            OBSws.Connected += OnConnect;
+            OBSws.Disconnected += OnDisconnect;
+
             InitializeComponent();
             connectionStatusPicture.Image = imageList1.Images[1];
             SubscribeGlobal();         
-            OBSws.Connected += OnConnect;
-            OBSws.Disconnected += OnDisconnect;
-            Log(string.Format("Started {0} {1} {2}",Constant.appName,Constant.releaseVersion,""));
+
+            Log(string.Format("Started {0} {1} {2}", Constant.appName, Constant.releaseVersion,""));
             githubReleaseCheck();
+        }
+
+        public static MainForm Instance
+        {
+            get
+            {
+                return instance;
+            }
         }
 
         private async void githubReleaseCheck()
@@ -104,11 +119,6 @@ namespace OHK
  
         }
 
-        private Version tagToVersion(string tag)
-        {
-            return new Version(tag.Substring(1));
-        }
-
         private void SubscribeGlobal()
         {
             Subscribe(Hook.GlobalEvents());
@@ -136,54 +146,25 @@ namespace OHK
 
         private void OnKeyDown(object sender, KeyEventArgs e)
         {
-            if(e.KeyCode == Configuration.OHK.PauseKey)
+            if (OBSws.IsConnected)
             {
-                if (_isPaused)
-                {
-                    Log("Continue listening");
-                    _isPaused = false;
-                }
-                else
-                {
-                    Log("Paused listening");
-                    _isPaused = true;
-                }
-            }
-
-            if (_isPaused)
-            {
-                return;
-            }
-
-            if (Configuration.OHK.KeysSetup.ContainsKey(e.KeyCode))
-            {
-                if (_isHoldingDown)
-                {
-                    return;
-                }
-
-                _isHoldingDown = true;
-
-                if (OBSws.IsConnected)
-                {
-                    if (CheckSceneItems(Configuration.OHK.KeysSetup[e.KeyCode]))
-                    {
+                HotKey pressedHotKey = Configuration.OHK.hotKeys.FirstOrDefault(hotKey => hotKey.Key == e.KeyCode);
+                if (pressedHotKey != null)
+                { 
                         if (keyTimer.ContainsKey(e.KeyCode) && keyTimer[e.KeyCode].Enabled == true)
                         {
                             keyTimer[e.KeyCode].Stop();
                             keyTimer.Remove(e.KeyCode);
-                            Log($"Timer still running, resetting timer \t{Configuration.OHK.KeysSetup[e.KeyCode]}");
                         }
                         else
                         {
-
-                            OBSws.SetSourceRender(Configuration.OHK.KeysSetup[e.KeyCode], true);
-                            Log($"Show \t{Configuration.OHK.KeysSetup[e.KeyCode]}");
+                            try
+                            {
+                                int source_id = OBSws.GetSceneItemId(pressedHotKey.Scene, pressedHotKey.Source, -1);
+                                OBSws.SetSceneItemEnabled(pressedHotKey.Scene, source_id, true);
+                                Log($"Show \t{pressedHotKey.Scene}/{pressedHotKey.Source}");
+                            } catch { Log($"Unable to set {pressedHotKey.Scene}/{pressedHotKey.Source}");
                         }
-                    }
-                    else
-                    {
-                        Log("Item not find in this scene");
                     }
                 }
             }
@@ -191,68 +172,65 @@ namespace OHK
 
         private void OnKeyUp(object sender, KeyEventArgs e)
         {
-            if (_isPaused)
+            if (OBSws.IsConnected)
             {
-                return;
-            }
-
-            if (Configuration.OHK.KeysSetup.ContainsKey(e.KeyCode))
-            {
-                _isHoldingDown = false;
-                if (OBSws.IsConnected && CheckSceneItems(Configuration.OHK.KeysSetup[e.KeyCode]))
+                HotKey pressedHotKey = Configuration.OHK.hotKeys.FirstOrDefault(hotKey => hotKey.Key == e.KeyCode);
+                if (pressedHotKey != null)
                 {
-                    if (CheckSceneItems(Configuration.OHK.KeysSetup[e.KeyCode]))
-                    {
-                        keyTimer.Add(e.KeyCode, new Timer());
-                        keyTimer[e.KeyCode].Tick += (timerSender, timerE) => KeyTimerEventProcessor(timerSender, timerE, e.KeyCode);
-                        keyTimer[e.KeyCode].Interval = Configuration.OHK.Delay;
-                        keyTimer[e.KeyCode].Start();  
-                    }
-                    else
-                    {
-                        Log("Item not find in this scene");
-                    }
+                    keyTimer.Add(pressedHotKey.Key, new Timer());
+                    keyTimer[pressedHotKey.Key].Tick += (timerSender, timerE) => KeyTimerEventProcessor(timerSender, timerE, pressedHotKey);
+                    keyTimer[pressedHotKey.Key].Interval = pressedHotKey.Delay;
+                    keyTimer[pressedHotKey.Key].Tag = pressedHotKey.Key;
+                    keyTimer[pressedHotKey.Key].Start();  
                 }
             }
         }
 
-        private void KeyTimerEventProcessor(object sender, EventArgs e, Keys keyCode)
+        private void KeyTimerEventProcessor(object sender, EventArgs e, HotKey pressedHotKey)
         {
             if (sender is Timer timer)
             {
-                string sourceName = Configuration.OHK.KeysSetup[keyCode];
-                OBSws.SetSourceRender(sourceName, false);               
-                Log($"Hide \t{sourceName}");
+                int source_id = OBSws.GetSceneItemId(pressedHotKey.Scene, pressedHotKey.Source, -1);
+                OBSws.SetSceneItemEnabled(pressedHotKey.Scene, source_id, false);
+                Log($"Hide \t{pressedHotKey.Scene}/{pressedHotKey.Source}");
                 timer.Dispose();
-                // somehow need to remove parent
-                keyTimer.Remove(keyCode);
+                keyTimer.Remove(pressedHotKey.Key);
             }
-        }
-
-        private bool CheckSceneItems(string item)
-        {
-            var itemNames = new List<string>();
-            foreach (var sceneItem in OBSws.GetCurrentScene().Items)
-            {
-                itemNames.Add(sceneItem.SourceName);
-            }
-
-            return itemNames.Contains(item);
         }
 
         private void OnConnect(object sender, EventArgs e)
         {
+            if (ConnectionTimer != null && ConnectionTimer.Enabled)
+            {
+                ConnectionTimer.Stop();
+                ConnectionTimer.Dispose();
+            }
+
+            var versionInfo = OBSws.GetVersion();
+            Log($"PluginV: {versionInfo.PluginVersion} OBSv: {versionInfo.OBSStudioVersion}");
+            if (int.Parse(versionInfo.PluginVersion.Split( '.')[0]) < 5)
+            {
+                Log("Old websocket server! Check port!");
+                OBSws.Disconnect();
+            }
+            ConfigureForm.Instance.UpdateFields();
             Log("Connected to OBS");
-            connectButton.Text = "Disconnect";
+            
             connectionStatusPicture.Image = imageList1.Images[0];
+
+            UpdateConnectButton("Disconnect");
         }
 
-        private void OnDisconnect(object sender, EventArgs e)
+    
+
+        private void OnDisconnect(object sender, OBSWebsocketDotNet.Communication.ObsDisconnectionInfo e)
         {
-            Log(string.Format("Disconnected from OBS"));
+            Log("Disconnected from OBS");
             
             UpdateConnectButton("Connect");
             connectionStatusPicture.Image = imageList1.Images[1];
+
+            ConfigureForm.Instance.UpdateFields();
             if (disconnectButtonFlag)
             {
                 disconnectButtonFlag = false;
@@ -336,7 +314,12 @@ namespace OHK
             try
             {
                 connectButton.Text = "Connecting...";
-                OBSws.Connect($"ws://{Configuration.OHK.Ip}:{Configuration.OHK.Port}", Configuration.OHK.Password);
+                OBSws.ConnectAsync($"ws://{Configuration.OHK.Ip}:{Configuration.OHK.Port}", Configuration.OHK.Password);
+
+                ConnectionTimer = new Timer();
+                ConnectionTimer.Tick += ConnectionTimerEventProcessor;
+                ConnectionTimer.Interval = 5000;
+                ConnectionTimer.Start();
             }
             catch (AuthFailureException)
             {
@@ -345,6 +328,16 @@ namespace OHK
             catch (ErrorResponseException ex)
             {
                 Log(string.Format("Connect failed: ",ex.Message));
+            }
+        }
+
+        private void ConnectionTimerEventProcessor(object sender, EventArgs e)
+        {
+            if (sender is Timer timer)
+            {
+                timer.Dispose();
+                Log("Connection timed out waiting for handshake");
+                DisconnectOBS();
             }
         }
 
@@ -373,6 +366,11 @@ namespace OHK
             {
                 System.Diagnostics.Process.Start(updateURL); 
             }
+        }
+
+        private void configureToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ConfigureForm.Instance.UnHide();
         }
     }
 }

@@ -9,6 +9,7 @@ namespace OHK
     static class Constant
     {
         public const string appName = "OHK";
+        public const string Author = "Morgyn";
         public const string releaseVersion = "0.1";
         public const string githubName = "Morgyn";
         public const string githubRepo = "OHK";

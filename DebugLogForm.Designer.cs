@@ -54,6 +54,7 @@ namespace OHK
             this.copyButton.TabIndex = 3;
             this.copyButton.Text = "Copy to clipboard";
             this.copyButton.UseVisualStyleBackColor = true;
+            this.copyButton.Click += new System.EventHandler(this.copyButton_Click);
             // 
             // tableLayoutPanel1
             // 
