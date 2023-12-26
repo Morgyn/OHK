@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.28010.2003
+# Visual Studio Version 17
+VisualStudioVersion = 17.8.34316.72
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBD}") = "OHK", "OHK.csproj", "{173BB9D5-5F0A-4924-B7A8-5D508A3F116C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OHK", "OHK.csproj", "{173BB9D5-5F0A-4924-B7A8-5D508A3F116C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

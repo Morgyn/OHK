@@ -8,11 +8,10 @@ namespace OHK
         [STAThread]
         static void Main()
         {
-            Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            MainForm mainForm = MainForm.Instance;
+            Application.EnableVisualStyles();
 
-            Application.Run(mainForm);
+            Application.Run(MainForm.Instance);
         }
     }
 

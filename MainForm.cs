@@ -20,7 +20,8 @@ namespace OHK
 {
     public partial class MainForm:Form
     {
-        private static readonly MainForm instance = new MainForm();
+        private static readonly Lazy<MainForm> lazyInstance = new Lazy<MainForm>(() => new MainForm());
+        public static MainForm Instance => lazyInstance.Value;
         private IKeyboardMouseEvents _events;
         public OBSWebsocket OBSws;
         private Dictionary<Keys,Timer> keyTimer = new Dictionary<Keys, Timer>();
@@ -42,14 +43,6 @@ namespace OHK
 
             Log(string.Format("Started {0} {1} {2}", Constant.appName, Constant.releaseVersion,""));
             githubReleaseCheck();
-        }
-
-        public static MainForm Instance
-        {
-            get
-            {
-                return instance;
-            }
         }
 
         private async void githubReleaseCheck()
@@ -149,7 +142,7 @@ namespace OHK
             if (OBSws.IsConnected)
             {
                 HotKey pressedHotKey = Configuration.OHK.hotKeys.FirstOrDefault(hotKey => hotKey.Key == e.KeyCode);
-                if (pressedHotKey != null)
+                if (pressedHotKey != null && pressedHotKey.Scene!="" && pressedHotKey.Source!="")
                 { 
                         if (keyTimer.ContainsKey(e.KeyCode) && keyTimer[e.KeyCode].Enabled == true)
                         {
@@ -175,7 +168,7 @@ namespace OHK
             if (OBSws.IsConnected)
             {
                 HotKey pressedHotKey = Configuration.OHK.hotKeys.FirstOrDefault(hotKey => hotKey.Key == e.KeyCode);
-                if (pressedHotKey != null)
+                if (pressedHotKey != null && pressedHotKey.Scene != "" && pressedHotKey.Source != "")
                 {
                     keyTimer.Add(pressedHotKey.Key, new Timer());
                     keyTimer[pressedHotKey.Key].Tick += (timerSender, timerE) => KeyTimerEventProcessor(timerSender, timerE, pressedHotKey);
@@ -206,25 +199,25 @@ namespace OHK
                 ConnectionTimer.Dispose();
             }
 
-            var versionInfo = OBSws.GetVersion();
-            Log($"PluginV: {versionInfo.PluginVersion} OBSv: {versionInfo.OBSStudioVersion}");
-            if (int.Parse(versionInfo.PluginVersion.Split( '.')[0]) < 5)
-            {
-                Log("Old websocket server! Check port!");
-                OBSws.Disconnect();
-            }
-            ConfigureForm.Instance.UpdateFields();
             Log("Connected to OBS");
             
             connectionStatusPicture.Image = imageList1.Images[0];
 
             UpdateConnectButton("Disconnect");
+
+            ConfigureForm.Instance.UpdateFields();
+
         }
 
-    
+
 
         private void OnDisconnect(object sender, OBSWebsocketDotNet.Communication.ObsDisconnectionInfo e)
         {
+            if (ConnectionTimer != null && ConnectionTimer.Enabled)
+            {
+                ConnectionTimer.Stop();
+                ConnectionTimer.Dispose();
+            }
             Log("Disconnected from OBS");
             
             UpdateConnectButton("Connect");
@@ -278,6 +271,7 @@ namespace OHK
                 {
                     if (reconnectCountdown < 1)
                     {
+                        timer.Start();
                         timer.Dispose();
                         ConnectOBS();
                     }
@@ -335,14 +329,20 @@ namespace OHK
         {
             if (sender is Timer timer)
             {
+                timer.Stop();
                 timer.Dispose();
-                Log("Connection timed out waiting for handshake");
-                DisconnectOBS();
+                Log("Connection initiation timed out.");
+                OBSws.Disconnect();
             }
         }
 
         private void DisconnectOBS()
         {
+            if (ConnectionTimer != null)
+            {
+                ConnectionTimer.Stop();
+                ConnectionTimer.Dispose();
+            }
             OBSws.Disconnect();
         }
 
