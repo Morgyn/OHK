@@ -142,22 +142,22 @@ namespace OHK
             if (OBSws.IsConnected)
             {
                 HotKey pressedHotKey = Configuration.OHK.hotKeys.FirstOrDefault(hotKey => hotKey.Key == e.KeyCode);
-                if (pressedHotKey != null && pressedHotKey.Scene!="" && pressedHotKey.Source!="")
-                { 
-                        if (keyTimer.ContainsKey(e.KeyCode) && keyTimer[e.KeyCode].Enabled == true)
+                if (pressedHotKey != null && pressedHotKey.Scene != "" && pressedHotKey.Source != "" && pressedHotKey.IsPressed == false)
+                {
+                    pressedHotKey.IsPressed = true;
+                    if (keyTimer.ContainsKey(e.KeyCode) && keyTimer[e.KeyCode].Enabled == true)
+                    {
+                        keyTimer[e.KeyCode].Stop();
+                        keyTimer.Remove(e.KeyCode);
+                    }
+                    else
+                    {
+                        try
                         {
-                            keyTimer[e.KeyCode].Stop();
-                            keyTimer.Remove(e.KeyCode);
-                        }
-                        else
-                        {
-                            try
-                            {
-                                int source_id = OBSws.GetSceneItemId(pressedHotKey.Scene, pressedHotKey.Source, -1);
-                                OBSws.SetSceneItemEnabled(pressedHotKey.Scene, source_id, true);
-                                Log($"Show \t{pressedHotKey.Scene}/{pressedHotKey.Source}");
-                            } catch { Log($"Unable to set {pressedHotKey.Scene}/{pressedHotKey.Source}");
-                        }
+                            int source_id = OBSws.GetSceneItemId(pressedHotKey.Scene, pressedHotKey.Source, -1);
+                            OBSws.SetSceneItemEnabled(pressedHotKey.Scene, source_id, true);
+                            Log($"Show \t{pressedHotKey.Scene}/{pressedHotKey.Source}");
+                        } catch { Log($"Unable to set {pressedHotKey.Scene}/{pressedHotKey.Source}"); }
                     }
                 }
             }
@@ -170,6 +170,7 @@ namespace OHK
                 HotKey pressedHotKey = Configuration.OHK.hotKeys.FirstOrDefault(hotKey => hotKey.Key == e.KeyCode);
                 if (pressedHotKey != null && pressedHotKey.Scene != "" && pressedHotKey.Source != "")
                 {
+                    pressedHotKey.IsPressed = false;
                     keyTimer.Add(pressedHotKey.Key, new Timer());
                     keyTimer[pressedHotKey.Key].Tick += (timerSender, timerE) => KeyTimerEventProcessor(timerSender, timerE, pressedHotKey);
                     keyTimer[pressedHotKey.Key].Interval = pressedHotKey.Delay;

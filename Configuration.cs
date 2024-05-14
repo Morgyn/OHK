@@ -16,6 +16,7 @@ namespace OHK
         public string Source { get; set; }
         public int Delay { get; set; }
         public string Type { get; set; }
+        public bool IsPressed { get; set; }
     }
     class Configuration
     {
