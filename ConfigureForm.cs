@@ -172,6 +172,7 @@ namespace OHK
 
         private void TestOnDisconnect(object sender, OBSWebsocketDotNet.Communication.ObsDisconnectionInfo e)
         {
+            OBSwsTest.Disconnected -= TestOnDisconnect;
             if (TestConnectionTimer != null && TestConnectionTimer.Enabled)
             {
                 TestConnectionTimer.Stop();
