@@ -122,7 +122,9 @@ namespace OHK
         {
             if (!ushort.TryParse(port.Text, out ushort shortPort))
             {
-                MessageBox.Show("Port must be below 65536", "Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                ConfigureForm.Instance.Invoke((MethodInvoker)delegate {
+                    MessageBox.Show(this, "Port must be below 65536", "Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);;
+                });
                 return;
             }
             
@@ -160,7 +162,10 @@ namespace OHK
                 OBSwsTest.Disconnect();
             }
             Log("OBS Test Connected to OBS");
-            MessageBox.Show("Test OK!", "Connection test");
+            ConfigureForm.Instance.Invoke((MethodInvoker)delegate {
+                MessageBox.Show(this, "Test OK!", "Connection test");
+            });
+            
 
             OBSwsTest.Disconnect();
         }
@@ -181,14 +186,18 @@ namespace OHK
 
             if (e.ObsCloseCode == OBSWebsocketDotNet.Communication.ObsCloseCodes.AuthenticationFailed)
             {
-                MessageBox.Show("Wrong password.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                ConfigureForm.Instance.Invoke((MethodInvoker)delegate {
+                    MessageBox.Show(this, "Wrong password.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                });
                 return;
             }
             else if (e.WebsocketDisconnectionInfo != null)
             {
                 if (e.WebsocketDisconnectionInfo.Exception != null)
                 {
-                    MessageBox.Show($"Connection failed: CloseCode: {e.ObsCloseCode} Desc: {e.WebsocketDisconnectionInfo?.CloseStatusDescription} Exception:{e.WebsocketDisconnectionInfo?.Exception?.Message}\nType: {e.WebsocketDisconnectionInfo.Type}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    ConfigureForm.Instance.Invoke((MethodInvoker)delegate {
+                        MessageBox.Show(this, $"Connection failed: CloseCode: {e.ObsCloseCode} Desc: {e.WebsocketDisconnectionInfo?.CloseStatusDescription} Exception:{e.WebsocketDisconnectionInfo?.Exception?.Message}\nType: {e.WebsocketDisconnectionInfo.Type}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    });
                 }
                 else
                 {
@@ -198,15 +207,24 @@ namespace OHK
                         return;
                     if (e.WebsocketDisconnectionInfo.Type == Websocket.Client.DisconnectionType.Error)
                     {
-                        MessageBox.Show($"{e.WebsocketDisconnectionInfo?.CloseStatusDescription}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                        ConfigureForm.Instance.Invoke((MethodInvoker)delegate
+                        {
+                            MessageBox.Show(this, $"{e.WebsocketDisconnectionInfo?.CloseStatusDescription}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                        });
                         return;
                     }
-                    MessageBox.Show($"Connection failed: CloseCode: {e.ObsCloseCode}\n Desc: {e.WebsocketDisconnectionInfo?.CloseStatusDescription}\nType: {e.WebsocketDisconnectionInfo.Type}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    ConfigureForm.Instance.Invoke((MethodInvoker)delegate
+                    {
+                            MessageBox.Show(ConfigureForm.Instance, $"Connection failed: CloseCode: {e.ObsCloseCode}\n Desc: {e.WebsocketDisconnectionInfo?.CloseStatusDescription}\nType: {e.WebsocketDisconnectionInfo.Type}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                        });
                 }
             }
             else
             {
-                MessageBox.Show($"Connection failed: CloseCode: {e.ObsCloseCode}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                ConfigureForm.Instance.Invoke((MethodInvoker)delegate
+                {
+                    MessageBox.Show(this, $"Connection failed: CloseCode: {e.ObsCloseCode}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                });
                 return;
             }
         }
@@ -216,7 +234,10 @@ namespace OHK
             if (sender is Timer timer)
             {
                 timer.Dispose();
-                MessageBox.Show("Test timed out", "Connection test");
+                ConfigureForm.Instance.Invoke((MethodInvoker)delegate
+                {
+                    MessageBox.Show(this, "Test timed out", "Connection test");
+                });
                 Log("Connection timed out waiting for handshake OBS Test");
                 OBSwsTest.Disconnect();
             }
