@@ -152,12 +152,7 @@ namespace OHK
                     }
                     else
                     {
-                        try
-                        {
-                            int source_id = OBSws.GetSceneItemId(pressedHotKey.Scene, pressedHotKey.Source, -1);
-                            OBSws.SetSceneItemEnabled(pressedHotKey.Scene, source_id, true);
-                            Log($"Show \t{pressedHotKey.Scene}/{pressedHotKey.Source}");
-                        } catch { Log($"Unable to set {pressedHotKey.Scene}/{pressedHotKey.Source}"); }
+                        showhideHotKeySource(pressedHotKey, true);
                     }
                 }
             }
@@ -171,22 +166,38 @@ namespace OHK
                 if (pressedHotKey != null && pressedHotKey.Scene != "" && pressedHotKey.Source != "")
                 {
                     pressedHotKey.IsPressed = false;
-                    keyTimer.Add(pressedHotKey.Key, new Timer());
-                    keyTimer[pressedHotKey.Key].Tick += (timerSender, timerE) => KeyTimerEventProcessor(timerSender, timerE, pressedHotKey);
-                    keyTimer[pressedHotKey.Key].Interval = pressedHotKey.Delay;
-                    keyTimer[pressedHotKey.Key].Tag = pressedHotKey.Key;
-                    keyTimer[pressedHotKey.Key].Start();  
+                    if (pressedHotKey.Delay == 0)
+                    {
+                        showhideHotKeySource(pressedHotKey, false);
+                    }
+                    else
+                    {  
+                        keyTimer.Add(pressedHotKey.Key, new Timer());
+                        keyTimer[pressedHotKey.Key].Tick += (timerSender, timerE) => KeyTimerEventProcessor(timerSender, timerE, pressedHotKey);
+                        keyTimer[pressedHotKey.Key].Interval = pressedHotKey.Delay;
+                        keyTimer[pressedHotKey.Key].Tag = pressedHotKey.Key;
+                        keyTimer[pressedHotKey.Key].Start();
+                    }
                 }
             }
         }
+
+        private void showhideHotKeySource(HotKey pressedHotKey, bool showhide)
+        {
+            try
+            {
+                int source_id = OBSws.GetSceneItemId(pressedHotKey.Scene, pressedHotKey.Source, -1);
+                OBSws.SetSceneItemEnabled(pressedHotKey.Scene, source_id, showhide);
+                Log($"Visibility of {pressedHotKey.Scene}/{pressedHotKey.Source} set to {showhide}");
+            }
+            catch { Log($"Unable to set {pressedHotKey.Scene}/{pressedHotKey.Source}"); }
+        }        
 
         private void KeyTimerEventProcessor(object sender, EventArgs e, HotKey pressedHotKey)
         {
             if (sender is Timer timer)
             {
-                int source_id = OBSws.GetSceneItemId(pressedHotKey.Scene, pressedHotKey.Source, -1);
-                OBSws.SetSceneItemEnabled(pressedHotKey.Scene, source_id, false);
-                Log($"Hide \t{pressedHotKey.Scene}/{pressedHotKey.Source}");
+                showhideHotKeySource(pressedHotKey, false);
                 timer.Dispose();
                 keyTimer.Remove(pressedHotKey.Key);
             }
@@ -209,8 +220,6 @@ namespace OHK
             ConfigureForm.Instance.UpdateFields();
 
         }
-
-
 
         private void OnDisconnect(object sender, OBSWebsocketDotNet.Communication.ObsDisconnectionInfo e)
         {

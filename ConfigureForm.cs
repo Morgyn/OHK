@@ -303,5 +303,12 @@ namespace OHK
             }
         }
 
+        private void delay_Validating(object sender, CancelEventArgs e)
+        {
+            if (string.IsNullOrEmpty(delay.Text))
+            {
+                delay.Text = "0";
+            }
+        }
     }
 }

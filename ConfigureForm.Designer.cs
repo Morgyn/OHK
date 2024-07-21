@@ -156,6 +156,7 @@
             this.delay.Size = new System.Drawing.Size(73, 20);
             this.delay.TabIndex = 10;
             this.delay.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.digit_KeyPress);
+            this.delay.Validating += new System.ComponentModel.CancelEventHandler(this.delay_Validating);
             // 
             // label8
             // 
@@ -165,6 +166,7 @@
             this.label8.Size = new System.Drawing.Size(101, 13);
             this.label8.TabIndex = 9;
             this.label8.Text = "Release Delay (ms):";
+            this.toolTip1.SetToolTip(this.label8, "Delay hiding source after releasing key");
             // 
             // hotkey
             // 
@@ -256,7 +258,6 @@
             // toolTip1
             // 
             this.toolTip1.IsBalloon = true;
-            this.toolTip1.SetToolTip(this.label8, "Delay hiding source after releasing key");
             // 
             // ConfigureForm
             // 
