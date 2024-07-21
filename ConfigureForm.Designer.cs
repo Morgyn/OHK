@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.TestConnection = new System.Windows.Forms.Button();
             this.password = new System.Windows.Forms.TextBox();
@@ -48,6 +49,7 @@
             this.label3 = new System.Windows.Forms.Label();
             this.Save = new System.Windows.Forms.Button();
             this.Cancel = new System.Windows.Forms.Button();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.groupBox1.SuspendLayout();
             this.MapHideGroup.SuspendLayout();
             this.SuspendLayout();
@@ -160,9 +162,9 @@
             this.label8.AutoSize = true;
             this.label8.Location = new System.Drawing.Point(11, 111);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(59, 13);
+            this.label8.Size = new System.Drawing.Size(101, 13);
             this.label8.TabIndex = 9;
-            this.label8.Text = "Delay (ms):";
+            this.label8.Text = "Release Delay (ms):";
             // 
             // hotkey
             // 
@@ -251,6 +253,11 @@
             this.Cancel.UseVisualStyleBackColor = true;
             this.Cancel.Click += new System.EventHandler(this.Cancel_Click);
             // 
+            // toolTip1
+            // 
+            this.toolTip1.IsBalloon = true;
+            this.toolTip1.SetToolTip(this.label8, "Delay hiding source after releasing key");
+            // 
             // ConfigureForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -297,5 +304,7 @@
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Button Save;
         private System.Windows.Forms.Button Cancel;
+        private System.Windows.Forms.ToolTip toolTip1;
+
     }
 }
