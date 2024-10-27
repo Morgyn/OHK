@@ -1,4 +1,7 @@
 # OHK
+
+Download here: https://github.com/Morgyn/OHK/releases/latest
+
 This application is designed to allow momentary hotkeys in OBS.
 
 It uses the inbuilt WebSocket Server that is in OBS28+
@@ -34,8 +37,3 @@ https://github.com/user-attachments/assets/405a1469-2b8a-4a14-8258-e29344fc66bf
 	 2. Click the ☰, then click configure
 	 3. Select the Key, Scene and Source
 	 4. Click Save
- 
-
-
-
-
